@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#9e445f" />
+    <meta name="description" content="Chowdhury Bari Durga Utsav - চৌধুরী বাড়ির দুর্গোৎসব" />
+    <title>Chowdhury Bari Durga Utsav</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="icon" type="image/png" href="/icons/icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="দুর্গোৎসব" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Galada&family=Baloo+Da+2:wght@400;500&family=Noto+Serif+Bengali:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { background-color: #ffffff; }
+      #root { opacity: 0; animation: pageReveal 0.4s ease 3.2s forwards; }
+      @keyframes pageReveal { from { opacity: 0; } to { opacity: 1; } }
+
+      #splash-screen {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: radial-gradient(ellipse at center, #b5506f 0%, #9e445f 50%, #7a2f48 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+        overflow: hidden;
+      }
+
+      #splash-screen::before {
+        content: '';
+        position: absolute;
+        width: 500px; height: 500px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 215, 0, 0.15);
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        animation: splashRing 3s ease-in-out infinite;
+      }
+
+      #splash-screen::after {
+        content: '';
+        position: absolute;
+        width: 350px; height: 350px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 215, 0, 0.1);
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        animation: splashRing 3s ease-in-out infinite reverse;
+      }
+
+      #splash-screen.slide-up {
+        transform: translateY(-100%);
+      }
+
+      .splash-durga {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        animation: splashFloat 2.5s ease-in-out infinite alternate;
+        filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.4));
+        position: relative;
+        z-index: 2;
+      }
+
+      .splash-title {
+        font-family: 'Baloo Da 2', cursive;
+        font-weight: 400;
+        font-size: 2.6rem;
+        background: linear-gradient(135deg, #FFD700, #FFF0A0, #FFD700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-align: center;
+        margin-top: 20px;
+        line-height: 1.4;
+        padding: 0 24px;
+        position: relative;
+        z-index: 2;
+        animation: splashFadeUp 0.8s ease forwards;
+        filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+      }
+
+      .splash-subtitle {
+        font-family: 'Baloo Da 2', cursive;
+        font-weight: 400;
+        font-size: 0.95rem;
+        color: rgba(255, 230, 150, 0.85);
+        margin-top: 10px;
+        letter-spacing: 3px;
+        position: relative;
+        z-index: 2;
+        animation: splashFadeUp 1s ease 0.3s forwards;
+        opacity: 0;
+      }
+
+      .splash-divider {
+        width: 120px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #FFD700, transparent);
+        margin-top: 16px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .splash-dots {
+        display: flex;
+        gap: 10px;
+        margin-top: 32px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .splash-dots span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #FFD700, #FFF0A0);
+        animation: splashDot 1.2s ease-in-out infinite;
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+      }
+
+      .splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+      .splash-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+      @keyframes splashFloat {
+        from { transform: translateY(0px); }
+        to   { transform: translateY(-14px); }
+      }
+
+      @keyframes splashFadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes splashDot {
+        0%, 100% { transform: scale(1); opacity: 0.4; }
+        50%       { transform: scale(1.6); opacity: 1; }
+      }
+
+      @keyframes splashRing {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+        50%       { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+      }
+
+      @media (max-width: 768px) {
+        .splash-durga { width: 160px; height: 160px; }
+        .splash-title { font-size: 2rem; padding: 0 20px; }
+        .splash-subtitle { font-size: 0.85rem; letter-spacing: 2px; }
+        #splash-screen::before { width: 350px; height: 350px; }
+        #splash-screen::after  { width: 250px; height: 250px; }
+      }
+
+      @media (max-width: 480px) {
+        .splash-durga { width: 130px; height: 130px; }
+        .splash-title { font-size: 1.65rem; padding: 0 16px; }
+        .splash-subtitle { font-size: 0.78rem; letter-spacing: 1.5px; }
+        .splash-divider { width: 80px; }
+        #splash-screen::before { width: 260px; height: 260px; }
+        #splash-screen::after  { width: 180px; height: 180px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="splash-screen">
+      <img class="splash-durga" src="/durga.png" alt="Durga" />
+      <div class="splash-title">চৌধুরী বাড়ির<br/>দুর্গোৎসব</div>
+      <div class="splash-subtitle">✦ জয় মা দুর্গা ✦</div>
+      <div class="splash-divider"></div>
+      <div class="splash-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const splash = document.getElementById('splash-screen');
+          if (splash) {
+            splash.classList.add('slide-up');
+            setTimeout(() => splash.remove(), 950);
+          }
+        }, 2800);
+      });
+    </script>
+
+  </body>
+</html>

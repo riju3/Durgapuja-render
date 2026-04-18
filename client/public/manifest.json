@@ -1,0 +1,24 @@
+{
+  "name": "Chowdhury Bari Durga Utsav",
+  "short_name": "দুর্গোৎসব",
+  "description": "চৌধুরী বাড়ির দুর্গোৎসব - Chowdhury Bari Durga Puja",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#9e445f",
+  "theme_color": "#E8000B",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
