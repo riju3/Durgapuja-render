@@ -2,7 +2,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
-import { protect } from '../middleware/auth.js';
+import { protect, adminOnly } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -67,4 +67,46 @@ router.post('/seed-admin', async (req, res) => {
   }
 });
 
+// Create new admin (existing admin only)
+router.post('/create-admin', protect, adminOnly, async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password)
+      return res.status(400).json({ message: 'Name, email and password are required.' });
+    if (password.length < 6)
+      return res.status(400).json({ message: 'Password must be at least 6 characters.' });
+    const exists = await User.findOne({ email });
+    if (exists)
+      return res.status(409).json({ message: 'An account with this email already exists.' });
+    const admin = await User.create({ name, email, password, role: 'admin' });
+    res.status(201).json({ message: '✅ New admin created successfully!', admin: { id: admin._id, name: admin.name, email: admin.email, role: admin.role, createdAt: admin.createdAt } });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// List all admins (existing admin only)
+router.get('/admins', protect, adminOnly, async (req, res) => {
+  try {
+    const admins = await User.find({ role: 'admin' }).select('-password').sort({ createdAt: -1 });
+    res.json(admins);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Delete an admin by ID (existing admin only, cannot delete yourself)
+router.delete('/admins/:id', protect, adminOnly, async (req, res) => {
+  try {
+    if (req.params.id === req.user.id)
+      return res.status(400).json({ message: 'You cannot delete your own account.' });
+    const admin = await User.findByIdAndDelete(req.params.id);
+    if (!admin) return res.status(404).json({ message: 'Admin not found.' });
+    res.json({ message: '✅ Admin removed successfully.' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 export default router;
+
