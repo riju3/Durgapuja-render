@@ -136,7 +136,7 @@ export default function AdminSettings() {
 
         {/* Create New Admin Form */}
         <div style={{ background: '#FDF6EC', borderRadius: '10px', padding: '20px', marginBottom: '24px', border: '1px solid #f0e0d0' }}>
-          <h4 style={{ color: '#C0392B', fontWeight: '700', marginBottom: '16px', fontSize: '0.95rem' }}>➕ নতুন Admin তৈরি করো</h4>
+          <h4 style={{ color: '#C0392B', fontWeight: '700', marginBottom: '16px', fontSize: '0.95rem' }}>➕ Create New Admin</h4>
           <form onSubmit={handleCreateAdmin}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '14px' }} className="settings-grid">
               <div>
@@ -145,7 +145,7 @@ export default function AdminSettings() {
                   type="text" required style={inp}
                   value={newAdmin.name}
                   onChange={e => setNewAdmin(p => ({ ...p, name: e.target.value }))}
-                  placeholder="Admin এর নাম"
+                  placeholder="Admin's name"
                 />
               </div>
               <div>
@@ -164,7 +164,7 @@ export default function AdminSettings() {
                     type={showPass ? 'text' : 'password'} required style={{ ...inp, paddingRight: '44px' }}
                     value={newAdmin.password} minLength={6}
                     onChange={e => setNewAdmin(p => ({ ...p, password: e.target.value }))}
-                    placeholder="কমপক্ষে ৬ অক্ষর"
+                    placeholder="At least 6 characters"
                   />
                   <button type="button" onClick={() => setShowPass(p => !p)}
                     style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#7a5c4f' }}>
@@ -175,17 +175,17 @@ export default function AdminSettings() {
             </div>
             <button type="submit" disabled={creating}
               style={{ padding: '10px 28px', background: '#C0392B', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: '700', fontSize: '0.9rem', cursor: creating ? 'not-allowed' : 'pointer', opacity: creating ? 0.7 : 1 }}>
-              {creating ? 'Creating...' : '✅ Admin তৈরি করো'}
+              {creating ? 'Creating...' : '✅ Create Admin'}
             </button>
           </form>
         </div>
 
         {/* Existing Admins List */}
-        <h4 style={{ color: '#1a0a00', fontWeight: '700', marginBottom: '12px', fontSize: '0.95rem' }}>📋 বর্তমান Admin তালিকা</h4>
+        <h4 style={{ color: '#1a0a00', fontWeight: '700', marginBottom: '12px', fontSize: '0.95rem' }}>📋 Current Admin List</h4>
         {adminsLoading ? (
           <p style={{ color: '#7a5c4f', fontSize: '0.9rem' }}>Loading...</p>
         ) : admins.length === 0 ? (
-          <p style={{ color: '#7a5c4f', fontSize: '0.9rem' }}>কোনো admin নেই।</p>
+          <p style={{ color: '#7a5c4f', fontSize: '0.9rem' }}>No admins found.</p>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {admins.map(admin => (
@@ -208,13 +208,13 @@ export default function AdminSettings() {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <span style={{ fontSize: '0.75rem', color: '#999' }}>
-                    {new Date(admin.createdAt).toLocaleDateString('bn-IN')}
+                    {new Date(admin.createdAt).toLocaleDateString('en-IN')}
                   </span>
                   {currentUser?.id !== admin._id && (
                     <button
                       onClick={() => handleDeleteAdmin(admin._id, admin.name)}
                       style={{ padding: '6px 14px', background: 'transparent', color: '#C0392B', border: '1.5px solid #C0392B', borderRadius: '6px', fontWeight: '600', fontSize: '0.8rem', cursor: 'pointer' }}>
-                      🗑️ সরাও
+                      🗑️ Remove
                     </button>
                   )}
                 </div>
