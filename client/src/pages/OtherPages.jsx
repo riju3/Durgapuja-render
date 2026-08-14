@@ -175,8 +175,28 @@ export function Contact() {
               <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '2rem', color: '#C0392B', marginBottom: '30px' }}>Reach Out to Us</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <InfoBox icon="📧" label="Email" value={settings.email || 'chowdhurybatidurgautsav@gmail.com'} />
-                <InfoBox icon="📍" label="Address" value={settings.address || 'Durgapur, West Bengal'} valueBn={settings.addressBn} />
+                <InfoBox icon="📍" label="Address" value={settings.address || 'Chowdhurybati, Durgapur, West Bengal'} valueBn={settings.addressBn} />
                 {settings.phone && <InfoBox icon="📞" label="Phone" value={settings.phone} />}
+              </div>
+
+              {/* Google Map */}
+              <div style={{
+                marginTop: '24px',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 4px 20px rgba(192,57,43,0.1)',
+                border: '2px solid #e8d5c4',
+                height: '240px',
+              }}>
+                <iframe
+                  title="Location Map"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  style={{ border: 0, display: 'block' }}
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(settings.address || 'Chowdhurybati, Durgapur, West Bengal')}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                  allowFullScreen
+                />
               </div>
             </div>
             <div style={{ background: '#fff', padding: '40px', borderRadius: '16px', boxShadow: '0 8px 30px rgba(0,0,0,0.08)' }}>
