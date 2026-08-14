@@ -21,6 +21,7 @@ const settingsSchema = new mongoose.Schema({
   dateNavami:   { type: String, default: '' },
   dateDashami:  { type: String, default: '' },
   musicUrl:     { type: String, default: '' },
+  mapUrl:       { type: String, default: '' },
 }, { timestamps: true });
 
 

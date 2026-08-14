@@ -14,6 +14,7 @@ export default function AdminSettings() {
     dateMailaya: '', datePanchami: '', dateSasthi: '', dateSaptami: '',
     dateAstami: '', dateNavami: '', dateDashami: '',
     musicUrl: '',
+    mapUrl: '',
   });
   const [saving, setSaving] = useState(false);
   const [musicUploading, setMusicUploading] = useState(false);
@@ -117,14 +118,35 @@ export default function AdminSettings() {
           </div>
         </div>
 
-        {/* Address */}
+        {/* Address & Map */}
         <div style={card}>
-          <h3 style={cardTitle}>📍 Address</h3>
+          <h3 style={cardTitle}>📍 Address & Google Map</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }} className="settings-grid">
             <Field label="Address (English)" field="address" placeholder="Chowdhurybati, Durgapur, West Bengal" />
             <Field label="ঠিকানা (বাংলা)" field="addressBn" placeholder="চৌধুরীবাটি, দুর্গাপুর, পশ্চিমবঙ্গ" bengali />
           </div>
-          <p style={{ fontSize: '0.8rem', color: '#7a5c4f', marginTop: '12px' }}>💡 Note: The English address typed here automatically locates and renders the Google Map on the Contact page.</p>
+          <div style={{ marginTop: '16px' }}>
+            <Field label="Google Map Link / Embed URL" field="mapUrl" placeholder="https://maps.google.com/maps?q=... or paste <iframe src='...'>" />
+            <p style={{ fontSize: '0.78rem', color: '#7a5c4f', marginTop: '4px' }}>Paste a Google Maps share link, embed URL, or iframe HTML tag.</p>
+          </div>
+          {form.mapUrl && (
+            <div style={{ marginTop: '16px' }}>
+              <label style={lbl}>Map Preview</label>
+              <div style={{ height: '180px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e8d5c4', marginTop: '6px' }}>
+                <iframe
+                  title="Map Preview"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  style={{ border: 0, display: 'block' }}
+                  src={(() => {
+                    const match = form.mapUrl.match(/src=["']([^"']+)["']/);
+                    return match ? match[1] : form.mapUrl;
+                  })()}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* About Text */}

@@ -194,7 +194,13 @@ export function Contact() {
                   height="100%"
                   frameBorder="0"
                   style={{ border: 0, display: 'block' }}
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(settings.address || 'Chowdhurybati, Durgapur, West Bengal')}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                  src={(() => {
+                    if (settings.mapUrl) {
+                      const match = settings.mapUrl.match(/src=["']([^"']+)["']/);
+                      return match ? match[1] : settings.mapUrl;
+                    }
+                    return `https://maps.google.com/maps?q=${encodeURIComponent(settings.address || 'Chowdhurybati, Durgapur, West Bengal')}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+                  })()}
                   allowFullScreen
                 />
               </div>
