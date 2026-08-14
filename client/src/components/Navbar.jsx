@@ -137,7 +137,8 @@ export default function Navbar() {
   });
 
   return (
-    <nav style={{ ...styles.nav, boxShadow: scrolled ? '0 4px 20px rgba(192,57,43,0.2)' : styles.nav.boxShadow }}>
+    <>
+      <nav style={{ ...styles.nav, boxShadow: scrolled ? '0 4px 20px rgba(192,57,43,0.2)' : styles.nav.boxShadow }}>
       <div style={styles.inner}>
         <Link to="/" style={styles.brand}>
           <img src={logo} alt="Logo" style={styles.brandImg} />
