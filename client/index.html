@@ -19,6 +19,7 @@
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { background-color: #ffffff; }
       #root { opacity: 0; animation: pageReveal 0.4s ease 3.2s forwards; }
+      #root.no-splash { opacity: 1; animation: none; }
       @keyframes pageReveal { from { opacity: 0; } to { opacity: 1; } }
 
       #splash-screen {
@@ -185,15 +186,28 @@
     <script type="module" src="/src/main.jsx"></script>
 
     <script>
-      window.addEventListener('load', () => {
-        setTimeout(() => {
+      // Show splash only once per session (not on refresh)
+      (function() {
+        const seen = sessionStorage.getItem('splashSeen');
+        if (seen) {
+          // Already seen this session — hide splash instantly, show page
           const splash = document.getElementById('splash-screen');
-          if (splash) {
-            splash.classList.add('slide-up');
-            setTimeout(() => splash.remove(), 950);
-          }
-        }, 2800);
-      });
+          if (splash) splash.style.display = 'none';
+          document.getElementById('root').classList.add('no-splash');
+        } else {
+          // First visit — mark as seen and run animation
+          sessionStorage.setItem('splashSeen', '1');
+          window.addEventListener('load', function() {
+            setTimeout(function() {
+              var splash = document.getElementById('splash-screen');
+              if (splash) {
+                splash.classList.add('slide-up');
+                setTimeout(function() { splash.remove(); }, 950);
+              }
+            }, 2800);
+          });
+        }
+      })();
     </script>
 
   </body>
