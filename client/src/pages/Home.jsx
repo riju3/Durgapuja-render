@@ -28,6 +28,61 @@ export default function Home() {
   const [gallery, setGallery] = useState([]);
   const [events, setEvents] = useState([]);
   const intervalRef = useRef(null);
+  const countdownRef = useRef(null);
+
+  // ── Countdown logic ──────────────────────────────
+  const PUJA_DAYS = [
+    { key: 'dateMailaya',  label: 'Mahalaya',      labelBn: 'মহালয়া' },
+    { key: 'datePanchami', label: 'Maha Panchami', labelBn: 'মহা পঞ্চমী' },
+    { key: 'dateSasthi',   label: 'Maha Sasthi',   labelBn: 'মহা ষষ্ঠী' },
+    { key: 'dateSaptami',  label: 'Maha Saptami',  labelBn: 'মহা সপ্তমী' },
+    { key: 'dateAstami',   label: 'Maha Astami',   labelBn: 'মহা অষ্টমী' },
+    { key: 'dateNavami',   label: 'Maha Navami',   labelBn: 'মহা নবমী' },
+    { key: 'dateDashami',  label: 'Maha Dashami',  labelBn: 'মহা দশমী' },
+  ];
+
+  const [countdown, setCountdown] = useState(null);
+
+  useEffect(() => {
+    if (!settings || !Object.keys(settings).length) return;
+
+    const computeCountdown = () => {
+      const now = new Date();
+      const todayStr = now.toISOString().slice(0, 10);
+
+      // Check if today IS a puja day
+      const todayDay = PUJA_DAYS.find(d => settings[d.key] === todayStr);
+      if (todayDay) {
+        setCountdown({ type: 'today', label: todayDay.label, labelBn: todayDay.labelBn });
+        return;
+      }
+
+      // Find next upcoming puja day
+      const upcoming = PUJA_DAYS
+        .filter(d => settings[d.key] && settings[d.key] > todayStr)
+        .sort((a, b) => settings[a.key].localeCompare(settings[b.key]))[0];
+
+      if (!upcoming) {
+        setCountdown({ type: 'none' });
+        return;
+      }
+
+      const target = new Date(settings[upcoming.key] + 'T00:00:00');
+      const diff = target - now;
+      if (diff <= 0) { setCountdown({ type: 'today', label: upcoming.label, labelBn: upcoming.labelBn }); return; }
+
+      const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setCountdown({ type: 'countdown', label: upcoming.label, labelBn: upcoming.labelBn, days, hours, minutes, seconds, dateStr: settings[upcoming.key] });
+    };
+
+    computeCountdown();
+    countdownRef.current = setInterval(computeCountdown, 1000);
+    return () => clearInterval(countdownRef.current);
+  }, [settings]);
 
   useEffect(() => {
     api.get('/settings').then(r => setSettings(r.data)).catch(() => {});
@@ -132,6 +187,80 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* COUNTDOWN SECTION */}
+      {countdown && countdown.type !== 'none' && (
+        <section style={{
+          background: 'linear-gradient(135deg, #1a0a00 0%, #3d1a0a 50%, #1a0a00 100%)',
+          padding: '56px 0',
+          position: 'relative',
+          overflow: 'hidden',
+        }}>
+          {/* Decorative rings */}
+          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'600px', height:'600px', borderRadius:'50%', border:'1px solid rgba(212,175,55,0.08)', pointerEvents:'none' }} />
+          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'400px', height:'400px', borderRadius:'50%', border:'1px solid rgba(212,175,55,0.12)', pointerEvents:'none' }} />
+          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'200px', height:'200px', borderRadius:'50%', border:'1px solid rgba(212,175,55,0.16)', pointerEvents:'none' }} />
+
+          <div className="container" style={{ textAlign:'center', position:'relative', zIndex:1 }}>
+
+            {countdown.type === 'today' ? (
+              /* ── Today IS a puja day ── */
+              <div>
+                <p style={{ color:'#D4AF37', fontSize:'0.8rem', fontWeight:'700', letterSpacing:'4px', textTransform:'uppercase', marginBottom:'12px' }}>Today is</p>
+                <h2 style={{ fontFamily:'Playfair Display, serif', fontSize:'clamp(2.2rem, 6vw, 4rem)', color:'#FFD700', fontStyle:'italic', marginBottom:'8px', textShadow:'0 0 40px rgba(255,215,0,0.3)' }}>
+                  {countdown.label}
+                </h2>
+                <p style={{ fontFamily:'Hind Siliguri, sans-serif', fontSize:'clamp(1.2rem, 3vw, 1.8rem)', color:'rgba(255,215,0,0.75)', marginBottom:'24px' }}>{countdown.labelBn}</p>
+                <p style={{ color:'rgba(255,255,255,0.6)', fontSize:'0.95rem', letterSpacing:'2px' }}>✦ জয় মা দুর্গা ✦</p>
+              </div>
+            ) : (
+              /* ── Countdown to next puja day ── */
+              <div>
+                <p style={{ color:'#D4AF37', fontSize:'0.78rem', fontWeight:'700', letterSpacing:'4px', textTransform:'uppercase', marginBottom:'10px' }}>Countdown to</p>
+                <h2 style={{ fontFamily:'Playfair Display, serif', fontSize:'clamp(1.6rem, 4vw, 2.8rem)', color:'#FFD700', fontStyle:'italic', marginBottom:'4px' }}>
+                  {countdown.label}
+                </h2>
+                <p style={{ fontFamily:'Hind Siliguri, sans-serif', color:'rgba(255,215,0,0.65)', fontSize:'1rem', marginBottom:'32px' }}>{countdown.labelBn}</p>
+
+                <div style={{ display:'flex', justifyContent:'center', gap:'clamp(12px, 3vw, 32px)', flexWrap:'wrap' }}>
+                  {[
+                    { value: countdown.days,    label: 'Days' },
+                    { value: countdown.hours,   label: 'Hours' },
+                    { value: countdown.minutes, label: 'Minutes' },
+                    { value: countdown.seconds, label: 'Seconds' },
+                  ].map(({ value, label }) => (
+                    <div key={label} style={{
+                      background: 'rgba(255,255,255,0.05)',
+                      border: '1px solid rgba(212,175,55,0.3)',
+                      borderRadius: '12px',
+                      padding: 'clamp(16px, 3vw, 28px) clamp(18px, 4vw, 40px)',
+                      minWidth: 'clamp(70px, 15vw, 110px)',
+                      backdropFilter: 'blur(10px)',
+                    }}>
+                      <div style={{
+                        fontFamily: 'Playfair Display, serif',
+                        fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                        fontWeight: '700',
+                        color: '#FFD700',
+                        lineHeight: 1,
+                        textShadow: '0 0 20px rgba(255,215,0,0.4)',
+                      }}>
+                        {String(value).padStart(2, '0')}
+                      </div>
+                      <div style={{ color:'rgba(255,255,255,0.5)', fontSize:'0.72rem', letterSpacing:'2px', textTransform:'uppercase', marginTop:'8px' }}>
+                        {label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ marginTop:'28px', width:'120px', height:'1px', background:'linear-gradient(to right, transparent, #D4AF37, transparent)', margin:'28px auto 0' }} />
+                <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.78rem', letterSpacing:'3px', marginTop:'16px' }}>✦ জয় মা দুর্গা ✦</p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* YOUTUBE VIDEO SECTION */}
       <section style={{ background: '#FDF6EC', padding: '60px 0' }}>

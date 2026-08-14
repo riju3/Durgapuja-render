@@ -11,6 +11,8 @@ export default function AdminSettings() {
     pujaYear: 2025, youtubeUrl: '', address: '', addressBn: '',
     email: '', phone: '', facebook: '', instagram: '', youtube: '',
     aboutText: '', aboutTextBn: '',
+    dateMailaya: '', datePanchami: '', dateSasthi: '', dateSaptami: '',
+    dateAstami: '', dateNavami: '', dateDashami: '',
   });
   const [saving, setSaving] = useState(false);
 
@@ -119,6 +121,28 @@ export default function AdminSettings() {
             <Field label="Facebook URL" field="facebook" placeholder="https://facebook.com/..." />
             <Field label="Instagram URL" field="instagram" placeholder="https://instagram.com/..." />
             <Field label="YouTube Channel URL" field="youtube" placeholder="https://youtube.com/..." />
+          </div>
+        </div>
+
+        {/* Puja Countdown Dates */}
+        <div style={card}>
+          <h3 style={cardTitle}>Puja Countdown Dates</h3>
+          <p style={{ fontSize: '0.82rem', color: '#7a5c4f', marginBottom: '16px' }}>Set the date for each Puja day to power the countdown on the homepage.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }} className="settings-grid">
+            {[
+              ['Mahalaya',     'dateMailaya'],
+              ['Maha Panchami','datePanchami'],
+              ['Maha Sasthi',  'dateSasthi'],
+              ['Maha Saptami', 'dateSaptami'],
+              ['Maha Astami',  'dateAstami'],
+              ['Maha Navami',  'dateNavami'],
+              ['Maha Dashami', 'dateDashami'],
+            ].map(([label, field]) => (
+              <div key={field}>
+                <label style={lbl}>{label}</label>
+                <input type="date" style={inp} value={form[field] || ''} onChange={e => setForm(p => ({ ...p, [field]: e.target.value }))} />
+              </div>
+            ))}
           </div>
         </div>
 
