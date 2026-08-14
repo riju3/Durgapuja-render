@@ -54,6 +54,15 @@ export default function Navbar() {
   const [musicUrl, setMusicUrl] = useState('');
   const [musicPlaying, setMusicPlaying] = useState(false);
 
+  const getYouTubeId = (url) => {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
+
+  const youtubeId = getYouTubeId(musicUrl);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll);
@@ -64,18 +73,21 @@ export default function Navbar() {
     api.get('/settings').then(r => {
       if (r.data?.musicUrl) {
         setMusicUrl(r.data.musicUrl);
-        if (!window._bgAudio) {
-          window._bgAudio = new Audio(r.data.musicUrl);
-          window._bgAudio.loop = true;
-        } else if (window._bgAudio.src !== r.data.musicUrl) {
-          window._bgAudio.src = r.data.musicUrl;
+        const ytId = getYouTubeId(r.data.musicUrl);
+        if (!ytId) {
+          if (!window._bgAudio) {
+            window._bgAudio = new Audio(r.data.musicUrl);
+            window._bgAudio.loop = true;
+          } else if (window._bgAudio.src !== r.data.musicUrl) {
+            window._bgAudio.src = r.data.musicUrl;
+          }
         }
       }
     }).catch(() => {});
   }, []);
 
   useEffect(() => {
-    if (window._bgAudio) {
+    if (!youtubeId && window._bgAudio) {
       setMusicPlaying(!window._bgAudio.paused);
       const onPlay = () => setMusicPlaying(true);
       const onPause = () => setMusicPlaying(false);
@@ -88,19 +100,26 @@ export default function Navbar() {
         }
       };
     }
-  }, [musicUrl]);
+  }, [musicUrl, youtubeId]);
 
   const toggleMusic = () => {
     if (!musicUrl) return;
-    if (!window._bgAudio) {
-      window._bgAudio = new Audio(musicUrl);
-      window._bgAudio.loop = true;
-    }
-    if (window._bgAudio.paused) {
-      window._bgAudio.play().then(() => setMusicPlaying(true)).catch(() => {});
+    if (youtubeId) {
+      if (window._bgAudio && !window._bgAudio.paused) {
+        window._bgAudio.pause();
+      }
+      setMusicPlaying(prev => !prev);
     } else {
-      window._bgAudio.pause();
-      setMusicPlaying(false);
+      if (!window._bgAudio) {
+        window._bgAudio = new Audio(musicUrl);
+        window._bgAudio.loop = true;
+      }
+      if (window._bgAudio.paused) {
+        window._bgAudio.play().then(() => setMusicPlaying(true)).catch(() => {});
+      } else {
+        window._bgAudio.pause();
+        setMusicPlaying(false);
+      }
     }
   };
 
@@ -203,6 +222,16 @@ export default function Navbar() {
             : <Link to="/login" onClick={() => setMenuOpen(false)} style={{ padding: '8px', background: '#C0392B', color: '#fff', borderRadius: '4px', fontWeight: '600', textAlign: 'center' }}>Login</Link>
           }
         </div>
+      )}
+
+      {/* Hidden YouTube background audio iframe */}
+      {youtubeId && musicPlaying && (
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&enablejsapi=1&loop=1&playlist=${youtubeId}`}
+          title="Background Music"
+          allow="autoplay"
+          style={{ position: 'fixed', width: '1px', height: '1px', opacity: 0, pointerEvents: 'none', top: '-100px', left: '-100px' }}
+        />
       )}
 
       <style>{`

@@ -44,10 +44,18 @@ router.post('/upload-music', protect, adminOnly, uploadMem.single('music'), asyn
     const uploadToCloudinary = (buffer) => {
       return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
-          { resource_type: 'auto', folder: 'durgapuja_music' },
+          {
+            resource_type: 'video', // Required by Cloudinary for audio files (mp3, wav, ogg, etc.)
+            folder: 'durgapuja_music',
+            public_id: `music_${Date.now()}`,
+          },
           (err, result) => {
-            if (err) reject(err);
-            else resolve(result);
+            if (err) {
+              console.error('❌ Cloudinary audio upload error:', err);
+              reject(err);
+            } else {
+              resolve(result);
+            }
           }
         );
         const readable = new Readable();
@@ -64,7 +72,8 @@ router.post('/upload-music', protect, adminOnly, uploadMem.single('music'), asyn
     await settings.save();
     res.json({ message: 'Music uploaded successfully!', musicUrl: settings.musicUrl });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error('❌ Upload music endpoint error:', err);
+    res.status(500).json({ message: err.message || 'Music upload failed' });
   }
 });
 

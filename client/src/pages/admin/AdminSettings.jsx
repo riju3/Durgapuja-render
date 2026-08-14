@@ -178,15 +178,34 @@ export default function AdminSettings() {
               {musicUploading && <p style={{ fontSize: '0.82rem', color: '#C0392B', marginTop: '4px' }}>Uploading audio file to Cloudinary...</p>}
             </div>
             <div>
-              <label style={lbl}>Music File URL</label>
-              <input type="text" style={inp} value={form.musicUrl || ''} onChange={e => setForm(p => ({ ...p, musicUrl: e.target.value }))} placeholder="https://..." />
+              <label style={lbl}>Music File URL or YouTube Link</label>
+              <input type="text" style={inp} value={form.musicUrl || ''} onChange={e => setForm(p => ({ ...p, musicUrl: e.target.value }))} placeholder="https://... (Direct audio URL or YouTube link)" />
+              <p style={{ fontSize: '0.78rem', color: '#7a5c4f', marginTop: '4px' }}>Supports direct MP3/audio files and YouTube links (e.g. https://youtu.be/...)</p>
             </div>
-            {form.musicUrl && (
-              <div>
-                <label style={lbl}>Audio Preview</label>
-                <audio controls src={form.musicUrl} style={{ width: '100%', marginTop: '6px' }} />
-              </div>
-            )}
+            {form.musicUrl && (() => {
+              const ytMatch = form.musicUrl.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/);
+              const ytId = (ytMatch && ytMatch[2].length === 11) ? ytMatch[2] : null;
+
+              return (
+                <div>
+                  <label style={lbl}>Music Preview</label>
+                  {ytId ? (
+                    <div style={{ aspectRatio: '16/9', maxWidth: '360px', marginTop: '6px', borderRadius: '8px', overflow: 'hidden' }}>
+                      <iframe
+                        width="100%" height="100%"
+                        src={`https://www.youtube.com/embed/${ytId}`}
+                        title="YouTube preview"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  ) : (
+                    <audio controls src={form.musicUrl} style={{ width: '100%', marginTop: '6px' }} />
+                  )}
+                </div>
+              );
+            })()}
           </div>
         </div>
 
