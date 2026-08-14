@@ -132,11 +132,11 @@ export default function AdminSettings() {
 
       {/* ── Manage Admins Section ── */}
       <div style={{ ...card, marginTop: '32px' }}>
-        <h3 style={cardTitle}>🛡️ Manage Admins</h3>
+        <h3 style={cardTitle}>Manage Admins</h3>
 
         {/* Create New Admin Form */}
         <div style={{ background: '#FDF6EC', borderRadius: '10px', padding: '20px', marginBottom: '24px', border: '1px solid #f0e0d0' }}>
-          <h4 style={{ color: '#C0392B', fontWeight: '700', marginBottom: '16px', fontSize: '0.95rem' }}>➕ Create New Admin</h4>
+          <h4 style={{ color: '#C0392B', fontWeight: '700', marginBottom: '16px', fontSize: '0.95rem' }}>Create New Admin</h4>
           <form onSubmit={handleCreateAdmin}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '14px' }} className="settings-grid">
               <div>
@@ -168,20 +168,20 @@ export default function AdminSettings() {
                   />
                   <button type="button" onClick={() => setShowPass(p => !p)}
                     style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#7a5c4f' }}>
-                    {showPass ? '🙈' : '👁️'}
+                    {showPass ? 'Hide' : 'Show'}
                   </button>
                 </div>
               </div>
             </div>
             <button type="submit" disabled={creating}
               style={{ padding: '10px 28px', background: '#C0392B', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: '700', fontSize: '0.9rem', cursor: creating ? 'not-allowed' : 'pointer', opacity: creating ? 0.7 : 1 }}>
-              {creating ? 'Creating...' : '✅ Create Admin'}
+              {creating ? 'Creating...' : 'Create Admin'}
             </button>
           </form>
         </div>
 
         {/* Existing Admins List */}
-        <h4 style={{ color: '#1a0a00', fontWeight: '700', marginBottom: '12px', fontSize: '0.95rem' }}>📋 Current Admin List</h4>
+        <h4 style={{ color: '#1a0a00', fontWeight: '700', marginBottom: '12px', fontSize: '0.95rem' }}>Current Admin List</h4>
         {adminsLoading ? (
           <p style={{ color: '#7a5c4f', fontSize: '0.9rem' }}>Loading...</p>
         ) : admins.length === 0 ? (
@@ -214,7 +214,7 @@ export default function AdminSettings() {
                     <button
                       onClick={() => handleDeleteAdmin(admin._id, admin.name)}
                       style={{ padding: '6px 14px', background: 'transparent', color: '#C0392B', border: '1.5px solid #C0392B', borderRadius: '6px', fontWeight: '600', fontSize: '0.8rem', cursor: 'pointer' }}>
-                      🗑️ Remove
+                      Remove
                     </button>
                   )}
                 </div>
