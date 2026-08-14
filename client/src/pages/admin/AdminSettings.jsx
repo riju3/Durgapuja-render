@@ -124,6 +124,7 @@ export default function AdminSettings() {
             <Field label="Address (English)" field="address" placeholder="Chowdhurybati, Durgapur, West Bengal" />
             <Field label="ঠিকানা (বাংলা)" field="addressBn" placeholder="চৌধুরীবাটি, দুর্গাপুর, পশ্চিমবঙ্গ" bengali />
           </div>
+          <p style={{ fontSize: '0.8rem', color: '#7a5c4f', marginTop: '12px' }}>💡 Note: The English address typed here automatically locates and renders the Google Map on the Contact page.</p>
         </div>
 
         {/* About Text */}
