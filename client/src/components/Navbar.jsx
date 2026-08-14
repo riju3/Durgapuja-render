@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
+import dhakImg from '../assets/dhak.png';
 import api from '../utils/api';
 
 const styles = {
@@ -172,33 +173,8 @@ export default function Navbar() {
           )}
         </ul>
 
-        {/* Music ON/OFF toggle & Hamburger */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '12px' }}>
-          {musicUrl && (
-            <button
-              onClick={toggleMusic}
-              title={musicPlaying ? 'Turn Music Off' : 'Turn Music On'}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '5px',
-                padding: '4px 10px',
-                borderRadius: '20px',
-                border: musicPlaying ? '1.5px solid #27ae60' : '1.5px solid #C0392B',
-                background: musicPlaying ? '#e8f8f5' : '#fdf2e9',
-                color: musicPlaying ? '#27ae60' : '#C0392B',
-                fontSize: '0.78rem',
-                fontWeight: '700',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                boxShadow: musicPlaying ? '0 2px 8px rgba(39,174,96,0.25)' : 'none',
-                whiteSpace: 'nowrap',
-              }}>
-              <span style={{ fontSize: '0.85rem' }}>{musicPlaying ? '🔊' : '🔇'}</span>
-              <span>{musicPlaying ? 'ON' : 'OFF'}</span>
-            </button>
-          )}
-
+        {/* Hamburger */}
+        <div style={{ marginLeft: '12px' }}>
           <button style={styles.hamburger} className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
             <span style={styles.bar}></span>
             <span style={styles.bar}></span>
@@ -234,7 +210,64 @@ export default function Navbar() {
         />
       )}
 
+      {/* Floating Dhak Music Button at Bottom Right Corner */}
+      {musicUrl && (
+        <button
+          onClick={toggleMusic}
+          title={musicPlaying ? 'Pause Music' : 'Play Music'}
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 9999,
+            width: '58px',
+            height: '58px',
+            borderRadius: '50%',
+            background: musicPlaying ? '#fff' : 'rgba(255, 255, 255, 0.95)',
+            border: musicPlaying ? '2.5px solid #C0392B' : '2px solid #e8c9a0',
+            boxShadow: musicPlaying ? '0 6px 25px rgba(192, 57, 43, 0.35)' : '0 4px 15px rgba(0, 0, 0, 0.15)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            padding: 0,
+            transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+            outline: 'none',
+          }}>
+          <img
+            src={dhakImg}
+            alt="Music Dhak"
+            className={musicPlaying ? 'dhak-playing' : ''}
+            style={{
+              width: '42px',
+              height: '42px',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
+          {/* Status Dot */}
+          <span style={{
+            position: 'absolute',
+            top: '2px',
+            right: '2px',
+            width: '12px',
+            height: '12px',
+            borderRadius: '50%',
+            background: musicPlaying ? '#27ae60' : '#bdc3c7',
+            border: '2px solid #fff',
+          }} />
+        </button>
+      )}
+
       <style>{`
+        @keyframes dhakBeat {
+          0%, 100% { transform: scale(1) rotate(0deg); }
+          25% { transform: scale(1.12) rotate(-6deg); }
+          75% { transform: scale(1.08) rotate(6deg); }
+        }
+        .dhak-playing {
+          animation: dhakBeat 1.2s ease-in-out infinite;
+        }
         @media (max-width: 768px) {
           .nav-links { display: none !important; }
           .hamburger { display: flex !important; }
