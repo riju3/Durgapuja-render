@@ -210,38 +210,35 @@ export default function Navbar() {
         />
       )}
 
-      {/* Floating Chatbot-style Dhak Music Widget */}
+      {/* Floating Dhak Music Button at Bottom Right Corner */}
       {musicUrl && (
         <button
           onClick={toggleMusic}
           title={musicPlaying ? 'Pause Music' : 'Play Music'}
-          className={`chatbot-music-btn ${musicPlaying ? 'is-playing' : ''}`}
           style={{
             position: 'fixed',
             bottom: '24px',
             right: '24px',
             zIndex: 99999,
-            width: '62px',
-            height: '62px',
+            width: '56px',
+            height: '56px',
             borderRadius: '50%',
-            background: musicPlaying ? '#fff' : '#FDF6EC',
-            border: musicPlaying ? '3px solid #C0392B' : '2px solid #e8c9a0',
-            boxShadow: musicPlaying ? '0 8px 30px rgba(192, 57, 43, 0.45)' : '0 6px 20px rgba(0, 0, 0, 0.18)',
+            background: '#fff',
+            border: musicPlaying ? '2.5px solid #27ae60' : '2px solid #C0392B',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.18)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
             padding: 0,
-            transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
             outline: 'none',
           }}>
           <img
             src={dhakImg}
             alt="Music Dhak"
-            className={musicPlaying ? 'dhak-playing' : ''}
             style={{
-              width: '45px',
-              height: '45px',
+              width: '38px',
+              height: '38px',
               objectFit: 'contain',
               display: 'block',
             }}
@@ -249,41 +246,21 @@ export default function Navbar() {
           {/* Status Badge Dot */}
           <span style={{
             position: 'absolute',
-            top: '3px',
-            right: '3px',
-            width: '14px',
-            height: '14px',
+            top: '2px',
+            right: '2px',
+            width: '12px',
+            height: '12px',
             borderRadius: '50%',
-            background: musicPlaying ? '#27ae60' : '#bdc3c7',
-            border: '2.5px solid #fff',
-            boxShadow: musicPlaying ? '0 0 8px #27ae60' : 'none',
+            background: musicPlaying ? '#27ae60' : '#C0392B',
+            border: '2px solid #fff',
           }} />
         </button>
       )}
 
       <style>{`
-        .chatbot-music-btn:hover {
-          transform: translateY(-4px) scale(1.06);
-        }
-        .chatbot-music-btn.is-playing {
-          animation: chatbotGlow 2s infinite alternate;
-        }
-        @keyframes chatbotGlow {
-          0% { box-shadow: 0 6px 20px rgba(192, 57, 43, 0.35); }
-          100% { box-shadow: 0 10px 35px rgba(192, 57, 43, 0.6); }
-        }
-        @keyframes dhakBeat {
-          0%, 100% { transform: scale(1) rotate(0deg); }
-          25% { transform: scale(1.12) rotate(-6deg); }
-          75% { transform: scale(1.08) rotate(6deg); }
-        }
-        .dhak-playing {
-          animation: dhakBeat 1.2s ease-in-out infinite;
-        }
         @media (max-width: 768px) {
           .nav-links { display: none !important; }
           .hamburger { display: flex !important; }
-          .chatbot-music-btn { bottom: 18px !important; right: 18px !important; width: 56px !important; height: 56px !important; }
         }
         @media (min-width: 769px) {
           .hamburger { display: none !important; }
