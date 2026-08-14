@@ -200,63 +200,6 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Hidden YouTube background audio iframe */}
-      {youtubeId && musicPlaying && (
-        <iframe
-          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&enablejsapi=1&loop=1&playlist=${youtubeId}`}
-          title="Background Music"
-          allow="autoplay"
-          style={{ position: 'fixed', width: '1px', height: '1px', opacity: 0, pointerEvents: 'none', top: '-100px', left: '-100px' }}
-        />
-      )}
-
-      {/* Floating Dhak Music Button at Bottom Right Corner */}
-      {musicUrl && (
-        <button
-          onClick={toggleMusic}
-          title={musicPlaying ? 'Pause Music' : 'Play Music'}
-          style={{
-            position: 'fixed',
-            bottom: '24px',
-            right: '24px',
-            zIndex: 99999,
-            width: '56px',
-            height: '56px',
-            borderRadius: '50%',
-            background: '#fff',
-            border: musicPlaying ? '2.5px solid #27ae60' : '2px solid #C0392B',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.18)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            padding: 0,
-            outline: 'none',
-          }}>
-          <img
-            src={dhakImg}
-            alt="Music Dhak"
-            style={{
-              width: '38px',
-              height: '38px',
-              objectFit: 'contain',
-              display: 'block',
-            }}
-          />
-          {/* Status Badge Dot */}
-          <span style={{
-            position: 'absolute',
-            top: '2px',
-            right: '2px',
-            width: '12px',
-            height: '12px',
-            borderRadius: '50%',
-            background: musicPlaying ? '#27ae60' : '#C0392B',
-            border: '2px solid #fff',
-          }} />
-        </button>
-      )}
-
       <style>{`
         @media (max-width: 768px) {
           .nav-links { display: none !important; }
@@ -268,5 +211,63 @@ export default function Navbar() {
         }
       `}</style>
     </nav>
+
+    {/* Hidden YouTube background audio iframe */}
+    {youtubeId && musicPlaying && (
+      <iframe
+        src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&enablejsapi=1&loop=1&playlist=${youtubeId}`}
+        title="Background Music"
+        allow="autoplay"
+        style={{ position: 'fixed', width: '1px', height: '1px', opacity: 0, pointerEvents: 'none', top: '-100px', left: '-100px' }}
+      />
+    )}
+
+    {/* Floating Dhak Music Button at Bottom Right Corner of Screen */}
+    {musicUrl && (
+      <button
+        onClick={toggleMusic}
+        title={musicPlaying ? 'Pause Music' : 'Play Music'}
+        style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          zIndex: 999999,
+          width: '58px',
+          height: '58px',
+          borderRadius: '50%',
+          background: '#fff',
+          border: musicPlaying ? '2.5px solid #27ae60' : '2.5px solid #C0392B',
+          boxShadow: '0 6px 20px rgba(0,0,0,0.25)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          padding: 0,
+          outline: 'none',
+        }}>
+        <img
+          src={dhakImg}
+          alt="Music Dhak"
+          style={{
+            width: '40px',
+            height: '40px',
+            objectFit: 'contain',
+            display: 'block',
+          }}
+        />
+        {/* Status Badge Dot */}
+        <span style={{
+          position: 'absolute',
+          top: '2px',
+          right: '2px',
+          width: '13px',
+          height: '13px',
+          borderRadius: '50%',
+          background: musicPlaying ? '#27ae60' : '#C0392B',
+          border: '2px solid #fff',
+        }} />
+      </button>
+    )}
+    </>
   );
 }
