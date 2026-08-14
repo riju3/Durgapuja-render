@@ -20,6 +20,7 @@ const settingsSchema = new mongoose.Schema({
   dateAstami:   { type: String, default: '' },
   dateNavami:   { type: String, default: '' },
   dateDashami:  { type: String, default: '' },
+  musicUrl:     { type: String, default: '' },
 }, { timestamps: true });
 
 

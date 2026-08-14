@@ -13,8 +13,29 @@ export default function AdminSettings() {
     aboutText: '', aboutTextBn: '',
     dateMailaya: '', datePanchami: '', dateSasthi: '', dateSaptami: '',
     dateAstami: '', dateNavami: '', dateDashami: '',
+    musicUrl: '',
   });
   const [saving, setSaving] = useState(false);
+  const [musicUploading, setMusicUploading] = useState(false);
+
+  const handleAudioUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('music', file);
+    setMusicUploading(true);
+    try {
+      const res = await api.post('/settings/upload-music', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      setForm(p => ({ ...p, musicUrl: res.data.musicUrl }));
+      toast.success('Music uploaded successfully!');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Music upload failed');
+    } finally {
+      setMusicUploading(false);
+    }
+  };
 
   useEffect(() => {
     api.get('/settings').then(r => setForm(r.data)).catch(() => {});
@@ -143,6 +164,29 @@ export default function AdminSettings() {
                 <input type="date" style={inp} value={form[field] || ''} onChange={e => setForm(p => ({ ...p, [field]: e.target.value }))} />
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Background Music */}
+        <div style={card}>
+          <h3 style={cardTitle}>Background Music</h3>
+          <p style={{ fontSize: '0.82rem', color: '#7a5c4f', marginBottom: '16px' }}>Upload an audio file (MP3, WAV, OGG, M4A, etc.) or paste an audio URL to play background music when users toggle ON in navbar.</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div>
+              <label style={lbl}>Upload Music File (All Formats Supported)</label>
+              <input type="file" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac,.flac" onChange={handleAudioUpload} disabled={musicUploading} style={inp} />
+              {musicUploading && <p style={{ fontSize: '0.82rem', color: '#C0392B', marginTop: '4px' }}>Uploading audio file to Cloudinary...</p>}
+            </div>
+            <div>
+              <label style={lbl}>Music File URL</label>
+              <input type="text" style={inp} value={form.musicUrl || ''} onChange={e => setForm(p => ({ ...p, musicUrl: e.target.value }))} placeholder="https://..." />
+            </div>
+            {form.musicUrl && (
+              <div>
+                <label style={lbl}>Audio Preview</label>
+                <audio controls src={form.musicUrl} style={{ width: '100%', marginTop: '6px' }} />
+              </div>
+            )}
           </div>
         </div>
 

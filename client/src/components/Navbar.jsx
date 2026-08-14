@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
+import api from '../utils/api';
 
 const styles = {
   nav: {
@@ -50,12 +51,58 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [musicUrl, setMusicUrl] = useState('');
+  const [musicPlaying, setMusicPlaying] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    api.get('/settings').then(r => {
+      if (r.data?.musicUrl) {
+        setMusicUrl(r.data.musicUrl);
+        if (!window._bgAudio) {
+          window._bgAudio = new Audio(r.data.musicUrl);
+          window._bgAudio.loop = true;
+        } else if (window._bgAudio.src !== r.data.musicUrl) {
+          window._bgAudio.src = r.data.musicUrl;
+        }
+      }
+    }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (window._bgAudio) {
+      setMusicPlaying(!window._bgAudio.paused);
+      const onPlay = () => setMusicPlaying(true);
+      const onPause = () => setMusicPlaying(false);
+      window._bgAudio.addEventListener('play', onPlay);
+      window._bgAudio.addEventListener('pause', onPause);
+      return () => {
+        if (window._bgAudio) {
+          window._bgAudio.removeEventListener('play', onPlay);
+          window._bgAudio.removeEventListener('pause', onPause);
+        }
+      };
+    }
+  }, [musicUrl]);
+
+  const toggleMusic = () => {
+    if (!musicUrl) return;
+    if (!window._bgAudio) {
+      window._bgAudio = new Audio(musicUrl);
+      window._bgAudio.loop = true;
+    }
+    if (window._bgAudio.paused) {
+      window._bgAudio.play().then(() => setMusicPlaying(true)).catch(() => {});
+    } else {
+      window._bgAudio.pause();
+      setMusicPlaying(false);
+    }
+  };
 
   const navLinkStyle = ({ isActive }) => ({
     padding: '6px 14px',
@@ -106,12 +153,39 @@ export default function Navbar() {
           )}
         </ul>
 
-        {/* Hamburger */}
-        <button style={styles.hamburger} className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-          <span style={styles.bar}></span>
-          <span style={styles.bar}></span>
-          <span style={styles.bar}></span>
-        </button>
+        {/* Music ON/OFF toggle & Hamburger */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '12px' }}>
+          {musicUrl && (
+            <button
+              onClick={toggleMusic}
+              title={musicPlaying ? 'Turn Music Off' : 'Turn Music On'}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                padding: '4px 10px',
+                borderRadius: '20px',
+                border: musicPlaying ? '1.5px solid #27ae60' : '1.5px solid #C0392B',
+                background: musicPlaying ? '#e8f8f5' : '#fdf2e9',
+                color: musicPlaying ? '#27ae60' : '#C0392B',
+                fontSize: '0.78rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: musicPlaying ? '0 2px 8px rgba(39,174,96,0.25)' : 'none',
+                whiteSpace: 'nowrap',
+              }}>
+              <span style={{ fontSize: '0.85rem' }}>{musicPlaying ? '🔊' : '🔇'}</span>
+              <span>{musicPlaying ? 'ON' : 'OFF'}</span>
+            </button>
+          )}
+
+          <button style={styles.hamburger} className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+            <span style={styles.bar}></span>
+            <span style={styles.bar}></span>
+            <span style={styles.bar}></span>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}

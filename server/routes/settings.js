@@ -22,4 +22,50 @@ router.put('/', protect, adminOnly, async (req, res) => {
   }
 });
 
+import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
+import { Readable } from 'stream';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const uploadMem = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB audio limit
+});
+
+router.post('/upload-music', protect, adminOnly, uploadMem.single('music'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: 'No audio file provided' });
+
+    const uploadToCloudinary = (buffer) => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { resource_type: 'auto', folder: 'durgapuja_music' },
+          (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+          }
+        );
+        const readable = new Readable();
+        readable.push(buffer);
+        readable.push(null);
+        readable.pipe(stream);
+      });
+    };
+
+    const result = await uploadToCloudinary(req.file.buffer);
+    let settings = await Settings.findOne();
+    if (!settings) settings = await Settings.create({});
+    settings.musicUrl = result.secure_url;
+    await settings.save();
+    res.json({ message: 'Music uploaded successfully!', musicUrl: settings.musicUrl });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 export default router;
