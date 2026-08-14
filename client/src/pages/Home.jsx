@@ -191,36 +191,29 @@ export default function Home() {
       {/* COUNTDOWN SECTION */}
       {countdown && countdown.type !== 'none' && (
         <section style={{
-          background: 'linear-gradient(135deg, #1a0a00 0%, #3d1a0a 50%, #1a0a00 100%)',
+          background: '#FDF6EC',
           padding: '56px 0',
-          position: 'relative',
-          overflow: 'hidden',
         }}>
-          {/* Decorative rings */}
-          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'600px', height:'600px', borderRadius:'50%', border:'1px solid rgba(212,175,55,0.08)', pointerEvents:'none' }} />
-          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'400px', height:'400px', borderRadius:'50%', border:'1px solid rgba(212,175,55,0.12)', pointerEvents:'none' }} />
-          <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'200px', height:'200px', borderRadius:'50%', border:'1px solid rgba(212,175,55,0.16)', pointerEvents:'none' }} />
-
-          <div className="container" style={{ textAlign:'center', position:'relative', zIndex:1 }}>
+          <div className="container" style={{ textAlign:'center' }}>
 
             {countdown.type === 'today' ? (
               /* ── Today IS a puja day ── */
               <div>
-                <p style={{ color:'#D4AF37', fontSize:'0.8rem', fontWeight:'700', letterSpacing:'4px', textTransform:'uppercase', marginBottom:'12px' }}>Today is</p>
-                <h2 style={{ fontFamily:'Playfair Display, serif', fontSize:'clamp(2.2rem, 6vw, 4rem)', color:'#FFD700', fontStyle:'italic', marginBottom:'8px', textShadow:'0 0 40px rgba(255,215,0,0.3)' }}>
+                <p style={{ color:'#C0392B', fontSize:'0.8rem', fontWeight:'700', letterSpacing:'4px', textTransform:'uppercase', marginBottom:'12px' }}>Today is</p>
+                <h2 style={{ fontFamily:'Playfair Display, serif', fontSize:'clamp(2.2rem, 6vw, 4rem)', color:'#C0392B', fontStyle:'italic', marginBottom:'8px' }}>
                   {countdown.label}
                 </h2>
-                <p style={{ fontFamily:'Hind Siliguri, sans-serif', fontSize:'clamp(1.2rem, 3vw, 1.8rem)', color:'rgba(255,215,0,0.75)', marginBottom:'24px' }}>{countdown.labelBn}</p>
-                <p style={{ color:'rgba(255,255,255,0.6)', fontSize:'0.95rem', letterSpacing:'2px' }}>✦ জয় মা দুর্গা ✦</p>
+                <p style={{ fontFamily:'Hind Siliguri, sans-serif', fontSize:'clamp(1.2rem, 3vw, 1.8rem)', color:'#922b21', marginBottom:'24px' }}>{countdown.labelBn}</p>
+                <p style={{ color:'#C0392B', fontSize:'0.95rem', letterSpacing:'2px', opacity: 0.6 }}>✦ জয় মা দুর্গা ✦</p>
               </div>
             ) : (
               /* ── Countdown to next puja day ── */
               <div>
-                <p style={{ color:'#D4AF37', fontSize:'0.78rem', fontWeight:'700', letterSpacing:'4px', textTransform:'uppercase', marginBottom:'10px' }}>Countdown to</p>
-                <h2 style={{ fontFamily:'Playfair Display, serif', fontSize:'clamp(1.6rem, 4vw, 2.8rem)', color:'#FFD700', fontStyle:'italic', marginBottom:'4px' }}>
+                <p style={{ color:'#C0392B', fontSize:'0.78rem', fontWeight:'700', letterSpacing:'4px', textTransform:'uppercase', marginBottom:'10px' }}>Countdown to</p>
+                <h2 style={{ fontFamily:'Playfair Display, serif', fontSize:'clamp(1.6rem, 4vw, 2.8rem)', color:'#C0392B', fontStyle:'italic', marginBottom:'4px' }}>
                   {countdown.label}
                 </h2>
-                <p style={{ fontFamily:'Hind Siliguri, sans-serif', color:'rgba(255,215,0,0.65)', fontSize:'1rem', marginBottom:'32px' }}>{countdown.labelBn}</p>
+                <p style={{ fontFamily:'Hind Siliguri, sans-serif', color:'#922b21', fontSize:'1rem', marginBottom:'32px' }}>{countdown.labelBn}</p>
 
                 <div style={{ display:'flex', justifyContent:'center', gap:'clamp(12px, 3vw, 32px)', flexWrap:'wrap' }}>
                   {[
@@ -230,37 +223,37 @@ export default function Home() {
                     { value: countdown.seconds, label: 'Seconds' },
                   ].map(({ value, label }) => (
                     <div key={label} style={{
-                      background: 'rgba(255,255,255,0.05)',
-                      border: '1px solid rgba(212,175,55,0.3)',
+                      background: '#fff',
+                      border: '1.5px solid #e8c9a0',
                       borderRadius: '12px',
                       padding: 'clamp(16px, 3vw, 28px) clamp(18px, 4vw, 40px)',
                       minWidth: 'clamp(70px, 15vw, 110px)',
-                      backdropFilter: 'blur(10px)',
+                      boxShadow: '0 4px 15px rgba(192,57,43,0.08)',
                     }}>
                       <div style={{
                         fontFamily: 'Playfair Display, serif',
                         fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                         fontWeight: '700',
-                        color: '#FFD700',
+                        color: '#C0392B',
                         lineHeight: 1,
-                        textShadow: '0 0 20px rgba(255,215,0,0.4)',
                       }}>
                         {String(value).padStart(2, '0')}
                       </div>
-                      <div style={{ color:'rgba(255,255,255,0.5)', fontSize:'0.72rem', letterSpacing:'2px', textTransform:'uppercase', marginTop:'8px' }}>
+                      <div style={{ color:'#7a5c4f', fontSize:'0.72rem', letterSpacing:'2px', textTransform:'uppercase', marginTop:'8px' }}>
                         {label}
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div style={{ marginTop:'28px', width:'120px', height:'1px', background:'linear-gradient(to right, transparent, #D4AF37, transparent)', margin:'28px auto 0' }} />
-                <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.78rem', letterSpacing:'3px', marginTop:'16px' }}>✦ জয় মা দুর্গা ✦</p>
+                <div style={{ width:'120px', height:'1px', background:'linear-gradient(to right, transparent, #C0392B, transparent)', margin:'28px auto 0' }} />
+                <p style={{ color:'#C0392B', fontSize:'0.78rem', letterSpacing:'3px', marginTop:'16px', opacity: 0.5 }}>✦ জয় মা দুর্গা ✦</p>
               </div>
             )}
           </div>
         </section>
       )}
+
 
       {/* YOUTUBE VIDEO SECTION */}
       <section style={{ background: '#FDF6EC', padding: '60px 0' }}>
