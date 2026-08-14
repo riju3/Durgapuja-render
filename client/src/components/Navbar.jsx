@@ -233,12 +233,11 @@ export default function Navbar() {
           bottom: '24px',
           right: '24px',
           zIndex: 999999,
-          width: '58px',
-          height: '58px',
-          borderRadius: '50%',
-          background: '#fff',
-          border: musicPlaying ? '2.5px solid #27ae60' : '2.5px solid #C0392B',
-          boxShadow: '0 6px 20px rgba(0,0,0,0.25)',
+          width: '65px',
+          height: '65px',
+          background: 'transparent',
+          border: 'none',
+          boxShadow: 'none',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -249,26 +248,44 @@ export default function Navbar() {
         <img
           src={dhakImg}
           alt="Music Dhak"
+          className={musicPlaying ? 'dhak-playing' : ''}
           style={{
-            width: '40px',
-            height: '40px',
+            width: '55px',
+            height: '55px',
             objectFit: 'contain',
             display: 'block',
+            filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))',
+            transition: 'transform 0.2s ease',
           }}
         />
-        {/* Status Badge Dot */}
+        {/* Glowing Indicator Dot */}
         <span style={{
           position: 'absolute',
           top: '2px',
           right: '2px',
-          width: '13px',
-          height: '13px',
+          width: '14px',
+          height: '14px',
           borderRadius: '50%',
           background: musicPlaying ? '#27ae60' : '#C0392B',
           border: '2px solid #fff',
+          boxShadow: musicPlaying ? '0 0 10px #27ae60' : 'none',
+          transition: 'all 0.3s ease',
         }} />
       </button>
     )}
+
+    <style>{`
+      @keyframes dhakBeat {
+        0%, 100% { transform: scale(1) rotate(0deg); }
+        20% { transform: scale(1.15) rotate(-10deg); }
+        40% { transform: scale(1.08) rotate(8deg); }
+        60% { transform: scale(1.12) rotate(-8deg); }
+        80% { transform: scale(1.05) rotate(6deg); }
+      }
+      .dhak-playing {
+        animation: dhakBeat 1.2s ease-in-out infinite;
+      }
+    `}</style>
     </>
   );
 }
