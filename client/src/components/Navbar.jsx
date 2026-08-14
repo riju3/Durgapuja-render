@@ -210,22 +210,23 @@ export default function Navbar() {
         />
       )}
 
-      {/* Floating Dhak Music Button at Bottom Right Corner */}
+      {/* Floating Chatbot-style Dhak Music Widget */}
       {musicUrl && (
         <button
           onClick={toggleMusic}
           title={musicPlaying ? 'Pause Music' : 'Play Music'}
+          className={`chatbot-music-btn ${musicPlaying ? 'is-playing' : ''}`}
           style={{
             position: 'fixed',
             bottom: '24px',
             right: '24px',
-            zIndex: 9999,
-            width: '58px',
-            height: '58px',
+            zIndex: 99999,
+            width: '62px',
+            height: '62px',
             borderRadius: '50%',
-            background: musicPlaying ? '#fff' : 'rgba(255, 255, 255, 0.95)',
-            border: musicPlaying ? '2.5px solid #C0392B' : '2px solid #e8c9a0',
-            boxShadow: musicPlaying ? '0 6px 25px rgba(192, 57, 43, 0.35)' : '0 4px 15px rgba(0, 0, 0, 0.15)',
+            background: musicPlaying ? '#fff' : '#FDF6EC',
+            border: musicPlaying ? '3px solid #C0392B' : '2px solid #e8c9a0',
+            boxShadow: musicPlaying ? '0 8px 30px rgba(192, 57, 43, 0.45)' : '0 6px 20px rgba(0, 0, 0, 0.18)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -239,27 +240,38 @@ export default function Navbar() {
             alt="Music Dhak"
             className={musicPlaying ? 'dhak-playing' : ''}
             style={{
-              width: '42px',
-              height: '42px',
+              width: '45px',
+              height: '45px',
               objectFit: 'contain',
               display: 'block',
             }}
           />
-          {/* Status Dot */}
+          {/* Status Badge Dot */}
           <span style={{
             position: 'absolute',
-            top: '2px',
-            right: '2px',
-            width: '12px',
-            height: '12px',
+            top: '3px',
+            right: '3px',
+            width: '14px',
+            height: '14px',
             borderRadius: '50%',
             background: musicPlaying ? '#27ae60' : '#bdc3c7',
-            border: '2px solid #fff',
+            border: '2.5px solid #fff',
+            boxShadow: musicPlaying ? '0 0 8px #27ae60' : 'none',
           }} />
         </button>
       )}
 
       <style>{`
+        .chatbot-music-btn:hover {
+          transform: translateY(-4px) scale(1.06);
+        }
+        .chatbot-music-btn.is-playing {
+          animation: chatbotGlow 2s infinite alternate;
+        }
+        @keyframes chatbotGlow {
+          0% { box-shadow: 0 6px 20px rgba(192, 57, 43, 0.35); }
+          100% { box-shadow: 0 10px 35px rgba(192, 57, 43, 0.6); }
+        }
         @keyframes dhakBeat {
           0%, 100% { transform: scale(1) rotate(0deg); }
           25% { transform: scale(1.12) rotate(-6deg); }
@@ -271,6 +283,7 @@ export default function Navbar() {
         @media (max-width: 768px) {
           .nav-links { display: none !important; }
           .hamburger { display: flex !important; }
+          .chatbot-music-btn { bottom: 18px !important; right: 18px !important; width: 56px !important; height: 56px !important; }
         }
         @media (min-width: 769px) {
           .hamburger { display: none !important; }
