@@ -182,19 +182,13 @@ export default function Home() {
                   }} />
               ))}
             </div>
-
-
           </div>
         </div>
       </section>
 
       {/* COUNTDOWN SECTION */}
       {countdown && countdown.type !== 'none' && (
-        <section style={{
-          background: '#fff',
-          padding: '32px 0',
-          marginTop: '24px',
-        }}>
+        <section className="countdown-sec">
           <div className="container" style={{ textAlign:'center' }}>
 
             {countdown.type === 'today' ? (
@@ -210,45 +204,32 @@ export default function Home() {
             ) : (
               /* ── Countdown to next puja day ── */
               <div>
-                <p style={{ color:'#C0392B', fontSize:'0.72rem', fontWeight:'700', letterSpacing:'4px', textTransform:'uppercase', marginBottom:'8px' }}>Countdown to</p>
+                <p style={{ color:'#C0392B', fontSize:'0.72rem', fontWeight:'700', letterSpacing:'4px', textTransform:'uppercase', marginBottom:'6px' }}>Countdown to</p>
                 <h2 style={{ fontFamily:'Playfair Display, serif', fontSize:'clamp(1.4rem, 3.5vw, 2.2rem)', color:'#C0392B', fontStyle:'italic', marginBottom:'2px' }}>
                   {countdown.label}
                 </h2>
-                <p style={{ fontFamily:'Hind Siliguri, sans-serif', color:'#922b21', fontSize:'0.9rem', marginBottom:'20px' }}>{countdown.labelBn}</p>
+                <p style={{ fontFamily:'Hind Siliguri, sans-serif', color:'#922b21', fontSize:'0.9rem', marginBottom:'16px' }}>{countdown.labelBn}</p>
 
-                <div style={{ display:'flex', justifyContent:'center', gap:'clamp(10px, 2vw, 20px)', flexWrap:'wrap' }}>
+                <div className="countdown-grid">
                   {[
                     { value: countdown.days,    label: 'Days' },
                     { value: countdown.hours,   label: 'Hours' },
                     { value: countdown.minutes, label: 'Minutes' },
                     { value: countdown.seconds, label: 'Seconds' },
                   ].map(({ value, label }) => (
-                    <div key={label} style={{
-                      background: '#FDF6EC',
-                      border: '1.5px solid #e8c9a0',
-                      borderRadius: '10px',
-                      padding: '14px 24px',
-                      minWidth: 'clamp(65px, 12vw, 95px)',
-                      boxShadow: '0 2px 8px rgba(192,57,43,0.06)',
-                    }}>
-                      <div style={{
-                        fontFamily: 'Playfair Display, serif',
-                        fontSize: 'clamp(1.6rem, 4vw, 2.6rem)',
-                        fontWeight: '700',
-                        color: '#C0392B',
-                        lineHeight: 1,
-                      }}>
+                    <div key={label} className="countdown-box">
+                      <div className="countdown-num">
                         {String(value).padStart(2, '0')}
                       </div>
-                      <div style={{ color:'#7a5c4f', fontSize:'0.68rem', letterSpacing:'2px', textTransform:'uppercase', marginTop:'6px' }}>
+                      <div className="countdown-lbl">
                         {label}
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div style={{ width:'100px', height:'1px', background:'linear-gradient(to right, transparent, #C0392B, transparent)', margin:'20px auto 0' }} />
-                <p style={{ color:'#C0392B', fontSize:'0.72rem', letterSpacing:'3px', marginTop:'12px', opacity: 0.45 }}>✦ জয় মা দুর্গা ✦</p>
+                <div style={{ width:'80px', height:'1px', background:'linear-gradient(to right, transparent, #C0392B, transparent)', margin:'14px auto 0' }} />
+                <p style={{ color:'#C0392B', fontSize:'0.7rem', letterSpacing:'2px', marginTop:'10px', opacity: 0.45 }}>✦ জয় মা দুর্গা ✦</p>
               </div>
             )}
           </div>
@@ -525,6 +506,67 @@ export default function Home() {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-33.33%); }
         }
+        .countdown-sec {
+          background: #fff;
+          padding: 28px 0;
+          margin-top: 20px;
+        }
+        .countdown-grid {
+          display: flex;
+          justify-content: center;
+          gap: clamp(10px, 2vw, 20px);
+          flex-wrap: wrap;
+        }
+        .countdown-box {
+          background: #FDF6EC;
+          border: 1.5px solid #e8c9a0;
+          border-radius: 10px;
+          padding: 12px 22px;
+          min-width: clamp(65px, 12vw, 95px);
+          box-shadow: 0 2px 8px rgba(192,57,43,0.06);
+          text-align: center;
+        }
+        .countdown-num {
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(1.5rem, 4vw, 2.5rem);
+          font-weight: 700;
+          color: #C0392B;
+          line-height: 1;
+        }
+        .countdown-lbl {
+          color: #7a5c4f;
+          font-size: 0.68rem;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin-top: 6px;
+        }
+
+        @media (max-width: 600px) {
+          .countdown-sec {
+            padding: 16px 0 !important;
+            margin-top: 10px !important;
+          }
+          .countdown-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 6px !important;
+            padding: 0 4px !important;
+          }
+          .countdown-box {
+            padding: 8px 2px !important;
+            min-width: 0 !important;
+            border-radius: 8px !important;
+          }
+          .countdown-num {
+            font-size: 1.2rem !important;
+          }
+          .countdown-lbl {
+            font-size: 0.55rem !important;
+            letter-spacing: 0.5px !important;
+            margin-top: 2px !important;
+          }
+        }
+
         @media (max-width: 768px) {
           .welcome-grid, .video-grid, .tradition-grid, .happy-grid { grid-template-columns: 1fr !important; }
           .highlights-grid { grid-template-columns: 1fr !important; }
