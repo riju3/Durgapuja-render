@@ -432,7 +432,7 @@ export default function Home() {
         }
 
         .hero-durga-col {
-          width: 54%;
+          width: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -441,12 +441,13 @@ export default function Home() {
         }
         .hero-durga-img {
           width: 100%;
-          max-width: 820px;
-          max-height: calc(100vh - 90px);
+          max-width: 680px;
+          max-height: calc(100vh - 110px);
           height: auto;
           object-fit: contain;
           display: block;
-          filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
+          image-rendering: -webkit-optimize-contrast;
+          filter: contrast(1.04) saturate(1.06) drop-shadow(0 8px 24px rgba(0,0,0,0.12));
           transition: transform 0.3s ease;
         }
         .hero-text-col {
@@ -458,33 +459,37 @@ export default function Home() {
         }
         .hero-bn-title {
           font-family: 'Galada', 'Noto Serif Bengali', serif;
-          font-size: clamp(3.2rem, 7.8vw, 6.8rem);
+          font-size: clamp(3rem, 7.5vw, 6.4rem);
           font-weight: 400;
           color: #E8000B;
-          line-height: 1.25;
+          line-height: 1.35;
           margin: 0;
           text-shadow: 0 4px 15px rgba(232, 0, 11, 0.12);
         }
 
-        /* ── 2-Second Handwriting Typing Animation ── */
+        /* ── 8-Second Handwriting Typing Animation (No Clipping) ── */
         .type-line-1 {
           display: inline-block;
-          clip-path: inset(0 100% 0 0);
-          animation: typeWrite 1s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
+          clip-path: inset(-20px 100% -20px -20px);
+          padding-right: 15px;
+          padding-bottom: 5px;
+          animation: typeWrite 3.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s forwards;
         }
         .type-line-2 {
           display: inline-block;
-          clip-path: inset(0 100% 0 0);
-          animation: typeWrite 1s cubic-bezier(0.25, 0.1, 0.25, 1) 1.1s forwards;
+          clip-path: inset(-20px 100% -20px -20px);
+          padding-right: 15px;
+          padding-bottom: 5px;
+          animation: typeWrite 3.8s cubic-bezier(0.25, 0.1, 0.25, 1) 4.1s forwards;
         }
 
         @keyframes typeWrite {
           0% {
-            clip-path: inset(0 100% 0 0);
+            clip-path: inset(-20px 100% -20px -20px);
             opacity: 0.3;
           }
           100% {
-            clip-path: inset(0 0% 0 0);
+            clip-path: inset(-20px -20px -20px -20px);
             opacity: 1;
           }
         }
