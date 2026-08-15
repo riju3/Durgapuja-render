@@ -395,22 +395,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* INTERACTIVE 3-CARD SCROLL SHOWCASE (15 Photos in 5 Steps of 3 Cards) */}
-      <div ref={showcaseRef} style={{ position: 'relative', height: '280vh', background: '#FDF6EC' }}>
-        <div style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '20px 16px' }}>
+      {/* PURE PHOTO 3-COLUMN STACKING SHOWCASE (15 Photos in 5 Steps of 3 Full-Height Images) */}
+      <div ref={showcaseRef} style={{ position: 'relative', height: '320vh', background: '#FDF6EC' }}>
+        <div style={{ position: 'sticky', top: 0, height: '92vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '16px 20px' }}>
           
-          <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-            <span style={{ color: '#C0392B', fontSize: '0.75rem', fontWeight: '700', letterSpacing: '4px', textTransform: 'uppercase' }}>✦ Photo Showcase ✦</span>
-            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: '#1a0a00', margin: '4px 0 6px', fontWeight: '800' }}>
-              উৎসবের সেরা মুহূর্তমালা
-            </h2>
-            <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#7a5c4f', fontSize: '0.88rem' }}>
-              স্ক্রোল করে দেখুন উৎসবের ১৫টি বিশেষ ৩D মুহূর্ত ({showcaseStep + 1} / 5)
-            </p>
-          </div>
-
-          {/* 3 Cards Side-by-Side Grid */}
-          <div style={{ width: '100%', maxWidth: '1140px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', minHeight: '340px' }} className="showcase-grid">
+          {/* 3 Full-Height Images Side-by-Side Grid */}
+          <div style={{ width: '100%', maxWidth: '1280px', height: '80vh', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }} className="showcase-pure-grid">
             {(() => {
               const allCards = (settings.showcaseCards && settings.showcaseCards.length > 0)
                 ? settings.showcaseCards
@@ -426,42 +416,35 @@ export default function Home() {
                 <div
                   key={`${showcaseStep}-${cardIdx}`}
                   style={{
-                    background: '#ffffff',
+                    position: 'relative',
+                    width: '100%',
+                    height: '100%',
                     borderRadius: '16px',
                     overflow: 'hidden',
-                    border: '1.5px solid #E8D5C4',
-                    boxShadow: '0 10px 30px rgba(192, 57, 43, 0.10)',
-                    display: 'flex',
-                    flexDirection: 'column',
+                    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.15)',
                     transform: 'translate3d(0, 0, 0)',
                     willChange: 'transform, opacity',
-                    animation: `cardPopIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) ${cardIdx * 0.1}s forwards`,
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                    animation: `photoStackIn 0.55s cubic-bezier(0.2, 0.9, 0.3, 1) ${cardIdx * 0.08}s forwards`,
                   }}
-                  className="showcase-card-item"
+                  className="showcase-pure-item"
                 >
-                  <div style={{ width: '100%', height: '220px', position: 'relative', overflow: 'hidden', background: '#F5E6CC' }}>
-                    <img
-                      src={cardItem.imageUrl}
-                      alt={cardItem.title || 'Puja Showcase'}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease' }}
-                    />
-                  </div>
-                  <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center' }}>
-                    <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '1.1rem', fontWeight: '700', color: '#C0392B', marginBottom: '6px' }}>
-                      {cardItem.title || `উৎসব দৃশ্য #${showcaseStep * 3 + cardIdx + 1}`}
-                    </h3>
-                    <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '0.85rem', color: '#555', lineHeight: 1.6, margin: 0 }}>
-                      {cardItem.description || 'চৌধুরী বাড়ির ঐতিহ্যবাহী শারদীয় উৎসবের শুভ মুহূর্ত।'}
-                    </p>
-                  </div>
+                  <img
+                    src={cardItem.imageUrl}
+                    alt="Puja Photo"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                  />
                 </div>
               ));
             })()}
           </div>
 
-          {/* Step Progress Dots */}
-          <div style={{ display: 'flex', gap: '8px', marginTop: '28px', alignItems: 'center' }}>
+          {/* Minimal Step Indicator Dots */}
+          <div style={{ display: 'flex', gap: '8px', marginTop: '16px', alignItems: 'center' }}>
             {[0, 1, 2, 3, 4].map(s => (
               <div
                 key={s}
@@ -734,20 +717,20 @@ export default function Home() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Showcase Card Animations & Responsive Rules ── */
-        @keyframes cardPopIn {
+        /* ── Pure Photo Stacking Animations & Mobile Rules ── */
+        @keyframes photoStackIn {
           0% {
             opacity: 0;
-            transform: translate3d(0, 30px, 0) scale(0.94);
+            transform: translate3d(0, 45px, 0) scale(0.96);
           }
           100% {
             opacity: 1;
             transform: translate3d(0, 0, 0) scale(1);
           }
         }
-        .showcase-card-item:hover {
-          transform: translate3d(0, -6px, 0) scale(1.02) !important;
-          box-shadow: 0 16px 36px rgba(192, 57, 43, 0.18) !important;
+        .showcase-pure-item:hover img {
+          transform: scale(1.05);
+          transition: transform 0.5s ease;
         }
 
         /* ── Tablet ── */
@@ -805,24 +788,14 @@ export default function Home() {
           .hero-subtext-wrap {
             margin-top: 32px !important;
           }
-          .showcase-grid {
+          .showcase-pure-grid {
             grid-template-columns: repeat(3, 1fr) !important;
             gap: 6px !important;
-            min-height: 200px !important;
+            height: 72vh !important;
+            padding: 0 4px !important;
           }
-          .showcase-card-item div:first-child {
-            height: 95px !important;
-          }
-          .showcase-card-item h3 {
-            font-size: 0.72rem !important;
-            margin-bottom: 2px !important;
-          }
-          .showcase-card-item p {
-            font-size: 0.62rem !important;
-            line-height: 1.25 !important;
-          }
-          .showcase-card-item div:last-child {
-            padding: 6px 5px !important;
+          .showcase-pure-item {
+            border-radius: 10px !important;
           }
         }
 
