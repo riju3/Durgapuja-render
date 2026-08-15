@@ -591,14 +591,44 @@ export default function Home() {
         @media (max-width: 600px) {
           .hero-section {
             flex-direction: column !important;
-            justify-content: center !important;
+            justify-content: flex-start !important;
             min-height: calc(100vh - 70px) !important;
-            padding: 24px 16px !important;
+            padding: 16px 12px 30px !important;
           }
-          .hero-durga-col { width: 90% !important; padding: 0; justify-content: center; }
-          .hero-durga-img { max-width: 100%; max-height: 52vh; }
-          .hero-text-col { width: 100%; padding: 16px 0 10px; justify-content: center; text-align: center; }
-          .hero-bn-title { font-size: clamp(2.4rem, 10vw, 3.8rem); }
+          .hero-durga-col {
+            width: 100% !important;
+            padding: 0 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            margin-bottom: 0px !important;
+          }
+          .hero-durga-img {
+            width: 95% !important;
+            max-width: 95% !important;
+            max-height: 44vh !important;
+            margin: 0 auto !important;
+            display: block !important;
+          }
+          .hero-text-col {
+            width: 100% !important;
+            padding: 0 10px !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
+          .hero-title-wrapper {
+            transform: translateY(-55px) !important;
+          }
+          .hero-bn-title {
+            font-size: clamp(2.8rem, 11.5vw, 4.2rem) !important;
+            line-height: 1.35 !important;
+          }
+          .trishul-header-wrap {
+            margin-bottom: -110px !important;
+          }
+          .hero-subtext-wrap {
+            margin-top: 18px !important;
+          }
         }
 
         .sponsor-track {
