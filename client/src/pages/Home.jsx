@@ -401,7 +401,7 @@ export default function Home() {
         if (validCards.length === 0) return null;
 
         return (
-          <section style={{ background: '#FDF6EC', padding: '40px 0 60px', position: 'relative' }} className="flashfit-sticky-section">
+          <section style={{ background: '#ffffff', padding: '40px 0 60px', position: 'relative' }} className="flashfit-sticky-section">
             <div className="container" style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {validCards.map((cardItem, index) => {
                 const isLast = index === validCards.length - 1;
