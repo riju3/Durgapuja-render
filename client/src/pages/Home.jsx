@@ -467,7 +467,7 @@ export default function Home() {
           padding: 20px 40px;
         }
         .hero-title-wrapper {
-          transform: translateY(-25px);
+          transform: translateY(-50px);
         }
         .hero-bn-title {
           font-family: 'Lipishree Unicode', 'Lipishree', serif !important;
@@ -520,7 +520,7 @@ export default function Home() {
         .trishul-header-wrap {
           width: 100%;
           text-align: center;
-          margin-bottom: -55px;
+          margin-bottom: -75px;
           opacity: 0;
           animation: trishulFadeIn 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s forwards;
         }
