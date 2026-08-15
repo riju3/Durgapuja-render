@@ -432,22 +432,22 @@ export default function Home() {
         }
 
         .hero-durga-col {
-          width: 54%;
+          width: 58%;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 10px 0;
+          padding: 5px 0;
           flex-shrink: 0;
         }
         .hero-durga-img {
           width: 100%;
-          max-width: 780px;
-          max-height: calc(100vh - 90px);
+          max-width: 950px;
+          max-height: calc(100vh - 60px);
           height: auto;
           object-fit: contain;
           display: block;
           image-rendering: -webkit-optimize-contrast;
-          filter: contrast(1.04) saturate(1.06) drop-shadow(0 8px 24px rgba(0,0,0,0.12));
+          filter: contrast(1.05) saturate(1.08) drop-shadow(0 10px 30px rgba(0,0,0,0.14));
           transition: transform 0.3s ease;
         }
         .hero-text-col {
@@ -455,16 +455,17 @@ export default function Home() {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 30px 40px;
+          padding: 20px 30px;
         }
         .hero-bn-title {
           font-family: 'Lipishree Unicode', 'Lipishree', serif !important;
-          font-size: clamp(3.2rem, 7.8vw, 6.6rem);
-          font-weight: 400;
-          color: #E8000B;
+          font-size: clamp(3.5rem, 8.2vw, 7.2rem);
+          font-weight: 700 !important;
+          color: #B0121A;
           line-height: 1.35;
           margin: 0;
-          text-shadow: 0 4px 15px rgba(232, 0, 11, 0.12);
+          text-shadow: 0 2px 8px rgba(176, 18, 26, 0.2), 0 0 1px #B0121A;
+          letter-spacing: 0.5px;
         }
 
         /* ── 4-Second Handwriting Typing Animation (Clean & No Artifacts) ── */
