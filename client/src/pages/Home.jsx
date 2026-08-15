@@ -618,14 +618,17 @@ export default function Home() {
             text-align: center !important;
           }
           .hero-title-wrapper {
-            transform: translateY(-40px) !important;
+            transform: translateY(-75px) !important;
           }
           .hero-bn-title {
-            font-size: clamp(2.8rem, 11.5vw, 4.2rem) !important;
+            font-size: clamp(2.6rem, 11vw, 4.0rem) !important;
             line-height: 1.35 !important;
           }
           .trishul-header-wrap {
-            margin-bottom: -110px !important;
+            margin-bottom: -95px !important;
+          }
+          .hero-trishul-img {
+            width: 220px !important;
           }
           .hero-subtext-wrap {
             margin-top: 18px !important;
