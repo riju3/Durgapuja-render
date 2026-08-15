@@ -230,6 +230,8 @@ export default function AdminSettings() {
               );
             })()}
           </div>
+        </div>
+
         {/* Interactive 3-Card Scroll Showcase Manager */}
         <div style={card}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
