@@ -395,7 +395,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PURE SINGLE PHOTO FULL-SCREEN STACKING DECK SHOWCASE (Only renders if admin adds photos) */}
+      {/* PURE EDGE-TO-EDGE FULL-SCREEN PHOTO STACKING SHOWCASE (No background visible around photo) */}
       {(() => {
         const validCards = (settings.showcaseCards || []).filter(c => c && c.imageUrl && c.imageUrl.trim());
         if (validCards.length === 0) return null;
@@ -404,52 +404,48 @@ export default function Home() {
         const currentPhoto = validCards[Math.min(showcaseStep, totalPhotos - 1)] || validCards[0];
 
         return (
-          <div ref={showcaseRef} style={{ position: 'relative', height: `${Math.max(220, totalPhotos * 30)}vh`, background: '#FDF6EC' }}>
-            <div style={{ position: 'sticky', top: 0, height: '95vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '16px 20px' }}>
+          <div ref={showcaseRef} style={{ position: 'relative', height: `${Math.max(220, totalPhotos * 30)}vh`, background: '#000' }}>
+            <div style={{ position: 'sticky', top: 0, width: '100vw', height: '100vh', overflow: 'hidden', padding: 0, margin: 0 }}>
               
-              {/* Single Large Photo Deck Frame */}
-              <div style={{ width: '100%', maxWidth: '1100px', height: '80vh', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="showcase-single-deck">
-                <div
-                  key={showcaseStep}
+              {/* 100% Full-Screen Edge-to-Edge Photo */}
+              <div
+                key={showcaseStep}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100vw',
+                  height: '100vh',
+                  transform: 'translate3d(0, 0, 0)',
+                  willChange: 'transform, opacity',
+                  animation: `singlePhotoStack 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards`,
+                }}
+                className="showcase-single-item"
+              >
+                <img
+                  src={currentPhoto.imageUrl}
+                  alt="Full Screen Puja Photo"
                   style={{
-                    position: 'relative',
                     width: '100%',
                     height: '100%',
-                    borderRadius: '20px',
-                    overflow: 'hidden',
-                    boxShadow: '0 20px 50px rgba(0, 0, 0, 0.18)',
-                    transform: 'translate3d(0, 0, 0)',
-                    willChange: 'transform, opacity',
-                    animation: `singlePhotoStack 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards`,
-                    border: '3px solid #E8D5C4',
+                    objectFit: 'cover',
+                    display: 'block',
                   }}
-                  className="showcase-single-item"
-                >
-                  <img
-                    src={currentPhoto.imageUrl}
-                    alt="Puja Photo Showcase"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                    }}
-                  />
-                </div>
+                />
               </div>
 
-              {/* Dynamic Step Progress Indicator Bar */}
+              {/* Dynamic Step Progress Indicator Bar (Overlaid on photo bottom) */}
               {totalPhotos > 1 && (
-                <div style={{ display: 'flex', gap: '6px', marginTop: '16px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '90%' }}>
+                <div style={{ position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', zIndex: 10, alignItems: 'center' }}>
                   {Array.from({ length: totalPhotos }).map((_, s) => (
                     <div
                       key={s}
                       style={{
-                        width: s === showcaseStep ? '22px' : '7px',
-                        height: '7px',
+                        width: s === showcaseStep ? '26px' : '8px',
+                        height: '8px',
                         borderRadius: '4px',
-                        background: s === showcaseStep ? '#C0392B' : '#D4AF37',
-                        opacity: s === showcaseStep ? 1 : 0.35,
+                        background: s === showcaseStep ? '#ffffff' : 'rgba(255, 255, 255, 0.45)',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.5)',
                         transition: 'all 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
                       }}
                     />
