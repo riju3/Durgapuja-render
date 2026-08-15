@@ -108,7 +108,7 @@ export default function Home() {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         display: 'flex', alignItems: 'center',
-        minHeight: '420px',
+        minHeight: 'calc(100vh - 70px)',
       }}>
         {/* Durga Image - Left */}
         <div className="hero-durga-col">
@@ -424,55 +424,66 @@ export default function Home() {
 
       <style>{`
         /* ── Hero ── */
-        .hero-section { min-height: 420px; }
+        .hero-section {
+          min-height: calc(100vh - 70px);
+          padding: 20px 40px;
+        }
 
         .hero-durga-col {
-          width: 48%;
+          width: 50%;
           display: flex;
-          align-items: flex-end;
+          align-items: center;
           justify-content: center;
-          padding: 0 0 0 0px;
+          padding: 20px 0;
           flex-shrink: 0;
         }
         .hero-durga-img {
           width: 100%;
-          max-width: 580px;
+          max-width: 650px;
+          max-height: calc(100vh - 120px);
           height: auto;
           object-fit: contain;
           display: block;
+          filter: drop-shadow(0 8px 24px rgba(0,0,0,0.12));
         }
         .hero-text-col {
           flex: 1;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 40px 40px 40px 20px;
+          padding: 40px;
         }
         .hero-bn-title {
           font-family: 'Galada', 'Noto Serif Bengali', serif;
-          font-size: clamp(2.8rem, 6vw, 5.5rem);
+          font-size: clamp(3rem, 7.5vw, 6.5rem);
           font-weight: 400;
           color: #E8000B;
-          line-height: 1.2;
+          line-height: 1.25;
           margin: 0;
+          text-shadow: 0 4px 15px rgba(232, 0, 11, 0.12);
         }
 
         /* ── Tablet ── */
         @media (max-width: 900px) {
-          .hero-section { min-height: 300px; }
-          .hero-durga-col { width: 40%; padding-left: 10px; }
-          .hero-durga-img { max-width: 260px; }
-          .hero-text-col { padding: 20px 20px 20px 10px; }
-          .hero-bn-title { font-size: clamp(2rem, 6vw, 3.5rem); }
+          .hero-section { min-height: calc(100vh - 70px); padding: 20px; }
+          .hero-durga-col { width: 45%; }
+          .hero-durga-img { max-width: 360px; max-height: calc(100vh - 160px); }
+          .hero-text-col { padding: 20px 10px; }
+          .hero-bn-title { font-size: clamp(2.5rem, 7vw, 4.5rem); }
         }
 
         /* ── Mobile ── */
         @media (max-width: 600px) {
-          .hero-section { flex-direction: column !important; min-height: auto; padding: 20px 0 10px; }
-          .hero-durga-col { width: 75% !important; padding: 0; justify-content: center; }
-          .hero-durga-img { max-width: 100%; }
-          .hero-text-col { width: 100%; padding: 10px 16px 20px; justify-content: center; text-align: center; }
-          .hero-bn-title { font-size: clamp(2rem, 10vw, 3rem); }
+          .hero-section {
+            flex-direction: column !important;
+            justify-content: center !important;
+            min-height: calc(100vh - 70px) !important;
+            padding: 30px 16px !important;
+          }
+          .hero-durga-col { width: 85% !important; padding: 0; justify-content: center; }
+          .hero-durga-img { max-width: 100%; max-height: 50vh; }
+          .hero-text-col { width: 100%; padding: 20px 0 10px; justify-content: center; text-align: center; }
+          .hero-bn-title { font-size: clamp(2.4rem, 10vw, 3.8rem); }
         }
 
         .sponsor-track {
