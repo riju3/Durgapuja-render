@@ -441,13 +441,13 @@ export default function Home() {
         }
         .hero-durga-img {
           width: 100%;
-          max-width: 950px;
-          max-height: calc(100vh - 60px);
+          max-width: 900px;
+          max-height: calc(100vh - 75px);
           height: auto;
           object-fit: contain;
           display: block;
           image-rendering: -webkit-optimize-contrast;
-          filter: contrast(1.05) saturate(1.08) drop-shadow(0 10px 30px rgba(0,0,0,0.14));
+          filter: contrast(1.05) saturate(1.08) drop-shadow(0 12px 36px rgba(0,0,0,0.18));
           transition: transform 0.3s ease;
         }
         .hero-text-col {
@@ -455,17 +455,17 @@ export default function Home() {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 20px 30px;
+          padding: 30px 40px;
         }
         .hero-bn-title {
           font-family: 'Lipishree Unicode', 'Lipishree', serif !important;
-          font-size: clamp(3.5rem, 8.2vw, 7.2rem);
+          font-size: clamp(3.4rem, 8vw, 7.2rem);
           font-weight: 700 !important;
-          color: #B0121A;
-          line-height: 1.35;
+          color: #C0392B;
+          line-height: 1.32;
           margin: 0;
-          text-shadow: 0 2px 8px rgba(176, 18, 26, 0.2), 0 0 1px #B0121A;
-          letter-spacing: 0.5px;
+          -webkit-text-stroke: 0.8px #C0392B;
+          text-shadow: 0 2px 10px rgba(192, 57, 43, 0.25), 0 0 2px rgba(192, 57, 43, 0.4);
         }
 
         /* ── 4-Second Handwriting Typing Animation (Clean & No Artifacts) ── */
