@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,28 +16,45 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-import Home from './pages/Home';
-import About from './pages/About';
-import Events from './pages/Events';
-import Gallery from './pages/Gallery';
-import Team from './pages/Team';
-import Contact from './pages/Contact';
-import Downloads from './pages/Downloads';
-import Login from './pages/Login';
+// ── Lazy Loaded Page Routes (Loaded on-demand & cached in memory) ──
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Events = lazy(() => import('./pages/Events'));
+const Gallery = lazy(() => import('./pages/Gallery'));
+const Team = lazy(() => import('./pages/Team'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Downloads = lazy(() => import('./pages/Downloads'));
+const Login = lazy(() => import('./pages/Login'));
 
-import AdminLayout from './pages/admin/AdminLayout';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminGallery from './pages/admin/AdminGallery';
-import AdminEvents from './pages/admin/AdminEvents';
-import AdminTeam from './pages/admin/AdminTeam';
-import AdminMessages from './pages/admin/AdminMessages';
-import AdminSettings from './pages/admin/AdminSettings';
-import AdminDownloads from './pages/admin/AdminDownloads';
-import AdminSponsors from './pages/admin/AdminSponsors';
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminGallery = lazy(() => import('./pages/admin/AdminGallery'));
+const AdminEvents = lazy(() => import('./pages/admin/AdminEvents'));
+const AdminTeam = lazy(() => import('./pages/admin/AdminTeam'));
+const AdminMessages = lazy(() => import('./pages/admin/AdminMessages'));
+const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'));
+const AdminDownloads = lazy(() => import('./pages/admin/AdminDownloads'));
+const AdminSponsors = lazy(() => import('./pages/admin/AdminSponsors'));
+
+// ── Ultra-Fast Minimal Spinner Fallback ──
+const PageLoader = () => (
+  <div style={{
+    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+    minHeight: '60vh', color: '#C0392B', fontFamily: 'Hind Siliguri, sans-serif'
+  }}>
+    <div style={{
+      width: '36px', height: '36px', border: '3px solid #FDF6EC',
+      borderTop: '3px solid #C0392B', borderRadius: '50%',
+      animation: 'spin 0.7s linear infinite', marginBottom: '12px'
+    }} />
+    <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+    <p style={{ fontSize: '0.9rem', fontWeight: '500', color: '#7a5c4f' }}>লোডিং হচ্ছে...</p>
+  </div>
+);
 
 const ProtectedAdmin = ({ children }) => {
   const { user, loading } = useAuth();
-  if (loading) return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', fontSize: '1.5rem', color: '#C0392B' }}>Loading...</div>;
+  if (loading) return <PageLoader />;
   if (!user || user.role !== 'admin') return <Navigate to="/login" />;
   return children;
 };
@@ -52,27 +69,29 @@ export default function App() {
       <BrowserRouter>
         <ScrollToTop />
         <ToastContainer position="top-right" autoClose={3000} />
-        <Routes>
-          <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
-          <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
-          <Route path="/events" element={<PublicLayout><Events /></PublicLayout>} />
-          <Route path="/gallery" element={<PublicLayout><Gallery /></PublicLayout>} />
-          <Route path="/team" element={<PublicLayout><Team /></PublicLayout>} />
-          <Route path="/contact" element={<PublicLayout><Contact /></PublicLayout>} />
-          <Route path="/downloads" element={<PublicLayout><Downloads /></PublicLayout>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Navigate to="/login" />} />
-          <Route path="/admin" element={<ProtectedAdmin><AdminLayout /></ProtectedAdmin>}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="gallery" element={<AdminGallery />} />
-            <Route path="events" element={<AdminEvents />} />
-            <Route path="team" element={<AdminTeam />} />
-            <Route path="messages" element={<AdminMessages />} />
-            <Route path="settings" element={<AdminSettings />} />
-            <Route path="downloads" element={<AdminDownloads />} />
-            <Route path="sponsors" element={<AdminSponsors />} />
-          </Route>
-        </Routes>
+        <Suspense fallback={<PublicLayout><PageLoader /></PublicLayout>}>
+          <Routes>
+            <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
+            <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
+            <Route path="/events" element={<PublicLayout><Events /></PublicLayout>} />
+            <Route path="/gallery" element={<PublicLayout><Gallery /></PublicLayout>} />
+            <Route path="/team" element={<PublicLayout><Team /></PublicLayout>} />
+            <Route path="/contact" element={<PublicLayout><Contact /></PublicLayout>} />
+            <Route path="/downloads" element={<PublicLayout><Downloads /></PublicLayout>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Navigate to="/login" />} />
+            <Route path="/admin" element={<ProtectedAdmin><AdminLayout /></ProtectedAdmin>}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="gallery" element={<AdminGallery />} />
+              <Route path="events" element={<AdminEvents />} />
+              <Route path="team" element={<AdminTeam />} />
+              <Route path="messages" element={<AdminMessages />} />
+              <Route path="settings" element={<AdminSettings />} />
+              <Route path="downloads" element={<AdminDownloads />} />
+              <Route path="sponsors" element={<AdminSponsors />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </AuthProvider>
   );
