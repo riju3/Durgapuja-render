@@ -463,40 +463,44 @@ export default function Home() {
           font-size: clamp(3.2rem, 7.8vw, 6.6rem);
           font-weight: 400;
           color: #E8000B;
-          line-height: 1.5;
+          line-height: 1.8;
           margin: 0;
           text-shadow: 0 4px 15px rgba(232, 0, 11, 0.12);
         }
 
-        /* ── 4-Second Handwriting Typing Animation (Zero Top Clipping) ── */
+        /* ── 4-Second Handwriting Typing Animation (100% Zero Top Clipping) ── */
         .type-line-1 {
           display: inline-block;
           opacity: 0;
-          clip-path: inset(-40px 100% -40px -40px);
-          padding-top: 15px;
-          padding-bottom: 15px;
-          padding-right: 20px;
-          margin-top: -10px;
+          clip-path: inset(-100px 100% -100px -100px);
+          padding-top: 40px;
+          padding-bottom: 25px;
+          padding-right: 35px;
+          padding-left: 10px;
+          margin-top: -35px;
+          margin-bottom: -15px;
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
         }
         .type-line-2 {
           display: inline-block;
           opacity: 0;
-          clip-path: inset(-40px 100% -40px -40px);
-          padding-top: 15px;
-          padding-bottom: 15px;
-          padding-right: 20px;
-          margin-top: -10px;
+          clip-path: inset(-100px 100% -100px -100px);
+          padding-top: 40px;
+          padding-bottom: 25px;
+          padding-right: 35px;
+          padding-left: 10px;
+          margin-top: -35px;
+          margin-bottom: -15px;
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 2.0s forwards;
         }
 
         @keyframes typeWrite {
           0% {
-            clip-path: inset(-40px 100% -40px -40px);
+            clip-path: inset(-100px 100% -100px -100px);
             opacity: 1;
           }
           100% {
-            clip-path: inset(-40px -40px -40px -40px);
+            clip-path: inset(-100px -100px -100px -100px);
             opacity: 1;
           }
         }
