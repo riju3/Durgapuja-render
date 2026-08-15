@@ -631,7 +631,7 @@ export default function Home() {
             width: 220px !important;
           }
           .hero-subtext-wrap {
-            margin-top: 18px !important;
+            margin-top: 32px !important;
           }
         }
 
