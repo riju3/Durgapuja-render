@@ -520,7 +520,7 @@ export default function Home() {
         .trishul-header-wrap {
           width: 100%;
           text-align: center;
-          margin-bottom: -85px;
+          margin-bottom: -88px;
           opacity: 0;
           animation: trishulFadeIn 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s forwards;
         }
@@ -528,7 +528,7 @@ export default function Home() {
           width: 350px;
           height: auto;
           transform: rotate(90deg);
-          filter: drop-shadow(0 4px 12px rgba(232, 0, 11, 0.25));
+          filter: drop-shadow(0 4px 14px rgba(232, 0, 11, 0.28));
           display: inline-block;
         }
 
