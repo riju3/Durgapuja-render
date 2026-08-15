@@ -395,71 +395,52 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FLASHFIT STYLE OVERLAPPING STACKED PHOTO CARDS (Only renders if admin adds photos) */}
+      {/* FLASHFIT STICKY OVERLAPPING CARD STACK (Only renders if admin adds photos) */}
       {(() => {
         const validCards = (settings.showcaseCards || []).filter(c => c && c.imageUrl && c.imageUrl.trim());
         if (validCards.length === 0) return null;
 
-        const totalPhotos = validCards.length;
-        const currentPhoto = validCards[Math.min(showcaseStep, totalPhotos - 1)] || validCards[0];
-
         return (
-          <div ref={showcaseRef} style={{ position: 'relative', height: `${Math.max(240, totalPhotos * 32)}vh`, background: '#FDF6EC' }}>
-            <div style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '20px 16px' }}>
-              
-              {/* Overlapping Card Container */}
-              <div style={{ width: '92%', maxWidth: '1100px', height: '80vh', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="flashfit-card-deck">
-                <div
-                  key={showcaseStep}
-                  style={{
-                    position: 'relative',
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '28px',
-                    overflow: 'hidden',
-                    boxShadow: '0 20px 55px rgba(0, 0, 0, 0.18)',
-                    border: '2.5px solid #E8D5C4',
-                    transform: 'translate3d(0, 0, 0)',
-                    willChange: 'transform, opacity',
-                    animation: `flashFitCardStack 0.52s cubic-bezier(0.2, 0.9, 0.3, 1) forwards`,
-                    background: '#ffffff',
-                  }}
-                  className="flashfit-card-item"
-                >
-                  <img
-                    src={currentPhoto.imageUrl}
-                    alt="Puja Photo Card"
+          <section style={{ background: '#FDF6EC', padding: '40px 0 60px', position: 'relative' }} className="flashfit-sticky-section">
+            <div className="container" style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              {validCards.map((cardItem, index) => {
+                const isLast = index === validCards.length - 1;
+                return (
+                  <div
+                    key={index}
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
+                      position: 'sticky',
+                      top: '84px',
+                      zIndex: (index + 1) * 10,
+                      marginBottom: isLast ? '40px' : '140px',
+                      width: '92%',
+                      maxWidth: '1100px',
+                      height: '75vh',
+                      borderRadius: '32px',
+                      overflow: 'hidden',
+                      boxShadow: '0 20px 50px rgba(0, 0, 0, 0.16)',
+                      border: '2px solid #E8D5C4',
+                      background: '#ffffff',
+                      transition: 'all 0.3s ease-out',
+                      willChange: 'transform',
                     }}
-                  />
-                </div>
-              </div>
-
-              {/* Dynamic Step Progress Indicator Bar */}
-              {totalPhotos > 1 && (
-                <div style={{ display: 'flex', gap: '7px', marginTop: '18px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '90%' }}>
-                  {Array.from({ length: totalPhotos }).map((_, s) => (
-                    <div
-                      key={s}
+                    className="flashfit-sticky-card"
+                  >
+                    <img
+                      src={cardItem.imageUrl}
+                      alt={`Puja Photo ${index + 1}`}
                       style={{
-                        width: s === showcaseStep ? '24px' : '8px',
-                        height: '8px',
-                        borderRadius: '4px',
-                        background: s === showcaseStep ? '#C0392B' : '#D4AF37',
-                        opacity: s === showcaseStep ? 1 : 0.35,
-                        transition: 'all 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
                       }}
                     />
-                  ))}
-                </div>
-              )}
-
+                  </div>
+                );
+              })}
             </div>
-          </div>
+          </section>
         );
       })()}
 
@@ -717,20 +698,13 @@ export default function Home() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── FlashFit Overlapping Card Stack Animations & Mobile Rules ── */
-        @keyframes flashFitCardStack {
-          0% {
-            opacity: 0;
-            transform: translate3d(0, 85px, 0) scale(0.93);
-          }
-          100% {
-            opacity: 1;
-            transform: translate3d(0, 0, 0) scale(1);
-          }
+        /* ── FlashFit Sticky Overlapping Card Stack Rules ── */
+        .flashfit-sticky-card {
+          transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
         }
-        .flashfit-card-item:hover img {
-          transform: scale(1.03);
-          transition: transform 0.6s ease;
+        .flashfit-sticky-card:hover {
+          transform: scale(1.01);
+          box-shadow: 0 25px 60px rgba(192, 57, 43, 0.16) !important;
         }
 
         /* ── Tablet ── */
@@ -788,12 +762,15 @@ export default function Home() {
           .hero-subtext-wrap {
             margin-top: 32px !important;
           }
-          .flashfit-card-deck {
+          .flashfit-sticky-card {
+            top: 75px !important;
             width: 94% !important;
-            height: 75vh !important;
+            height: 70vh !important;
+            border-radius: 24px !important;
+            margin-bottom: 100px !important;
           }
-          .flashfit-card-item {
-            border-radius: 20px !important;
+          .flashfit-sticky-card:last-child {
+            margin-bottom: 30px !important;
           }
         }
 
