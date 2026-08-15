@@ -552,26 +552,25 @@ export default function Home() {
         /* ── Hero Subtext Tagline ── */
         .hero-subtext-wrap {
           text-align: center;
-          margin-top: 15px;
+          margin-top: 28px;
           opacity: 0;
           animation: subtextFadeIn 1s ease-in-out 3.5s forwards;
         }
         .hero-subtext-en {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+          font-size: clamp(0.9rem, 1.6vw, 1.15rem);
           font-style: italic;
-          font-weight: 700;
-          color: #922B21;
-          letter-spacing: 2px;
+          font-weight: 400;
+          color: #7a5c4f;
+          letter-spacing: 2.5px;
           margin-bottom: 6px;
-          text-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         .hero-subtext-bn {
           font-family: 'Hind Siliguri', 'Tiro Bangla', sans-serif;
-          font-size: clamp(0.85rem, 1.5vw, 1.05rem);
-          font-weight: 500;
-          color: #C0392B;
-          letter-spacing: 1px;
+          font-size: clamp(0.82rem, 1.4vw, 1.0rem);
+          font-weight: 400;
+          color: #8C2D23;
+          letter-spacing: 1.5px;
         }
 
         @keyframes subtextFadeIn {
