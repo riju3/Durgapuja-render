@@ -395,24 +395,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PURE SINGLE PHOTO FULL-SCREEN STACKING DECK SHOWCASE (15 Photos Stacking 1-by-1) */}
-      <div ref={showcaseRef} style={{ position: 'relative', height: '420vh', background: '#FDF6EC' }}>
-        <div style={{ position: 'sticky', top: 0, height: '95vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '16px 20px' }}>
-          
-          {/* Single Large Photo Deck Frame */}
-          <div style={{ width: '100%', maxWidth: '1100px', height: '80vh', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="showcase-single-deck">
-            {(() => {
-              const allCards = (settings.showcaseCards && settings.showcaseCards.length > 0)
-                ? settings.showcaseCards
-                : DEFAULT_SHOWCASE_CARDS;
-              
-              const padded = [...allCards];
-              while (padded.length < 15) {
-                padded.push(DEFAULT_SHOWCASE_CARDS[padded.length % DEFAULT_SHOWCASE_CARDS.length]);
-              }
-              const currentPhoto = padded[showcaseStep] || padded[0];
+      {/* PURE SINGLE PHOTO FULL-SCREEN STACKING DECK SHOWCASE (Only renders if admin adds photos) */}
+      {(() => {
+        const validCards = (settings.showcaseCards || []).filter(c => c && c.imageUrl && c.imageUrl.trim());
+        if (validCards.length === 0) return null;
 
-              return (
+        const totalPhotos = validCards.length;
+        const currentPhoto = validCards[Math.min(showcaseStep, totalPhotos - 1)] || validCards[0];
+
+        return (
+          <div ref={showcaseRef} style={{ position: 'relative', height: `${Math.max(220, totalPhotos * 30)}vh`, background: '#FDF6EC' }}>
+            <div style={{ position: 'sticky', top: 0, height: '95vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '16px 20px' }}>
+              
+              {/* Single Large Photo Deck Frame */}
+              <div style={{ width: '100%', maxWidth: '1100px', height: '80vh', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="showcase-single-deck">
                 <div
                   key={showcaseStep}
                   style={{
@@ -440,29 +436,31 @@ export default function Home() {
                     }}
                   />
                 </div>
-              );
-            })()}
-          </div>
+              </div>
 
-          {/* Minimal 15-Dot Progress Indicator Bar */}
-          <div style={{ display: 'flex', gap: '6px', marginTop: '16px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '90%' }}>
-            {Array.from({ length: 15 }).map((_, s) => (
-              <div
-                key={s}
-                style={{
-                  width: s === showcaseStep ? '22px' : '7px',
-                  height: '7px',
-                  borderRadius: '4px',
-                  background: s === showcaseStep ? '#C0392B' : '#D4AF37',
-                  opacity: s === showcaseStep ? 1 : 0.35,
-                  transition: 'all 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
-                }}
-              />
-            ))}
-          </div>
+              {/* Dynamic Step Progress Indicator Bar */}
+              {totalPhotos > 1 && (
+                <div style={{ display: 'flex', gap: '6px', marginTop: '16px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '90%' }}>
+                  {Array.from({ length: totalPhotos }).map((_, s) => (
+                    <div
+                      key={s}
+                      style={{
+                        width: s === showcaseStep ? '22px' : '7px',
+                        height: '7px',
+                        borderRadius: '4px',
+                        background: s === showcaseStep ? '#C0392B' : '#D4AF37',
+                        opacity: s === showcaseStep ? 1 : 0.35,
+                        transition: 'all 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
 
-        </div>
-      </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* HAPPY DURGA PUJA BANNER */}
       <section style={{ background: '#fff', padding: '50px 0' }}>

@@ -232,122 +232,95 @@ export default function AdminSettings() {
           </div>
         </div>
 
-        {/* Interactive 3-Card Scroll Showcase Manager */}
+        {/* Interactive Single-Photo Scroll Showcase Manager */}
         <div style={card}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
             <div>
-              <h3 style={cardTitle}>📸 Interactive Scroll Showcase Manager (Up to 15 Photos)</h3>
+              <h3 style={cardTitle}>📸 Scroll Photo Deck Showcase Manager (Up to 15 Photos)</h3>
               <p style={{ fontSize: '0.82rem', color: '#7a5c4f' }}>
-                Add up to 15 photos/cards for the homepage 3D scroll showcase. You can upload an image file OR paste direct photo URLs (e.g. Instagram photo links).
+                Add photo links or upload photos to enable the full-screen scroll photo deck on the homepage. If no photos are added, the website remains normal.
               </p>
             </div>
             {(!form.showcaseCards || form.showcaseCards.length < 15) && (
               <button
                 type="button"
-                style={{ padding: '8px 16px', background: '#C0392B', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: '600' }}
+                style={{ padding: '9px 18px', background: '#C0392B', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: '600' }}
                 onClick={() => setForm(p => ({
                   ...p,
-                  showcaseCards: [...(p.showcaseCards || []), { imageUrl: '', title: '', description: '' }]
+                  showcaseCards: [...(p.showcaseCards || []), { imageUrl: '' }]
                 }))}
               >
-                + Add Card ({form.showcaseCards ? form.showcaseCards.length : 0}/15)
+                + Add Photo ({form.showcaseCards ? form.showcaseCards.length : 0}/15)
               </button>
             )}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {(!form.showcaseCards || form.showcaseCards.length === 0) ? (
-              <p style={{ fontSize: '0.88rem', color: '#888', fontStyle: 'italic', textAlign: 'center', padding: '20px 0' }}>
-                No custom showcase cards added yet. Default Puja images are being displayed on the homepage. Click "+ Add Card" to add your own photos!
-              </p>
+              <div style={{ background: '#FDF6EC', padding: '24px', borderRadius: '10px', textAlign: 'center', border: '1.5px dashed #e8d5c4' }}>
+                <p style={{ fontSize: '0.9rem', color: '#7a5c4f', margin: 0, fontWeight: '500' }}>
+                  📷 No custom photos added yet. The homepage is displaying normally.
+                </p>
+                <p style={{ fontSize: '0.8rem', color: '#888', marginTop: '6px' }}>
+                  Click "+ Add Photo" above to upload photos or paste photo URLs (including Instagram links)!
+                </p>
+              </div>
             ) : (
               form.showcaseCards.map((c, idx) => (
-                <div key={idx} style={{ background: '#FDF6EC', padding: '14px 18px', borderRadius: '10px', border: '1px solid #e8d5c4', display: 'grid', gridTemplateColumns: '80px 1fr 40px', gap: '16px', alignItems: 'center' }}>
+                <div key={idx} style={{ background: '#FDF6EC', padding: '14px 18px', borderRadius: '10px', border: '1px solid #e8d5c4', display: 'grid', gridTemplateColumns: '70px 1fr 40px', gap: '14px', alignItems: 'center' }}>
                   {/* Thumbnail Preview */}
-                  <div style={{ width: '80px', height: '60px', borderRadius: '6px', overflow: 'hidden', background: '#eee', border: '1px solid #ccc' }}>
+                  <div style={{ width: '70px', height: '54px', borderRadius: '8px', overflow: 'hidden', background: '#eee', border: '1px solid #ccc', flexShrink: 0 }}>
                     {c.imageUrl ? (
-                      <img src={c.imageUrl} alt="Card Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img src={c.imageUrl} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: '0.7rem', color: '#aaa' }}>No Image</div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: '0.65rem', color: '#aaa', textAlign: 'center' }}>No Photo</div>
                     )}
                   </div>
 
-                  {/* Card Inputs */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                  {/* Input & Upload */}
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <input
+                      type="text"
+                      style={{ ...inp, flex: 1, minWidth: '220px' }}
+                      placeholder="Paste Photo URL or Instagram image link (https://...)"
+                      value={c.imageUrl || ''}
+                      onChange={e => {
+                        const val = e.target.value;
+                        setForm(p => {
+                          const updated = [...(p.showcaseCards || [])];
+                          updated[idx] = { ...updated[idx], imageUrl: val };
+                          return { ...p, showcaseCards: updated };
+                        });
+                      }}
+                    />
+                    <label style={{ padding: '9px 14px', background: '#fff', border: '1px solid #C0392B', color: '#C0392B', borderRadius: '6px', fontSize: '0.8rem', fontWeight: '600', cursor: 'pointer', margin: 0, whiteSpace: 'nowrap' }}>
+                      📁 Upload File
                       <input
-                        type="text"
-                        style={{ ...inp, flex: 1 }}
-                        placeholder="Paste Image URL / Instagram photo link (https://...)"
-                        value={c.imageUrl || ''}
-                        onChange={e => {
-                          const val = e.target.value;
-                          setForm(p => {
-                            const updated = [...(p.showcaseCards || [])];
-                            updated[idx] = { ...updated[idx], imageUrl: val };
-                            return { ...p, showcaseCards: updated };
-                          });
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        onChange={async (e) => {
+                          const file = e.target.files[0];
+                          if (!file) return;
+                          const fd = new FormData();
+                          fd.append('image', file);
+                          try {
+                            toast.info('Uploading image...');
+                            const res = await api.post('/settings/upload-showcase-image', fd, {
+                              headers: { 'Content-Type': 'multipart/form-data' }
+                            });
+                            setForm(p => {
+                              const updated = [...(p.showcaseCards || [])];
+                              updated[idx] = { ...updated[idx], imageUrl: res.data.imageUrl };
+                              return { ...p, showcaseCards: updated };
+                            });
+                            toast.success('Image uploaded!');
+                          } catch (err) {
+                            toast.error('Upload failed');
+                          }
                         }}
                       />
-                      <label style={{ padding: '8px 12px', background: '#fff', border: '1px solid #ccc', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', margin: 0, whiteSpace: 'nowrap' }}>
-                        📁 Upload File
-                        <input
-                          type="file"
-                          accept="image/*"
-                          style={{ display: 'none' }}
-                          onChange={async (e) => {
-                            const file = e.target.files[0];
-                            if (!file) return;
-                            const fd = new FormData();
-                            fd.append('image', file);
-                            try {
-                              toast.info('Uploading image...');
-                              const res = await api.post('/settings/upload-showcase-image', fd, {
-                                headers: { 'Content-Type': 'multipart/form-data' }
-                              });
-                              setForm(p => {
-                                const updated = [...(p.showcaseCards || [])];
-                                updated[idx] = { ...updated[idx], imageUrl: res.data.imageUrl };
-                                return { ...p, showcaseCards: updated };
-                              });
-                              toast.success('Image uploaded!');
-                            } catch (err) {
-                              toast.error('Upload failed');
-                            }
-                          }}
-                        />
-                      </label>
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                      <input
-                        type="text"
-                        style={inp}
-                        placeholder="Card Title (Optional)"
-                        value={c.title || ''}
-                        onChange={e => {
-                          const val = e.target.value;
-                          setForm(p => {
-                            const updated = [...(p.showcaseCards || [])];
-                            updated[idx] = { ...updated[idx], title: val };
-                            return { ...p, showcaseCards: updated };
-                          });
-                        }}
-                      />
-                      <input
-                        type="text"
-                        style={inp}
-                        placeholder="Description (Optional)"
-                        value={c.description || ''}
-                        onChange={e => {
-                          const val = e.target.value;
-                          setForm(p => {
-                            const updated = [...(p.showcaseCards || [])];
-                            updated[idx] = { ...updated[idx], description: val };
-                            return { ...p, showcaseCards: updated };
-                          });
-                        }}
-                      />
-                    </div>
+                    </label>
                   </div>
 
                   {/* Delete Button */}
@@ -360,7 +333,7 @@ export default function AdminSettings() {
                         showcaseCards: (p.showcaseCards || []).filter((_, i) => i !== idx)
                       }));
                     }}
-                    title="Remove Card"
+                    title="Remove Photo"
                   >
                     ✕
                   </button>
