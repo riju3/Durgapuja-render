@@ -597,18 +597,19 @@ export default function Home() {
           }
           .hero-durga-col {
             width: 100% !important;
-            padding: 0 !important;
+            padding: 8px 0 0 !important;
             display: flex !important;
             justify-content: center !important;
             align-items: center !important;
             margin-bottom: 0px !important;
           }
           .hero-durga-img {
-            width: 95% !important;
-            max-width: 95% !important;
-            max-height: 44vh !important;
-            margin: 0 auto !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            max-height: 58vh !important;
+            margin: 12px auto 0 !important;
             display: block !important;
+            transform: scale(1.05);
           }
           .hero-text-col {
             width: 100% !important;
@@ -617,7 +618,7 @@ export default function Home() {
             text-align: center !important;
           }
           .hero-title-wrapper {
-            transform: translateY(-55px) !important;
+            transform: translateY(-40px) !important;
           }
           .hero-bn-title {
             font-size: clamp(2.8rem, 11.5vw, 4.2rem) !important;
