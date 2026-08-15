@@ -621,7 +621,7 @@ export default function Home() {
             transform: translateY(-75px) !important;
           }
           .hero-bn-title {
-            font-size: clamp(2.6rem, 11vw, 4.0rem) !important;
+            font-size: clamp(3.2rem, 13.5vw, 4.8rem) !important;
             line-height: 1.35 !important;
           }
           .trishul-header-wrap {
