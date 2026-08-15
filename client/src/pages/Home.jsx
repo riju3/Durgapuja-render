@@ -129,6 +129,12 @@ export default function Home() {
               <br />
               <span className="type-line-2">দুর্গোৎসব</span>
             </h1>
+
+            {/* Subtitle / Tagline Block */}
+            <div className="hero-subtext-wrap">
+              <p className="hero-subtext-en">Where Tradition Lives, Devotion Begins.</p>
+              <p className="hero-subtext-bn">✦ মা আসছেন, আবার আলোয় ভরে উঠবে আমাদের চারপাশ ✦</p>
+            </div>
           </div>
         </div>
       </section>
@@ -541,6 +547,36 @@ export default function Home() {
             opacity: 1;
             transform: translateX(0);
           }
+        }
+
+        /* ── Hero Subtext Tagline ── */
+        .hero-subtext-wrap {
+          text-align: center;
+          margin-top: 15px;
+          opacity: 0;
+          animation: subtextFadeIn 1s ease-in-out 3.5s forwards;
+        }
+        .hero-subtext-en {
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+          font-style: italic;
+          font-weight: 700;
+          color: #922B21;
+          letter-spacing: 2px;
+          margin-bottom: 6px;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .hero-subtext-bn {
+          font-family: 'Hind Siliguri', 'Tiro Bangla', sans-serif;
+          font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+          font-weight: 500;
+          color: #C0392B;
+          letter-spacing: 1px;
+        }
+
+        @keyframes subtextFadeIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
 
         /* ── Tablet ── */
