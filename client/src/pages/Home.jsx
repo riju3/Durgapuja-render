@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../utils/api';
 import heroBg from '../assets/hero-bg.jpg';
 import durgaImg from '../assets/durga.png';
+import trishulImg from '../assets/trishul.png';
 import slide1 from '../assets/slide1.jpg';
 import slide2 from '../assets/slide2.jpg';
 import slide3 from '../assets/slide3.jpg';
@@ -116,7 +117,12 @@ export default function Home() {
         </div>
 
         {/* Bengali Text - Right */}
-        <div className="hero-text-col">
+        <div className="hero-text-col" style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          {/* Animated Trishul Header pointing Right */}
+          <div className="trishul-header-box">
+            <img src={trishulImg} alt="Trishul" className="trishul-img" />
+          </div>
+
           <h1 className="hero-bn-title">
             <span className="type-line-1">চৌধুরী বাড়ির</span>
             <br />
@@ -454,38 +460,71 @@ export default function Home() {
         .hero-text-col {
           flex: 1;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
           padding: 30px 40px;
         }
+
+        /* ── Trishul Header (Rotated 90deg Pointing Right with Entrance Animation) ── */
+        .trishul-header-box {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: -10px;
+          position: relative;
+          z-index: 5;
+          opacity: 0;
+          animation: trishulFadeIn 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s forwards;
+        }
+        .trishul-img {
+          width: 250px;
+          max-width: 80vw;
+          height: auto;
+          transform: rotate(90deg);
+          filter: drop-shadow(0 4px 15px rgba(212, 175, 55, 0.45));
+          transition: transform 0.3s ease;
+        }
+
+        @keyframes trishulFadeIn {
+          0% {
+            opacity: 0;
+            transform: translateY(-25px) scale(0.85);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
         .hero-bn-title {
           font-family: 'Lipishree Unicode', 'Lipishree', serif !important;
           font-size: clamp(3.2rem, 7.8vw, 6.6rem);
           font-weight: 400;
           color: #E8000B;
-          line-height: 1.8;
+          line-height: 1.25;
           margin: 0;
           text-shadow: 0 4px 15px rgba(232, 0, 11, 0.12);
         }
 
-        /* ── 4-Second Handwriting Typing Animation (100% Zero Top Clipping) ── */
+        /* ── 4-Second Handwriting Typing Animation (Reduced Line Gap & Zero Clipping) ── */
         .type-line-1 {
           display: inline-block;
           opacity: 0;
           clip-path: inset(-100px 100% -100px -100px);
-          padding-top: 40px;
-          padding-bottom: 25px;
+          padding-top: 35px;
+          padding-bottom: 20px;
           padding-right: 35px;
           padding-left: 10px;
-          margin-top: -35px;
-          margin-bottom: -15px;
+          margin-top: -25px;
+          margin-bottom: -42px;
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
         }
         .type-line-2 {
           display: inline-block;
           opacity: 0;
           clip-path: inset(-100px 100% -100px -100px);
-          padding-top: 40px;
+          padding-top: 20px;
           padding-bottom: 25px;
           padding-right: 35px;
           padding-left: 10px;
