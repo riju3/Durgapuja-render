@@ -395,7 +395,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PURE EDGE-TO-EDGE FULL-SCREEN PHOTO STACKING SHOWCASE (No background visible around photo) */}
+      {/* FLASHFIT STYLE OVERLAPPING STACKED PHOTO CARDS (Only renders if admin adds photos) */}
       {(() => {
         const validCards = (settings.showcaseCards || []).filter(c => c && c.imageUrl && c.imageUrl.trim());
         if (validCards.length === 0) return null;
@@ -404,48 +404,53 @@ export default function Home() {
         const currentPhoto = validCards[Math.min(showcaseStep, totalPhotos - 1)] || validCards[0];
 
         return (
-          <div ref={showcaseRef} style={{ position: 'relative', height: `${Math.max(220, totalPhotos * 30)}vh`, background: '#000' }}>
-            <div style={{ position: 'sticky', top: 0, width: '100vw', height: '100vh', overflow: 'hidden', padding: 0, margin: 0 }}>
+          <div ref={showcaseRef} style={{ position: 'relative', height: `${Math.max(240, totalPhotos * 32)}vh`, background: '#FDF6EC' }}>
+            <div style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '20px 16px' }}>
               
-              {/* 100% Full-Screen Edge-to-Edge Photo */}
-              <div
-                key={showcaseStep}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100vw',
-                  height: '100vh',
-                  transform: 'translate3d(0, 0, 0)',
-                  willChange: 'transform, opacity',
-                  animation: `singlePhotoStack 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards`,
-                }}
-                className="showcase-single-item"
-              >
-                <img
-                  src={currentPhoto.imageUrl}
-                  alt="Full Screen Puja Photo"
+              {/* Overlapping Card Container */}
+              <div style={{ width: '92%', maxWidth: '1100px', height: '80vh', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="flashfit-card-deck">
+                <div
+                  key={showcaseStep}
                   style={{
+                    position: 'relative',
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
-                    display: 'block',
+                    borderRadius: '28px',
+                    overflow: 'hidden',
+                    boxShadow: '0 20px 55px rgba(0, 0, 0, 0.18)',
+                    border: '2.5px solid #E8D5C4',
+                    transform: 'translate3d(0, 0, 0)',
+                    willChange: 'transform, opacity',
+                    animation: `flashFitCardStack 0.52s cubic-bezier(0.2, 0.9, 0.3, 1) forwards`,
+                    background: '#ffffff',
                   }}
-                />
+                  className="flashfit-card-item"
+                >
+                  <img
+                    src={currentPhoto.imageUrl}
+                    alt="Puja Photo Card"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                  />
+                </div>
               </div>
 
-              {/* Dynamic Step Progress Indicator Bar (Overlaid on photo bottom) */}
+              {/* Dynamic Step Progress Indicator Bar */}
               {totalPhotos > 1 && (
-                <div style={{ position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', zIndex: 10, alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '7px', marginTop: '18px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '90%' }}>
                   {Array.from({ length: totalPhotos }).map((_, s) => (
                     <div
                       key={s}
                       style={{
-                        width: s === showcaseStep ? '26px' : '8px',
+                        width: s === showcaseStep ? '24px' : '8px',
                         height: '8px',
                         borderRadius: '4px',
-                        background: s === showcaseStep ? '#ffffff' : 'rgba(255, 255, 255, 0.45)',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.5)',
+                        background: s === showcaseStep ? '#C0392B' : '#D4AF37',
+                        opacity: s === showcaseStep ? 1 : 0.35,
                         transition: 'all 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
                       }}
                     />
@@ -712,16 +717,20 @@ export default function Home() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Single Photo Deck Stacking Animations & Mobile Rules ── */
-        @keyframes singlePhotoStack {
+        /* ── FlashFit Overlapping Card Stack Animations & Mobile Rules ── */
+        @keyframes flashFitCardStack {
           0% {
             opacity: 0;
-            transform: translate3d(0, 60px, 0) scale(0.95);
+            transform: translate3d(0, 85px, 0) scale(0.93);
           }
           100% {
             opacity: 1;
             transform: translate3d(0, 0, 0) scale(1);
           }
+        }
+        .flashfit-card-item:hover img {
+          transform: scale(1.03);
+          transition: transform 0.6s ease;
         }
 
         /* ── Tablet ── */
@@ -779,12 +788,12 @@ export default function Home() {
           .hero-subtext-wrap {
             margin-top: 32px !important;
           }
-          .showcase-single-deck {
-            height: 74vh !important;
+          .flashfit-card-deck {
+            width: 94% !important;
+            height: 75vh !important;
           }
-          .showcase-single-item {
-            border-radius: 14px !important;
-            border-width: 2px !important;
+          .flashfit-card-item {
+            border-radius: 20px !important;
           }
         }
 
