@@ -467,9 +467,10 @@ export default function Home() {
           text-shadow: 0 4px 15px rgba(232, 0, 11, 0.12);
         }
 
-        /* ── 8-Second Handwriting Typing Animation (No Clipping) ── */
+        /* ── 8-Second Handwriting Typing Animation (Clean & No Artifacts) ── */
         .type-line-1 {
           display: inline-block;
+          opacity: 0;
           clip-path: inset(-20px 100% -20px -20px);
           padding-right: 15px;
           padding-bottom: 5px;
@@ -477,6 +478,7 @@ export default function Home() {
         }
         .type-line-2 {
           display: inline-block;
+          opacity: 0;
           clip-path: inset(-20px 100% -20px -20px);
           padding-right: 15px;
           padding-bottom: 5px;
@@ -486,7 +488,7 @@ export default function Home() {
         @keyframes typeWrite {
           0% {
             clip-path: inset(-20px 100% -20px -20px);
-            opacity: 0.3;
+            opacity: 1;
           }
           100% {
             clip-path: inset(-20px -20px -20px -20px);
