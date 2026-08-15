@@ -3,21 +3,43 @@ import api from '../../utils/api';
 import { toast } from 'react-toastify';
 
 export default function AdminGallery() {
-  const [photos, setPhotos] = useState([]);
+  const [allPhotos, setAllPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({ caption: '', year: new Date().getFullYear(), category: 'general' });
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [yearFilter, setYearFilter] = useState('');
+  const [yearFilter, setYearFilter] = useState(null);
 
-  const fetchPhotos = () => {
+  const availableYears = Array.from(
+    new Set(allPhotos.map(p => Number(p.year)).filter(Boolean))
+  ).sort((a, b) => b - a);
+
+  const fetchPhotos = async (targetYear) => {
     setLoading(true);
-    const q = yearFilter ? `?year=${yearFilter}` : '';
-    api.get(`/gallery${q}`).then(r => { setPhotos(r.data); setLoading(false); }).catch(() => setLoading(false));
+    try {
+      const r = await api.get('/gallery');
+      const data = r.data || [];
+      setAllPhotos(data);
+
+      const yrs = Array.from(new Set(data.map(p => Number(p.year)).filter(Boolean))).sort((a, b) => b - a);
+      if (targetYear && yrs.includes(Number(targetYear))) {
+        setYearFilter(Number(targetYear));
+      } else if (yrs.length > 0) {
+        setYearFilter(prev => (prev && yrs.includes(Number(prev)) ? prev : yrs[0]));
+      } else {
+        setYearFilter(null);
+      }
+    } catch {
+      toast.error('Failed to fetch photos');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  useEffect(() => { fetchPhotos(); }, [yearFilter]);
+  useEffect(() => {
+    fetchPhotos();
+  }, []);
 
   const handleFile = (e) => {
     const f = e.target.files[0];
@@ -38,9 +60,10 @@ export default function AdminGallery() {
     try {
       await api.post('/gallery', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
       toast.success('Photo uploaded! 🎉');
+      const uploadedYear = Number(form.year);
       setFile(null); setPreview(null);
       setForm({ caption: '', year: new Date().getFullYear(), category: 'general' });
-      fetchPhotos();
+      await fetchPhotos(uploadedYear);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Upload failed');
     } finally { setUploading(false); }
@@ -51,9 +74,20 @@ export default function AdminGallery() {
     try {
       await api.delete(`/gallery/${id}`);
       toast.success('Photo deleted');
-      setPhotos(p => p.filter(ph => ph._id !== id));
+      const updatedAll = allPhotos.filter(ph => ph._id !== id);
+      setAllPhotos(updatedAll);
+      const remainingYears = Array.from(new Set(updatedAll.map(p => Number(p.year)).filter(Boolean))).sort((a, b) => b - a);
+      if (remainingYears.length > 0) {
+        setYearFilter(prev => (prev && remainingYears.includes(Number(prev)) ? prev : remainingYears[0]));
+      } else {
+        setYearFilter(null);
+      }
     } catch { toast.error('Delete failed'); }
   };
+
+  const displayedPhotos = yearFilter 
+    ? allPhotos.filter(p => Number(p.year) === Number(yearFilter))
+    : [];
 
   return (
     <div>
@@ -95,28 +129,30 @@ export default function AdminGallery() {
         </form>
       </div>
 
-      {/* Filter */}
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
-        <span style={{ color: '#7a5c4f', fontWeight: '600' }}>Filter by year:</span>
-        {['', 2025, 2024, 2023, 2022].map(y => (
-          <button key={y} onClick={() => setYearFilter(y)}
-            style={{ padding: '6px 18px', border: '2px solid #C0392B', borderRadius: '20px', cursor: 'pointer', background: yearFilter == y ? '#C0392B' : '#fff', color: yearFilter == y ? '#fff' : '#C0392B', fontWeight: '600', fontSize: '0.85rem' }}>
-            {y || 'All'}
-          </button>
-        ))}
-      </div>
+      {/* Dynamic Year Filter Buttons (No 'All' Button) */}
+      {availableYears.length > 0 && (
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <span style={{ color: '#7a5c4f', fontWeight: '600' }}>Filter by year:</span>
+          {availableYears.map(y => (
+            <button key={y} onClick={() => setYearFilter(y)}
+              style={{ padding: '6px 18px', border: '2px solid #C0392B', borderRadius: '20px', cursor: 'pointer', background: Number(yearFilter) === Number(y) ? '#C0392B' : '#fff', color: Number(yearFilter) === Number(y) ? '#fff' : '#C0392B', fontWeight: '600', fontSize: '0.85rem' }}>
+              {y}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Photos Grid */}
       {loading ? <p style={{ color: '#C0392B', textAlign: 'center', padding: '40px' }}>Loading...</p>
-        : photos.length === 0 ? <p style={{ color: '#7a5c4f', textAlign: 'center', padding: '40px' }}>No photos uploaded yet.</p>
+        : displayedPhotos.length === 0 ? <p style={{ color: '#7a5c4f', textAlign: 'center', padding: '40px' }}>No photos uploaded for this year yet.</p>
         : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '16px' }}>
-            {photos.map(p => (
+            {displayedPhotos.map(p => (
               <div key={p._id} style={{ borderRadius: '10px', overflow: 'hidden', boxShadow: '0 3px 12px rgba(0,0,0,0.1)', background: '#fff', position: 'relative' }}>
                 <img src={p.url} alt={p.caption} style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }} />
                 <div style={{ padding: '10px' }}>
                   <p style={{ fontSize: '0.78rem', color: '#7a5c4f', marginBottom: '6px' }}>{p.caption || 'No caption'}</p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'center' }}>
                     <span style={{ fontSize: '0.72rem', background: '#fef3f2', color: '#C0392B', padding: '2px 8px', borderRadius: '10px' }}>{p.year}</span>
                     <button onClick={() => handleDelete(p._id)}
                       style={{ background: '#C0392B', color: '#fff', border: 'none', borderRadius: '6px', padding: '4px 10px', cursor: 'pointer', fontSize: '0.78rem' }}>

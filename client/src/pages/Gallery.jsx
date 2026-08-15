@@ -41,17 +41,35 @@ function PageHeader({ title }) {
 }
 
 export default function Gallery() {
-  const [photos, setPhotos] = useState([]);
-  const [year, setYear] = useState('');
-  const [years, setYears] = useState([2025, 2024, 2023]);
+  const [allPhotos, setAllPhotos] = useState([]);
+  const [year, setYear] = useState(null);
   const [lightbox, setLightbox] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const availableYears = Array.from(
+    new Set(allPhotos.map(p => Number(p.year)).filter(Boolean))
+  ).sort((a, b) => b - a);
+
   useEffect(() => {
     setLoading(true);
-    const q = year ? `?year=${year}` : '';
-    api.get(`/gallery${q}`).then(r => { setPhotos(r.data); setLoading(false); }).catch(() => setLoading(false));
-  }, [year]);
+    api.get('/gallery')
+      .then(r => {
+        const data = r.data || [];
+        setAllPhotos(data);
+        const yrs = Array.from(new Set(data.map(p => Number(p.year)).filter(Boolean))).sort((a, b) => b - a);
+        if (yrs.length > 0) {
+          setYear(prev => (prev && yrs.includes(Number(prev)) ? prev : yrs[0]));
+        } else {
+          setYear(null);
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const displayedPhotos = year
+    ? allPhotos.filter(p => Number(p.year) === Number(year))
+    : [];
 
   return (
     <div>
@@ -60,32 +78,30 @@ export default function Gallery() {
 
       <section style={{ padding: '60px 0', background: '#FDF6EC' }}>
         <div className="container">
-          {/* Year filter */}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '40px', flexWrap: 'wrap' }}>
-            <button onClick={() => setYear('')}
-              style={{ ...filterBtn, background: !year ? '#C0392B' : '#fff', color: !year ? '#fff' : '#C0392B' }}>
-              All
-            </button>
-            {years.map(y => (
-              <button key={y} onClick={() => setYear(y)}
-                style={{ ...filterBtn, background: year == y ? '#C0392B' : '#fff', color: year == y ? '#fff' : '#C0392B' }}>
-                {y}
-              </button>
-            ))}
-          </div>
+          {/* Dynamic Year filter (No 'All' Button) */}
+          {availableYears.length > 0 && (
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '40px', flexWrap: 'wrap' }}>
+              {availableYears.map(y => (
+                <button key={y} onClick={() => setYear(y)}
+                  style={{ ...filterBtn, background: Number(year) === Number(y) ? '#C0392B' : '#fff', color: Number(year) === Number(y) ? '#fff' : '#C0392B' }}>
+                  {y}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Year heading */}
           {year && <p style={{ textAlign: 'center', color: '#C0392B', fontWeight: '700', fontSize: '1.1rem', marginBottom: '24px' }}>{year}</p>}
 
           {loading ? (
             <div style={{ textAlign: 'center', padding: '60px', color: '#C0392B', fontSize: '1.2rem' }}>Loading...</div>
-          ) : photos.length === 0 ? (
+          ) : displayedPhotos.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px', color: '#7a5c4f' }}>
-              <p style={{ fontSize: '1.1rem' }}>No photos yet. Check back soon!</p>
+              <p style={{ fontSize: '1.1rem' }}>No photos available for this year yet.</p>
             </div>
           ) : (
             <div style={{ columns: '3', columnGap: '16px' }} className="gallery-columns">
-              {photos.map((p, i) => (
+              {displayedPhotos.map((p, i) => (
                 <div key={p._id} onClick={() => setLightbox(i)}
                   style={{ marginBottom: '16px', breakInside: 'avoid', cursor: 'pointer', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.3s' }}
                   onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
