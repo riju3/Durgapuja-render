@@ -432,22 +432,23 @@ export default function Home() {
         }
 
         .hero-durga-col {
-          width: 58%;
+          width: 55%;
           display: flex;
           align-items: center;
-          justify-content: center;
-          padding: 5px 0;
+          justify-content: flex-start;
+          padding: 10px 0 10px 20px;
           flex-shrink: 0;
         }
         .hero-durga-img {
           width: 100%;
-          max-width: 900px;
-          max-height: calc(100vh - 75px);
+          max-width: 860px;
+          max-height: calc(100vh - 80px);
           height: auto;
           object-fit: contain;
           display: block;
+          margin-left: -25px;
           image-rendering: -webkit-optimize-contrast;
-          filter: contrast(1.05) saturate(1.08) drop-shadow(0 12px 36px rgba(0,0,0,0.18));
+          filter: contrast(1.04) saturate(1.06) drop-shadow(0 8px 24px rgba(0,0,0,0.12));
           transition: transform 0.3s ease;
         }
         .hero-text-col {
@@ -459,40 +460,43 @@ export default function Home() {
         }
         .hero-bn-title {
           font-family: 'Lipishree Unicode', 'Lipishree', serif !important;
-          font-size: clamp(3.4rem, 8vw, 7.2rem);
-          font-weight: 700 !important;
-          color: #C0392B;
-          line-height: 1.32;
+          font-size: clamp(3.2rem, 7.8vw, 6.6rem);
+          font-weight: 400;
+          color: #E8000B;
+          line-height: 1.5;
           margin: 0;
-          -webkit-text-stroke: 0.8px #C0392B;
-          text-shadow: 0 2px 10px rgba(192, 57, 43, 0.25), 0 0 2px rgba(192, 57, 43, 0.4);
+          text-shadow: 0 4px 15px rgba(232, 0, 11, 0.12);
         }
 
-        /* ── 4-Second Handwriting Typing Animation (Clean & No Artifacts) ── */
+        /* ── 4-Second Handwriting Typing Animation (Zero Top Clipping) ── */
         .type-line-1 {
           display: inline-block;
           opacity: 0;
-          clip-path: inset(-20px 100% -20px -20px);
-          padding-right: 15px;
-          padding-bottom: 5px;
+          clip-path: inset(-40px 100% -40px -40px);
+          padding-top: 15px;
+          padding-bottom: 15px;
+          padding-right: 20px;
+          margin-top: -10px;
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
         }
         .type-line-2 {
           display: inline-block;
           opacity: 0;
-          clip-path: inset(-20px 100% -20px -20px);
-          padding-right: 15px;
-          padding-bottom: 5px;
+          clip-path: inset(-40px 100% -40px -40px);
+          padding-top: 15px;
+          padding-bottom: 15px;
+          padding-right: 20px;
+          margin-top: -10px;
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 2.0s forwards;
         }
 
         @keyframes typeWrite {
           0% {
-            clip-path: inset(-20px 100% -20px -20px);
+            clip-path: inset(-40px 100% -40px -40px);
             opacity: 1;
           }
           100% {
-            clip-path: inset(-20px -20px -20px -20px);
+            clip-path: inset(-40px -40px -40px -40px);
             opacity: 1;
           }
         }
