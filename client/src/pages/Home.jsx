@@ -109,6 +109,54 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // ── Interactive 3-Card Scroll Showcase ──
+  const showcaseRef = useRef(null);
+  const [showcaseStep, setShowcaseStep] = useState(0);
+
+  const DEFAULT_SHOWCASE_CARDS = [
+    { imageUrl: durgaImg, title: 'মা দুর্গার প্রতিমা দর্শন', description: 'ঐতিহ্যবাহী শারদীয় দুর্গোৎসবের শুভ আগমন' },
+    { imageUrl: trishulImg, title: 'মহিষাসুরমর্দিনী শক্তি', description: 'শুভ শক্তির বিজয় ও অশুভ শক্তির বিনাশ' },
+    { imageUrl: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?q=80&w=800&auto=format&fit=crop', title: 'মহালয়ার পূত প্রভাত', description: 'শরৎশুভ্র আগমনী সুর ও শুভ আবাহন' },
+    
+    { imageUrl: 'https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=800&auto=format&fit=crop', title: 'কাশফুলের শুভ্রতা', description: 'শরতের মেঘ ও কাশফুলের অপার দোলা' },
+    { imageUrl: 'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop', title: 'ঢাক ও কাঁসরের ধ্বনি', description: 'পুজোর তালে তালে মেতে ওঠা আনন্দ' },
+    { imageUrl: 'https://images.unsplash.com/photo-1514533450685-4493e01d1fdc?q=80&w=800&auto=format&fit=crop', title: 'সন্ধি পূজার প্রদীপ', description: '১০৮ পদ্ম ও প্রদীপের মাঙ্গলিক আলো' },
+    
+    { imageUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop', title: 'ধুনুচি নাচ ও আনন্দ', description: 'ঐতিহ্যবাহী শারদীয় নৃত্যের উৎসব' },
+    { imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop', title: 'মহা অষ্টমীর অঞ্জলি', description: 'ভক্তি ও শ্রদ্ধায় পুষ্পাঞ্জলি নিবেদন' },
+    { imageUrl: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop', title: 'ভোগ ও প্রসাদ বিতরণ', description: 'সকল ভক্তদের জন্য মহাপ্রসাদ সেবন' },
+
+    { imageUrl: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800&auto=format&fit=crop', title: 'সাংস্কৃতিক সন্ধ্যা', description: 'সঙ্গীত, নাটক ও সংস্কৃতির মেলবন্ধন' },
+    { imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop', title: 'আলোকসজ্জা ও পরিবেশ', description: 'রোশনাইয়ে মোড়া উৎসবের আঙিনা' },
+    { imageUrl: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=800&auto=format&fit=crop', title: 'পারিবারিক মিলনমেলা', description: 'প্রজন্মের পর প্রজন্ম ধরে একত্রিত আনন্দ' },
+
+    { imageUrl: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop', title: 'সিঁদুর খেলা', description: 'বিজয়ার মিষ্টি মুখ ও সোহাগের রঙ' },
+    { imageUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop', title: 'প্রতিমা নিরঞ্জন', description: 'আসছে বছর আবার হবে প্রীতির প্রতিশ্রুতি' },
+    { imageUrl: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=800&auto=format&fit=crop', title: 'শুভ বিজয়া প্রীতি', description: 'জ্যেষ্ঠদের প্রণাম ও কনিষ্ঠদের ভালোবাসা' },
+  ];
+
+  useEffect(() => {
+    let ticking = false;
+    const handleScrollShowcase = () => {
+      if (!ticking && showcaseRef.current) {
+        window.requestAnimationFrame(() => {
+          const rect = showcaseRef.current.getBoundingClientRect();
+          const totalScrollable = showcaseRef.current.offsetHeight - window.innerHeight;
+          if (totalScrollable > 0) {
+            const scrolled = Math.max(0, -rect.top);
+            const progress = Math.min(1, scrolled / totalScrollable);
+            const step = Math.min(4, Math.floor(progress * 5));
+            setShowcaseStep(step);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScrollShowcase, { passive: true });
+    return () => window.removeEventListener('scroll', handleScrollShowcase);
+  }, []);
+
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setCurrentSlide(prev => (prev + 1) % slides.length);
@@ -346,6 +394,91 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* INTERACTIVE 3-CARD SCROLL SHOWCASE (15 Photos in 5 Steps of 3 Cards) */}
+      <div ref={showcaseRef} style={{ position: 'relative', height: '280vh', background: '#FDF6EC' }}>
+        <div style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '20px 16px' }}>
+          
+          <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <span style={{ color: '#C0392B', fontSize: '0.75rem', fontWeight: '700', letterSpacing: '4px', textTransform: 'uppercase' }}>✦ Photo Showcase ✦</span>
+            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: '#1a0a00', margin: '4px 0 6px', fontWeight: '800' }}>
+              উৎসবের সেরা মুহূর্তমালা
+            </h2>
+            <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#7a5c4f', fontSize: '0.88rem' }}>
+              স্ক্রোল করে দেখুন উৎসবের ১৫টি বিশেষ ৩D মুহূর্ত ({showcaseStep + 1} / 5)
+            </p>
+          </div>
+
+          {/* 3 Cards Side-by-Side Grid */}
+          <div style={{ width: '100%', maxWidth: '1140px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', minHeight: '340px' }} className="showcase-grid">
+            {(() => {
+              const allCards = (settings.showcaseCards && settings.showcaseCards.length > 0)
+                ? settings.showcaseCards
+                : DEFAULT_SHOWCASE_CARDS;
+              
+              const padded = [...allCards];
+              while (padded.length < 15) {
+                padded.push(DEFAULT_SHOWCASE_CARDS[padded.length % DEFAULT_SHOWCASE_CARDS.length]);
+              }
+              const current3 = padded.slice(showcaseStep * 3, showcaseStep * 3 + 3);
+
+              return current3.map((cardItem, cardIdx) => (
+                <div
+                  key={`${showcaseStep}-${cardIdx}`}
+                  style={{
+                    background: '#ffffff',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    border: '1.5px solid #E8D5C4',
+                    boxShadow: '0 10px 30px rgba(192, 57, 43, 0.10)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transform: 'translate3d(0, 0, 0)',
+                    willChange: 'transform, opacity',
+                    animation: `cardPopIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) ${cardIdx * 0.1}s forwards`,
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  }}
+                  className="showcase-card-item"
+                >
+                  <div style={{ width: '100%', height: '220px', position: 'relative', overflow: 'hidden', background: '#F5E6CC' }}>
+                    <img
+                      src={cardItem.imageUrl}
+                      alt={cardItem.title || 'Puja Showcase'}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease' }}
+                    />
+                  </div>
+                  <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center' }}>
+                    <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '1.1rem', fontWeight: '700', color: '#C0392B', marginBottom: '6px' }}>
+                      {cardItem.title || `উৎসব দৃশ্য #${showcaseStep * 3 + cardIdx + 1}`}
+                    </h3>
+                    <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '0.85rem', color: '#555', lineHeight: 1.6, margin: 0 }}>
+                      {cardItem.description || 'চৌধুরী বাড়ির ঐতিহ্যবাহী শারদীয় উৎসবের শুভ মুহূর্ত।'}
+                    </p>
+                  </div>
+                </div>
+              ));
+            })()}
+          </div>
+
+          {/* Step Progress Dots */}
+          <div style={{ display: 'flex', gap: '8px', marginTop: '28px', alignItems: 'center' }}>
+            {[0, 1, 2, 3, 4].map(s => (
+              <div
+                key={s}
+                style={{
+                  width: s === showcaseStep ? '28px' : '9px',
+                  height: '9px',
+                  borderRadius: '5px',
+                  background: s === showcaseStep ? '#C0392B' : '#D4AF37',
+                  opacity: s === showcaseStep ? 1 : 0.4,
+                  transition: 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
+                }}
+              />
+            ))}
+          </div>
+
+        </div>
+      </div>
 
       {/* HAPPY DURGA PUJA BANNER */}
       <section style={{ background: '#fff', padding: '50px 0' }}>
@@ -601,6 +734,22 @@ export default function Home() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
+        /* ── Showcase Card Animations & Responsive Rules ── */
+        @keyframes cardPopIn {
+          0% {
+            opacity: 0;
+            transform: translate3d(0, 30px, 0) scale(0.94);
+          }
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+          }
+        }
+        .showcase-card-item:hover {
+          transform: translate3d(0, -6px, 0) scale(1.02) !important;
+          box-shadow: 0 16px 36px rgba(192, 57, 43, 0.18) !important;
+        }
+
         /* ── Tablet ── */
         @media (max-width: 900px) {
           .hero-section { min-height: calc(100vh - 70px); padding: 20px; }
@@ -655,6 +804,25 @@ export default function Home() {
           }
           .hero-subtext-wrap {
             margin-top: 32px !important;
+          }
+          .showcase-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 6px !important;
+            min-height: 200px !important;
+          }
+          .showcase-card-item div:first-child {
+            height: 95px !important;
+          }
+          .showcase-card-item h3 {
+            font-size: 0.72rem !important;
+            margin-bottom: 2px !important;
+          }
+          .showcase-card-item p {
+            font-size: 0.62rem !important;
+            line-height: 1.25 !important;
+          }
+          .showcase-card-item div:last-child {
+            padding: 6px 5px !important;
           }
         }
 

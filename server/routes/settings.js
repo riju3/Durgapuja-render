@@ -77,4 +77,35 @@ router.post('/upload-music', protect, adminOnly, uploadMem.single('music'), asyn
   }
 });
 
+router.post('/upload-showcase-image', protect, adminOnly, uploadMem.single('image'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: 'No image file provided' });
+
+    const uploadToCloudinary = (buffer) => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            resource_type: 'image',
+            folder: 'durgapuja_showcase',
+            public_id: `showcase_${Date.now()}`,
+          },
+          (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+          }
+        );
+        const readable = new Readable();
+        readable.push(buffer);
+        readable.push(null);
+        readable.pipe(stream);
+      });
+    };
+
+    const result = await uploadToCloudinary(req.file.buffer);
+    res.json({ imageUrl: result.secure_url });
+  } catch (err) {
+    res.status(500).json({ message: err.message || 'Image upload failed' });
+  }
+});
+
 export default router;

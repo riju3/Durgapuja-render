@@ -22,6 +22,12 @@ const settingsSchema = new mongoose.Schema({
   dateDashami:  { type: String, default: '' },
   musicUrl:     { type: String, default: '' },
   mapUrl:       { type: String, default: '' },
+  // Interactive 3-Card Scroll Showcase (Up to 15 cards)
+  showcaseCards: [{
+    imageUrl: { type: String, required: true },
+    title: { type: String, default: '' },
+    description: { type: String, default: '' }
+  }],
 }, { timestamps: true });
 
 
