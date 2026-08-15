@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
 
+@font-face {
+  font-family: 'BL Suvechha Unicode';
+  src: url('/fonts/BL-Suvechha-Unicode.ttf') format('truetype'),
+       url('./assets/fonts/BL-Suvechha-Unicode.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --red: #C0392B;
   --red-dark: #922b21;
