@@ -145,7 +145,7 @@ export default function Home() {
           if (totalScrollable > 0) {
             const scrolled = Math.max(0, -rect.top);
             const progress = Math.min(1, scrolled / totalScrollable);
-            const step = Math.min(4, Math.floor(progress * 5));
+            const step = Math.min(14, Math.floor(progress * 15));
             setShowcaseStep(step);
           }
           ticking = false;
@@ -395,12 +395,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PURE PHOTO 3-COLUMN STACKING SHOWCASE (15 Photos in 5 Steps of 3 Full-Height Images) */}
-      <div ref={showcaseRef} style={{ position: 'relative', height: '320vh', background: '#FDF6EC' }}>
-        <div style={{ position: 'sticky', top: 0, height: '92vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '16px 20px' }}>
+      {/* PURE SINGLE PHOTO FULL-SCREEN STACKING DECK SHOWCASE (15 Photos Stacking 1-by-1) */}
+      <div ref={showcaseRef} style={{ position: 'relative', height: '420vh', background: '#FDF6EC' }}>
+        <div style={{ position: 'sticky', top: 0, height: '95vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: '16px 20px' }}>
           
-          {/* 3 Full-Height Images Side-by-Side Grid */}
-          <div style={{ width: '100%', maxWidth: '1280px', height: '80vh', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }} className="showcase-pure-grid">
+          {/* Single Large Photo Deck Frame */}
+          <div style={{ width: '100%', maxWidth: '1100px', height: '80vh', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="showcase-single-deck">
             {(() => {
               const allCards = (settings.showcaseCards && settings.showcaseCards.length > 0)
                 ? settings.showcaseCards
@@ -410,27 +410,28 @@ export default function Home() {
               while (padded.length < 15) {
                 padded.push(DEFAULT_SHOWCASE_CARDS[padded.length % DEFAULT_SHOWCASE_CARDS.length]);
               }
-              const current3 = padded.slice(showcaseStep * 3, showcaseStep * 3 + 3);
+              const currentPhoto = padded[showcaseStep] || padded[0];
 
-              return current3.map((cardItem, cardIdx) => (
+              return (
                 <div
-                  key={`${showcaseStep}-${cardIdx}`}
+                  key={showcaseStep}
                   style={{
                     position: 'relative',
                     width: '100%',
                     height: '100%',
-                    borderRadius: '16px',
+                    borderRadius: '20px',
                     overflow: 'hidden',
-                    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.15)',
+                    boxShadow: '0 20px 50px rgba(0, 0, 0, 0.18)',
                     transform: 'translate3d(0, 0, 0)',
                     willChange: 'transform, opacity',
-                    animation: `photoStackIn 0.55s cubic-bezier(0.2, 0.9, 0.3, 1) ${cardIdx * 0.08}s forwards`,
+                    animation: `singlePhotoStack 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards`,
+                    border: '3px solid #E8D5C4',
                   }}
-                  className="showcase-pure-item"
+                  className="showcase-single-item"
                 >
                   <img
-                    src={cardItem.imageUrl}
-                    alt="Puja Photo"
+                    src={currentPhoto.imageUrl}
+                    alt="Puja Photo Showcase"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -439,22 +440,22 @@ export default function Home() {
                     }}
                   />
                 </div>
-              ));
+              );
             })()}
           </div>
 
-          {/* Minimal Step Indicator Dots */}
-          <div style={{ display: 'flex', gap: '8px', marginTop: '16px', alignItems: 'center' }}>
-            {[0, 1, 2, 3, 4].map(s => (
+          {/* Minimal 15-Dot Progress Indicator Bar */}
+          <div style={{ display: 'flex', gap: '6px', marginTop: '16px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '90%' }}>
+            {Array.from({ length: 15 }).map((_, s) => (
               <div
                 key={s}
                 style={{
-                  width: s === showcaseStep ? '28px' : '9px',
-                  height: '9px',
-                  borderRadius: '5px',
+                  width: s === showcaseStep ? '22px' : '7px',
+                  height: '7px',
+                  borderRadius: '4px',
                   background: s === showcaseStep ? '#C0392B' : '#D4AF37',
-                  opacity: s === showcaseStep ? 1 : 0.4,
-                  transition: 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
+                  opacity: s === showcaseStep ? 1 : 0.35,
+                  transition: 'all 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
                 }}
               />
             ))}
@@ -717,20 +718,16 @@ export default function Home() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Pure Photo Stacking Animations & Mobile Rules ── */
-        @keyframes photoStackIn {
+        /* ── Single Photo Deck Stacking Animations & Mobile Rules ── */
+        @keyframes singlePhotoStack {
           0% {
             opacity: 0;
-            transform: translate3d(0, 45px, 0) scale(0.96);
+            transform: translate3d(0, 60px, 0) scale(0.95);
           }
           100% {
             opacity: 1;
             transform: translate3d(0, 0, 0) scale(1);
           }
-        }
-        .showcase-pure-item:hover img {
-          transform: scale(1.05);
-          transition: transform 0.5s ease;
         }
 
         /* ── Tablet ── */
@@ -788,14 +785,12 @@ export default function Home() {
           .hero-subtext-wrap {
             margin-top: 32px !important;
           }
-          .showcase-pure-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 6px !important;
-            height: 72vh !important;
-            padding: 0 4px !important;
+          .showcase-single-deck {
+            height: 74vh !important;
           }
-          .showcase-pure-item {
-            border-radius: 10px !important;
+          .showcase-single-item {
+            border-radius: 14px !important;
+            border-width: 2px !important;
           }
         }
 
