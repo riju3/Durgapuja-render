@@ -467,7 +467,7 @@ export default function Home() {
           padding: 20px 40px;
         }
         .hero-title-wrapper {
-          transform: translateY(-50px);
+          transform: translateY(-80px);
         }
         .hero-bn-title {
           font-family: 'Lipishree Unicode', 'Lipishree', serif !important;
@@ -484,11 +484,11 @@ export default function Home() {
           display: inline-block;
           opacity: 0;
           clip-path: inset(-80px 100% -80px -80px);
-          padding-top: 25px;
+          padding-top: 12px;
           padding-bottom: 15px;
           padding-right: 35px;
           padding-left: 10px;
-          margin-top: -10px;
+          margin-top: 0;
           margin-bottom: -10px;
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
         }
@@ -496,7 +496,7 @@ export default function Home() {
           display: inline-block;
           opacity: 0;
           clip-path: inset(-80px 100% -80px -80px);
-          padding-top: 25px;
+          padding-top: 12px;
           padding-bottom: 15px;
           padding-right: 35px;
           padding-left: 10px;
@@ -516,11 +516,11 @@ export default function Home() {
           }
         }
 
-        /* ── Animated Trishul Header (Above Text, Pointing Right, Tight Gap) ── */
+        /* ── Animated Trishul Header (Above Text, Pointing Right, ~5px Ultra-Tight Gap) ── */
         .trishul-header-wrap {
           width: 100%;
           text-align: center;
-          margin-bottom: -88px;
+          margin-bottom: -145px;
           opacity: 0;
           animation: trishulFadeIn 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s forwards;
         }
