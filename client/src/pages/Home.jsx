@@ -446,21 +446,21 @@ export default function Home() {
         }
 
         .hero-durga-col {
-          width: 55%;
+          width: 58%;
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          padding: 10px 0 10px 20px;
+          padding: 10px 0 10px 10px;
           flex-shrink: 0;
         }
         .hero-durga-img {
           width: 100%;
-          max-width: 860px;
-          max-height: calc(100vh - 80px);
+          max-width: 980px;
+          max-height: calc(100vh - 50px);
           height: auto;
           object-fit: contain;
           display: block;
-          margin-left: -25px;
+          margin-left: -35px;
           image-rendering: -webkit-optimize-contrast;
           filter: contrast(1.04) saturate(1.06) drop-shadow(0 8px 24px rgba(0,0,0,0.12));
           transition: transform 0.3s ease;
