@@ -464,65 +464,68 @@ export default function Home() {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 30px 40px;
+          padding: 20px 40px;
+        }
+        .hero-title-wrapper {
+          transform: translateY(-25px);
         }
         .hero-bn-title {
           font-family: 'Lipishree Unicode', 'Lipishree', serif !important;
           font-size: clamp(3.2rem, 7.8vw, 6.6rem);
           font-weight: 400;
           color: #E8000B;
-          line-height: 1.8;
+          line-height: 1.4;
           margin: 0;
           text-shadow: 0 4px 15px rgba(232, 0, 11, 0.12);
         }
 
-        /* ── 4-Second Handwriting Typing Animation (100% Zero Top Clipping) ── */
+        /* ── 4-Second Handwriting Typing Animation (Zero Top Clipping) ── */
         .type-line-1 {
           display: inline-block;
           opacity: 0;
-          clip-path: inset(-100px 100% -100px -100px);
-          padding-top: 40px;
-          padding-bottom: 25px;
+          clip-path: inset(-80px 100% -80px -80px);
+          padding-top: 25px;
+          padding-bottom: 15px;
           padding-right: 35px;
           padding-left: 10px;
-          margin-top: -35px;
-          margin-bottom: -15px;
+          margin-top: -10px;
+          margin-bottom: -10px;
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
         }
         .type-line-2 {
           display: inline-block;
           opacity: 0;
-          clip-path: inset(-100px 100% -100px -100px);
-          padding-top: 40px;
-          padding-bottom: 25px;
+          clip-path: inset(-80px 100% -80px -80px);
+          padding-top: 25px;
+          padding-bottom: 15px;
           padding-right: 35px;
           padding-left: 10px;
-          margin-top: -35px;
-          margin-bottom: -15px;
+          margin-top: -10px;
+          margin-bottom: -10px;
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 2.0s forwards;
         }
 
         @keyframes typeWrite {
           0% {
-            clip-path: inset(-100px 100% -100px -100px);
+            clip-path: inset(-80px 100% -80px -80px);
             opacity: 1;
           }
           100% {
-            clip-path: inset(-100px -100px -100px -100px);
+            clip-path: inset(-80px -80px -80px -80px);
             opacity: 1;
           }
         }
 
-        /* ── Animated Trishul Header (Above Text, Pointing Right) ── */
+        /* ── Animated Trishul Header (Above Text, Pointing Right, Tight Gap) ── */
         .trishul-header-wrap {
           width: 100%;
           text-align: center;
-          margin-bottom: -15px;
+          margin-bottom: -55px;
           opacity: 0;
           animation: trishulFadeIn 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s forwards;
         }
         .hero-trishul-img {
-          width: 260px;
+          width: 270px;
           height: auto;
           transform: rotate(90deg);
           filter: drop-shadow(0 4px 12px rgba(232, 0, 11, 0.25));
