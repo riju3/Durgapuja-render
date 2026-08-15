@@ -458,7 +458,7 @@ export default function Home() {
           padding: 30px 40px;
         }
         .hero-bn-title {
-          font-family: 'BL Suvechha Unicode', 'Galada', 'Noto Serif Bengali', serif;
+          font-family: 'Br Suvechha Unicode', 'Suvechha Unicode', 'BL Suvechha Unicode', serif !important;
           font-size: clamp(3.2rem, 7.8vw, 6.6rem);
           font-weight: 400;
           color: #E8000B;
