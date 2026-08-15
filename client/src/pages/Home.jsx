@@ -92,6 +92,23 @@ export default function Home() {
     api.get('/events').then(r => setEvents(r.data)).catch(() => {});
   }, []);
 
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setCurrentSlide(prev => (prev + 1) % slides.length);
@@ -106,18 +123,24 @@ export default function Home() {
         position: 'relative', overflow: 'hidden', width: '100%',
         backgroundImage: `url(${heroBg})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: `center ${Math.min(scrollY * 0.2, 100)}px`,
         backgroundRepeat: 'no-repeat',
         display: 'flex', alignItems: 'center',
         minHeight: 'calc(100vh - 70px)',
       }}>
         {/* Durga Image - Left */}
-        <div className="hero-durga-col">
+        <div className="hero-durga-col" style={{
+          transform: `translate3d(0, ${-Math.min(scrollY * 0.22, 160)}px, 0) scale(${1 + Math.min(scrollY * 0.0003, 0.08)})`,
+          willChange: 'transform',
+        }}>
           <img src={durgaImg} alt="Maa Durga" className="hero-durga-img" />
         </div>
 
         {/* Bengali Text - Right */}
-        <div className="hero-text-col">
+        <div className="hero-text-col" style={{
+          transform: `translate3d(0, ${-Math.min(scrollY * 0.28, 200)}px, 0)`,
+          willChange: 'transform',
+        }}>
           <div className="hero-title-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
             {/* Animated Trishul Header */}
             <div className="trishul-header-wrap">
