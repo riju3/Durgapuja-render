@@ -558,16 +558,16 @@ export default function Home() {
         }
         .hero-subtext-en {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+          font-size: clamp(0.78rem, 1.3vw, 0.98rem);
           font-style: italic;
           font-weight: 400;
           color: #7a5c4f;
           letter-spacing: 2.5px;
-          margin-bottom: 6px;
+          margin-bottom: 5px;
         }
         .hero-subtext-bn {
           font-family: 'Hind Siliguri', 'Tiro Bangla', sans-serif;
-          font-size: clamp(0.82rem, 1.4vw, 1.0rem);
+          font-size: clamp(0.74rem, 1.15vw, 0.88rem);
           font-weight: 400;
           color: #8C2D23;
           letter-spacing: 1.5px;
