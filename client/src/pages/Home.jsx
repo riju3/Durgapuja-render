@@ -432,7 +432,7 @@ export default function Home() {
         }
 
         .hero-durga-col {
-          width: 50%;
+          width: 54%;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -441,8 +441,8 @@ export default function Home() {
         }
         .hero-durga-img {
           width: 100%;
-          max-width: 680px;
-          max-height: calc(100vh - 110px);
+          max-width: 780px;
+          max-height: calc(100vh - 90px);
           height: auto;
           object-fit: contain;
           display: block;
@@ -459,7 +459,7 @@ export default function Home() {
         }
         .hero-bn-title {
           font-family: 'Galada', 'Noto Serif Bengali', serif;
-          font-size: clamp(3rem, 7.5vw, 6.4rem);
+          font-size: clamp(3.2rem, 7.8vw, 6.6rem);
           font-weight: 400;
           color: #E8000B;
           line-height: 1.35;
@@ -467,14 +467,14 @@ export default function Home() {
           text-shadow: 0 4px 15px rgba(232, 0, 11, 0.12);
         }
 
-        /* ── 6-Second Handwriting Typing Animation (Clean & No Artifacts) ── */
+        /* ── 4-Second Handwriting Typing Animation (Clean & No Artifacts) ── */
         .type-line-1 {
           display: inline-block;
           opacity: 0;
           clip-path: inset(-20px 100% -20px -20px);
           padding-right: 15px;
           padding-bottom: 5px;
-          animation: typeWrite 2.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
+          animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
         }
         .type-line-2 {
           display: inline-block;
@@ -482,7 +482,7 @@ export default function Home() {
           clip-path: inset(-20px 100% -20px -20px);
           padding-right: 15px;
           padding-bottom: 5px;
-          animation: typeWrite 2.8s cubic-bezier(0.25, 0.1, 0.25, 1) 3.0s forwards;
+          animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 2.0s forwards;
         }
 
         @keyframes typeWrite {
