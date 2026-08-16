@@ -376,87 +376,87 @@ export default function Home() {
       {/* FESTIVAL HIGHLIGHTS */}
       <section style={{
         position: 'relative',
-        padding: '100px 0 120px',
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.82)), url(${highlightsBg})`,
+        padding: '110px 0 140px',
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.78)), url(${highlightsBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}>
         <div className="container">
           <h2 style={{
-            fontFamily: "'Poppins', 'Hind Siliguri', sans-serif",
+            fontFamily: 'Playfair Display, serif',
             fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)',
-            fontWeight: '800',
+            fontWeight: '900',
             color: '#ffffff',
             marginBottom: '48px',
-            letterSpacing: '-0.5px',
+            letterSpacing: '2px',
           }}>
             FESTIVAL HIGHLIGHTS
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px', alignItems: 'flex-start' }} className="highlights-staggered-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px', alignItems: 'flex-start' }} className="highlights-staggered-grid">
             
-            {/* Card 1 - Maroon / Plum */}
+            {/* Card 1 - Maroon / Plum (Lowest / Starts Down) */}
             <div style={{
               background: 'rgba(115, 55, 68, 0.92)',
               borderRadius: '20px',
-              padding: '40px 30px',
+              padding: '42px 30px',
               minHeight: '340px',
               boxShadow: '0 20px 45px rgba(0,0,0,0.4)',
               backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255,255,255,0.12)',
+              border: '1px solid rgba(255,255,255,0.15)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              marginTop: '90px',
+              display: 'flex',
+              flexDirection: 'column',
+              justify: 'center',
+            }} className="highlight-card">
+              <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1.5rem, 2vw, 1.95rem)', fontWeight: '800', color: '#ffffff', marginBottom: '16px' }}>
+                প্রতিমা দর্শন
+              </h3>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.8, margin: 0 }}>
+                পঞ্চমী থেকে দশমী পর্যন্ত নিখুঁত প্রতিমা দর্শনের সুযোগ
+              </p>
+            </div>
+
+            {/* Card 2 - Rich Crimson Red (Higher than 1st) */}
+            <div style={{
+              background: '#D9433B',
+              borderRadius: '20px',
+              padding: '42px 30px',
+              minHeight: '340px',
+              boxShadow: '0 20px 45px rgba(217, 67, 59, 0.45)',
+              border: '1px solid rgba(255,255,255,0.2)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               marginTop: '45px',
               display: 'flex',
               flexDirection: 'column',
               justify: 'center',
             }} className="highlight-card">
-              <h3 style={{ fontFamily: "'Poppins', 'Hind Siliguri', sans-serif", fontSize: 'clamp(1.4rem, 2vw, 1.85rem)', fontWeight: '800', color: '#ffffff', marginBottom: '14px' }}>
-                প্রতিমা দর্শন
+              <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1.5rem, 2vw, 1.95rem)', fontWeight: '800', color: '#ffffff', marginBottom: '16px' }}>
+                সাংস্কৃতিক অনুষ্ঠান
               </h3>
-              <p style={{ fontFamily: "'Hind Siliguri', sans-serif", fontSize: 'clamp(0.92rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.75, margin: 0 }}>
-                পঞ্চমী থেকে দশমী পর্যন্ত নিখুঁত প্রতিমা দর্শনের সুযোগ
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.95)', lineHeight: 1.8, margin: 0 }}>
+                সঙ্গীত, নৃত্য ও বিভিন্ন সাংস্কৃতিক পরিবেশনা
               </p>
             </div>
 
-            {/* Card 2 - Rich Crimson Red (Higher top, taller) */}
+            {/* Card 3 - Crisp Pure White (Highest of All / Higher than 2nd) */}
             <div style={{
-              background: '#D9433B',
+              background: '#FFFFFF',
               borderRadius: '20px',
-              padding: '44px 32px',
-              minHeight: '410px',
-              boxShadow: '0 20px 45px rgba(217, 67, 59, 0.45)',
-              border: '1px solid rgba(255,255,255,0.2)',
+              padding: '42px 30px',
+              minHeight: '340px',
+              boxShadow: '0 22px 50px rgba(0,0,0,0.35)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               marginTop: '0px',
               display: 'flex',
               flexDirection: 'column',
               justify: 'center',
             }} className="highlight-card">
-              <h3 style={{ fontFamily: "'Poppins', 'Hind Siliguri', sans-serif", fontSize: 'clamp(1.4rem, 2vw, 1.85rem)', fontWeight: '800', color: '#ffffff', marginBottom: '14px' }}>
-                সাংস্কৃতিক অনুষ্ঠান
-              </h3>
-              <p style={{ fontFamily: "'Hind Siliguri', sans-serif", fontSize: 'clamp(0.92rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.95)', lineHeight: 1.75, margin: 0 }}>
-                সঙ্গীত, নৃত্য ও বিভিন্ন সাংস্কৃতিক পরিবেশনা
-              </p>
-            </div>
-
-            {/* Card 3 - Crisp Pure White (Aligned at top with Card 1) */}
-            <div style={{
-              background: '#FFFFFF',
-              borderRadius: '20px',
-              padding: '40px 30px',
-              minHeight: '340px',
-              boxShadow: '0 22px 50px rgba(0,0,0,0.35)',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              marginTop: '45px',
-              display: 'flex',
-              flexDirection: 'column',
-              justify: 'center',
-            }} className="highlight-card">
-              <h3 style={{ fontFamily: "'Poppins', 'Hind Siliguri', sans-serif", fontSize: 'clamp(1.4rem, 2vw, 1.85rem)', fontWeight: '800', color: '#D9433B', marginBottom: '14px' }}>
+              <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1.5rem, 2vw, 1.95rem)', fontWeight: '800', color: '#D9433B', marginBottom: '16px' }}>
                 ভোগ বিতরণ
               </h3>
-              <p style={{ fontFamily: "'Hind Siliguri', sans-serif", fontSize: 'clamp(0.92rem, 1.1vw, 1.05rem)', color: '#555555', lineHeight: 1.75, margin: 0 }}>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: '#444444', lineHeight: 1.8, margin: 0 }}>
                 সকল ভক্তদের জন্য প্রসাদ ও ভোগ পরিবেশন
               </p>
             </div>
