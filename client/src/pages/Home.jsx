@@ -376,7 +376,7 @@ export default function Home() {
       {/* FESTIVAL HIGHLIGHTS */}
       <section style={{
         position: 'relative',
-        padding: '90px 0',
+        padding: '130px 0 150px',
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.78)), url(${highlightsBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -385,101 +385,68 @@ export default function Home() {
         <div className="container">
           <h2 style={{
             fontFamily: 'Playfair Display, serif',
-            fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+            fontSize: 'clamp(2.4rem, 5vw, 3.6rem)',
             fontWeight: '900',
             color: '#ffffff',
-            marginBottom: '42px',
-            letterSpacing: '1px',
+            marginBottom: '54px',
+            letterSpacing: '2px',
           }}>
             FESTIVAL HIGHLIGHTS
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }} className="highlights-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', alignItems: 'flex-start' }} className="highlights-staggered-grid">
             
-            {/* Card 1 - Maroon / Plum */}
+            {/* Card 1 - Maroon / Plum (Shifted Slightly Down) */}
             <div style={{
               background: 'rgba(115, 55, 68, 0.92)',
-              borderRadius: '20px',
-              padding: '38px 28px',
-              boxShadow: '0 15px 35px rgba(0,0,0,0.35)',
-              backdropFilter: 'blur(8px)',
-              border: '1px solid rgba(255,255,255,0.12)',
+              borderRadius: '24px',
+              padding: '48px 36px',
+              boxShadow: '0 20px 45px rgba(0,0,0,0.4)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255,255,255,0.15)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              display: 'flex',
-              flexDirection: 'column',
-              justify: 'space-between',
+              marginTop: '40px',
             }} className="highlight-card">
-              <div>
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M24 6L14 16H34L24 6Z" />
-                  <path d="M18 16V38H30V16" />
-                  <path d="M12 38H36" />
-                  <path d="M21 38V28C21 26.3431 22.3431 25 24 25C25.6569 25 27 26.3431 27 28V38" />
-                  <circle cx="24" cy="11" r="1.5" fill="#ffffff" />
-                </svg>
-                <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '1.35rem', fontWeight: '800', color: '#ffffff', marginTop: '24px', marginBottom: '12px' }}>
-                  প্রতিমা দর্শন
-                </h3>
-                <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.88)', lineHeight: 1.7, margin: 0 }}>
-                  পঞ্চমী থেকে দশমী পর্যন্ত নিখুঁত প্রতিমা দর্শনের সুযোগ
-                </p>
-              </div>
+              <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1.6rem, 2.2vw, 2.1rem)', fontWeight: '800', color: '#ffffff', marginBottom: '16px' }}>
+                প্রতিমা দর্শন
+              </h3>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1rem, 1.2vw, 1.12rem)', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.8, margin: 0 }}>
+                পঞ্চমী থেকে দশমী পর্যন্ত নিখুঁত প্রতিমা দর্শনের সুযোগ
+              </p>
             </div>
 
-            {/* Card 2 - Rich Crimson Red */}
+            {/* Card 2 - Rich Crimson Red (Shifted Top/Higher) */}
             <div style={{
               background: '#D9433B',
-              borderRadius: '20px',
-              padding: '38px 28px',
-              boxShadow: '0 15px 35px rgba(217, 67, 59, 0.4)',
-              border: '1px solid rgba(255,255,255,0.18)',
+              borderRadius: '24px',
+              padding: '48px 36px',
+              boxShadow: '0 20px 45px rgba(217, 67, 59, 0.45)',
+              border: '1px solid rgba(255,255,255,0.2)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              display: 'flex',
-              flexDirection: 'column',
-              justify: 'space-between',
+              marginTop: '0px',
             }} className="highlight-card">
-              <div>
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="10" y="8" width="28" height="32" rx="4" />
-                  <path d="M18 18H30" />
-                  <path d="M18 24H30" />
-                  <path d="M18 30H24" />
-                  <path d="M24 14V16" />
-                </svg>
-                <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '1.35rem', fontWeight: '800', color: '#ffffff', marginTop: '24px', marginBottom: '12px' }}>
-                  সাংস্কৃতিক অনুষ্ঠান
-                </h3>
-                <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.7, margin: 0 }}>
-                  সঙ্গীত, নৃত্য ও বিভিন্ন সাংস্কৃতিক পরিবেশনা
-                </p>
-              </div>
+              <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1.6rem, 2.2vw, 2.1rem)', fontWeight: '800', color: '#ffffff', marginBottom: '16px' }}>
+                সাংস্কৃতিক অনুষ্ঠান
+              </h3>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1rem, 1.2vw, 1.12rem)', color: 'rgba(255, 255, 255, 0.95)', lineHeight: 1.8, margin: 0 }}>
+                সঙ্গীত, নৃত্য ও বিভিন্ন সাংস্কৃতিক পরিবেশনা
+              </p>
             </div>
 
-            {/* Card 3 - Crisp Pure White */}
+            {/* Card 3 - Crisp Pure White (Shifted Further Down) */}
             <div style={{
               background: '#FFFFFF',
-              borderRadius: '20px',
-              padding: '38px 28px',
-              boxShadow: '0 18px 45px rgba(0,0,0,0.3)',
+              borderRadius: '24px',
+              padding: '48px 36px',
+              boxShadow: '0 22px 50px rgba(0,0,0,0.35)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              display: 'flex',
-              flexDirection: 'column',
-              justify: 'space-between',
+              marginTop: '80px',
             }} className="highlight-card">
-              <div>
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#D9433B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 28C14 22 20 18 24 18C28 18 34 22 34 28C34 33.5228 29.5228 38 24 38C18.4772 38 14 33.5228 14 28Z" />
-                  <path d="M19 18V14H29V18" />
-                  <path d="M21 10H27" />
-                  <path d="M24 10V14" />
-                  <circle cx="24" cy="27" r="3" fill="#D9433B" />
-                </svg>
-                <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '1.35rem', fontWeight: '800', color: '#D9433B', marginTop: '24px', marginBottom: '12px' }}>
-                  ভোগ বিতরণ
-                </h3>
-                <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: '0.9rem', color: '#555555', lineHeight: 1.7, margin: 0 }}>
-                  সকল ভক্তদের জন্য প্রসাদ ও ভোগ পরিবেশন
-                </p>
-              </div>
+              <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1.6rem, 2.2vw, 2.1rem)', fontWeight: '800', color: '#D9433B', marginBottom: '16px' }}>
+                ভোগ বিতরণ
+              </h3>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1rem, 1.2vw, 1.12rem)', color: '#444444', lineHeight: 1.8, margin: 0 }}>
+                সকল ভক্তদের জন্য প্রসাদ ও ভোগ পরিবেশন
+              </p>
             </div>
 
           </div>
@@ -811,6 +778,14 @@ export default function Home() {
           .hero-durga-img { max-width: 480px; max-height: calc(100vh - 140px); }
           .hero-text-col { padding: 20px 10px; }
           .hero-bn-title { font-size: clamp(2.5rem, 7vw, 4.5rem); }
+          .highlights-staggered-grid {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          .highlight-card {
+            margin-top: 0 !important;
+            padding: 36px 28px !important;
+          }
         }
 
         /* ── Mobile ── */
