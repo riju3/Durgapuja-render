@@ -399,21 +399,21 @@ export default function Home() {
             <div style={{
               background: 'rgba(115, 55, 68, 0.92)',
               borderRadius: '20px',
-              padding: '42px 30px',
-              minHeight: '340px',
-              boxShadow: '0 20px 45px rgba(0,0,0,0.4)',
+              padding: '28px 24px',
+              minHeight: '210px',
+              boxShadow: '0 16px 40px rgba(0,0,0,0.35)',
               backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255,255,255,0.15)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              marginTop: '90px',
+              marginTop: '60px',
               display: 'flex',
               flexDirection: 'column',
               justify: 'center',
             }} className="highlight-card">
-              <h3 style={{ fontFamily: "'Lipishree Unicode', 'Lipishree', serif", fontSize: 'clamp(1.7rem, 2.3vw, 2.2rem)', fontWeight: '700', color: '#ffffff', marginBottom: '16px' }}>
+              <h3 style={{ fontFamily: "'Lipishree Unicode', 'Lipishree', serif", fontSize: 'clamp(1.5rem, 2.1vw, 1.95rem)', fontWeight: '700', color: '#ffffff', marginBottom: '12px' }}>
                 প্রতিমা দর্শন
               </h3>
-              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.8, margin: 0 }}>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.9rem, 1.05vw, 1rem)', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.7, margin: 0 }}>
                 পঞ্চমী থেকে দশমী পর্যন্ত নিখুঁত প্রতিমা দর্শনের সুযোগ
               </p>
             </div>
@@ -422,20 +422,20 @@ export default function Home() {
             <div style={{
               background: '#D9433B',
               borderRadius: '20px',
-              padding: '42px 30px',
-              minHeight: '340px',
-              boxShadow: '0 20px 45px rgba(217, 67, 59, 0.45)',
+              padding: '28px 24px',
+              minHeight: '210px',
+              boxShadow: '0 16px 40px rgba(217, 67, 59, 0.45)',
               border: '1px solid rgba(255,255,255,0.2)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              marginTop: '45px',
+              marginTop: '30px',
               display: 'flex',
               flexDirection: 'column',
               justify: 'center',
             }} className="highlight-card">
-              <h3 style={{ fontFamily: "'Lipishree Unicode', 'Lipishree', serif", fontSize: 'clamp(1.7rem, 2.3vw, 2.2rem)', fontWeight: '700', color: '#ffffff', marginBottom: '16px' }}>
+              <h3 style={{ fontFamily: "'Lipishree Unicode', 'Lipishree', serif", fontSize: 'clamp(1.5rem, 2.1vw, 1.95rem)', fontWeight: '700', color: '#ffffff', marginBottom: '12px' }}>
                 সাংস্কৃতিক অনুষ্ঠান
               </h3>
-              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.95)', lineHeight: 1.8, margin: 0 }}>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.9rem, 1.05vw, 1rem)', color: 'rgba(255, 255, 255, 0.95)', lineHeight: 1.7, margin: 0 }}>
                 সঙ্গীত, নৃত্য ও বিভিন্ন সাংস্কৃতিক পরিবেশনা
               </p>
             </div>
@@ -444,19 +444,19 @@ export default function Home() {
             <div style={{
               background: '#FFFFFF',
               borderRadius: '20px',
-              padding: '42px 30px',
-              minHeight: '340px',
-              boxShadow: '0 22px 50px rgba(0,0,0,0.35)',
+              padding: '28px 24px',
+              minHeight: '210px',
+              boxShadow: '0 18px 45px rgba(0,0,0,0.35)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               marginTop: '0px',
               display: 'flex',
               flexDirection: 'column',
               justify: 'center',
             }} className="highlight-card">
-              <h3 style={{ fontFamily: "'Lipishree Unicode', 'Lipishree', serif", fontSize: 'clamp(1.7rem, 2.3vw, 2.2rem)', fontWeight: '700', color: '#D9433B', marginBottom: '16px' }}>
+              <h3 style={{ fontFamily: "'Lipishree Unicode', 'Lipishree', serif", fontSize: 'clamp(1.5rem, 2.1vw, 1.95rem)', fontWeight: '700', color: '#D9433B', marginBottom: '12px' }}>
                 ভোগ বিতরণ
               </h3>
-              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: '#444444', lineHeight: 1.8, margin: 0 }}>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.9rem, 1.05vw, 1rem)', color: '#444444', lineHeight: 1.7, margin: 0 }}>
                 সকল ভক্তদের জন্য প্রসাদ ও ভোগ পরিবেশন
               </p>
             </div>
