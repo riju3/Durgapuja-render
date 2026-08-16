@@ -11,9 +11,6 @@ import slide4 from '../assets/slide4.jpg';
 import slide5 from '../assets/slide5.jpg';
 import tradition from '../assets/tradition.jpg';
 import highlightsBg from '../assets/highlights-bg.jpg';
-import iconDurgaEyes from '../assets/icon-durga-eyes.png';
-import iconDhunuchi from '../assets/icon-dhunuchi.png';
-import iconBhogBowl from '../assets/icon-bhog-bowl.png';
 const slides = [slide1, slide2, slide3, slide4, slide5];
 
 const pujadays = [
@@ -403,7 +400,7 @@ export default function Home() {
               background: 'rgba(115, 55, 68, 0.92)',
               borderRadius: '20px',
               padding: '42px 30px',
-              minHeight: '350px',
+              minHeight: '340px',
               boxShadow: '0 20px 45px rgba(0,0,0,0.4)',
               backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255,255,255,0.15)',
@@ -413,15 +410,12 @@ export default function Home() {
               flexDirection: 'column',
               justify: 'center',
             }} className="highlight-card">
-              <div>
-                <img src={iconDurgaEyes} alt="Durga Eyes Icon" style={{ height: '56px', width: 'auto', display: 'block', marginBottom: '20px', filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.3))' }} />
-                <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1.5rem, 2vw, 1.95rem)', fontWeight: '800', color: '#ffffff', marginBottom: '14px' }}>
-                  প্রতিমা দর্শন
-                </h3>
-                <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.8, margin: 0 }}>
-                  পঞ্চমী থেকে দশমী পর্যন্ত নিখুঁত প্রতিমা দর্শনের সুযোগ
-                </p>
-              </div>
+              <h3 style={{ fontFamily: "'Lipishree Unicode', 'Lipishree', serif", fontSize: 'clamp(1.7rem, 2.3vw, 2.2rem)', fontWeight: '700', color: '#ffffff', marginBottom: '16px' }}>
+                প্রতিমা দর্শন
+              </h3>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.8, margin: 0 }}>
+                পঞ্চমী থেকে দশমী পর্যন্ত নিখুঁত প্রতিমা দর্শনের সুযোগ
+              </p>
             </div>
 
             {/* Card 2 - Rich Crimson Red (Higher than 1st) */}
@@ -429,7 +423,7 @@ export default function Home() {
               background: '#D9433B',
               borderRadius: '20px',
               padding: '42px 30px',
-              minHeight: '350px',
+              minHeight: '340px',
               boxShadow: '0 20px 45px rgba(217, 67, 59, 0.45)',
               border: '1px solid rgba(255,255,255,0.2)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -438,15 +432,12 @@ export default function Home() {
               flexDirection: 'column',
               justify: 'center',
             }} className="highlight-card">
-              <div>
-                <img src={iconDhunuchi} alt="Dhunuchi Dance Icon" style={{ height: '72px', width: 'auto', display: 'block', marginBottom: '20px', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))' }} />
-                <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1.5rem, 2vw, 1.95rem)', fontWeight: '800', color: '#ffffff', marginBottom: '14px' }}>
-                  সাংস্কৃতিক অনুষ্ঠান
-                </h3>
-                <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.95)', lineHeight: 1.8, margin: 0 }}>
-                  সঙ্গীত, নৃত্য ও বিভিন্ন সাংস্কৃতিক পরিবেশনা
-                </p>
-              </div>
+              <h3 style={{ fontFamily: "'Lipishree Unicode', 'Lipishree', serif", fontSize: 'clamp(1.7rem, 2.3vw, 2.2rem)', fontWeight: '700', color: '#ffffff', marginBottom: '16px' }}>
+                সাংস্কৃতিক অনুষ্ঠান
+              </h3>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.95)', lineHeight: 1.8, margin: 0 }}>
+                সঙ্গীত, নৃত্য ও বিভিন্ন সাংস্কৃতিক পরিবেশনা
+              </p>
             </div>
 
             {/* Card 3 - Crisp Pure White (Highest of All / Higher than 2nd) */}
@@ -454,7 +445,7 @@ export default function Home() {
               background: '#FFFFFF',
               borderRadius: '20px',
               padding: '42px 30px',
-              minHeight: '350px',
+              minHeight: '340px',
               boxShadow: '0 22px 50px rgba(0,0,0,0.35)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               marginTop: '0px',
@@ -462,15 +453,12 @@ export default function Home() {
               flexDirection: 'column',
               justify: 'center',
             }} className="highlight-card">
-              <div>
-                <img src={iconBhogBowl} alt="Bhog Bowl Icon" style={{ height: '65px', width: 'auto', display: 'block', marginBottom: '20px', filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.15))' }} />
-                <h3 style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(1.5rem, 2vw, 1.95rem)', fontWeight: '800', color: '#D9433B', marginBottom: '14px' }}>
-                  ভোগ বিতরণ
-                </h3>
-                <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: '#444444', lineHeight: 1.8, margin: 0 }}>
-                  সকল ভক্তদের জন্য প্রসাদ ও ভোগ পরিবেশন
-                </p>
-              </div>
+              <h3 style={{ fontFamily: "'Lipishree Unicode', 'Lipishree', serif", fontSize: 'clamp(1.7rem, 2.3vw, 2.2rem)', fontWeight: '700', color: '#D9433B', marginBottom: '16px' }}>
+                ভোগ বিতরণ
+              </h3>
+              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', color: '#444444', lineHeight: 1.8, margin: 0 }}>
+                সকল ভক্তদের জন্য প্রসাদ ও ভোগ পরিবেশন
+              </p>
             </div>
 
           </div>
