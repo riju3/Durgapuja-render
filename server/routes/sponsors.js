@@ -9,7 +9,7 @@ const router = express.Router();
 // GET all sponsors
 router.get('/', async (req, res) => {
   try {
-    const sponsors = await Sponsor.find().sort('order');
+    const sponsors = await Sponsor.find().sort('order').lean();
     res.json(sponsors);
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const team = await Team.find().sort('order');
+    const team = await Team.find().sort('order').lean();
     res.json(team);
   } catch (err) { res.status(500).json({ message: err.message }); }
 });

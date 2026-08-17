@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../utils/api';
+import { getOptimizedImageUrl } from '../utils/imageUtils';
 import heroBg from '../assets/hero-bg.jpg';
 import durgaImg from '../assets/durga.png';
 import trishulImg from '../assets/trishul.png';
@@ -436,7 +437,7 @@ export default function Home() {
                   boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
                   zIndex: 2,
                 }} className="collage-photo-topleft">
-                  <img src={settings.traditionCard2} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="eager" decoding="async" />
+                  <img src={getOptimizedImageUrl(settings.traditionCard2)} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="eager" decoding="async" />
                 </div>
               )}
 
@@ -452,7 +453,7 @@ export default function Home() {
                   boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
                   zIndex: 3,
                 }} className="collage-photo-bottomright">
-                  <img src={settings.traditionCard3} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="eager" decoding="async" />
+                  <img src={getOptimizedImageUrl(settings.traditionCard3)} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="eager" decoding="async" />
                 </div>
               )}
 
@@ -477,7 +478,7 @@ export default function Home() {
                   boxShadow: '0 25px 65px rgba(0,0,0,0.22)',
                   zIndex: 10,
                 }} className="collage-photo-center">
-                  <img src={settings.traditionCard1} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="eager" decoding="async" />
+                  <img src={getOptimizedImageUrl(settings.traditionCard1)} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="eager" decoding="async" />
                 </div>
               )}
 

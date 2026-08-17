@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
 import dhakImg from '../assets/dhak.png';
-import api from '../utils/api';
+import api, { getCached } from '../utils/api';
 
 const styles = {
   nav: {
@@ -136,6 +136,28 @@ export default function Navbar() {
     display: 'block',
   });
 
+  const handleLinkHover = (path) => {
+    if (path === '/about') {
+      import('../pages/About').catch(() => {});
+      getCached('/settings').catch(() => {});
+    } else if (path === '/events') {
+      import('../pages/Events').catch(() => {});
+      getCached('/events').catch(() => {});
+    } else if (path === '/gallery') {
+      import('../pages/Gallery').catch(() => {});
+      getCached('/gallery').catch(() => {});
+    } else if (path === '/team') {
+      import('../pages/Team').catch(() => {});
+      getCached('/team').catch(() => {});
+    } else if (path === '/contact') {
+      import('../pages/Contact').catch(() => {});
+      getCached('/settings').catch(() => {});
+    } else if (path === '/downloads') {
+      import('../pages/Downloads').catch(() => {});
+      getCached('/downloads').catch(() => {});
+    }
+  };
+
   return (
     <>
       <nav style={{ ...styles.nav, boxShadow: scrolled ? '0 4px 20px rgba(192,57,43,0.2)' : styles.nav.boxShadow }}>
@@ -152,7 +174,15 @@ export default function Navbar() {
         <ul style={{ ...styles.links, '@media(max-width:768px)': { display: 'none' } }} className="nav-links">
           {[['/', 'Home'], ['/about', 'About'], ['/events', 'Events'], ['/gallery', 'Gallery'], ['/team', 'Team'], ['/contact', 'Contact'], ['/downloads', 'Downloads']].map(([path, label]) => (
             <li key={path}>
-              <NavLink to={path} end={path === '/'} style={navLinkStyle}>{label}</NavLink>
+              <NavLink
+                to={path}
+                end={path === '/'}
+                style={navLinkStyle}
+                onMouseEnter={() => handleLinkHover(path)}
+                onTouchStart={() => handleLinkHover(path)}
+              >
+                {label}
+              </NavLink>
             </li>
           ))}
           {isAdmin && (

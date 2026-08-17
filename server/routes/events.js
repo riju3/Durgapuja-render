@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
   try {
     const { year } = req.query;
     const filter = year ? { year: Number(year) } : {};
-    const events = await Event.find(filter).sort('order');
+    const events = await Event.find(filter).sort('order').lean();
     res.json(events);
   } catch (err) { res.status(500).json({ message: err.message }); }
 });

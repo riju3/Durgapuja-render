@@ -11,9 +11,12 @@ import settingsRoutes from './routes/settings.js';
 import downloadsRoutes from './routes/downloads.js';
 import sponsorsRoutes from './routes/sponsors.js';
 
+import compression from 'compression';
+
 dotenv.config();
 
 const app = express();
+app.use(compression());
 
 // CORS - allow both localhost (dev) and Render frontend URL (prod)
 const allowedOrigins = [

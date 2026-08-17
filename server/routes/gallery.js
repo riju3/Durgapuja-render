@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   try {
     const { year } = req.query;
     const filter = year ? { year: Number(year) } : {};
-    const photos = await Gallery.find(filter).sort('-createdAt');
+    const photos = await Gallery.find(filter).sort('-createdAt').lean();
     res.json(photos);
   } catch (err) {
     res.status(500).json({ message: err.message });
