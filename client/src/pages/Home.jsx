@@ -90,10 +90,41 @@ export default function Home() {
   }, [settings]);
 
   useEffect(() => {
-    api.get('/settings').then(r => setSettings(r.data)).catch(() => {});
-    api.get('/sponsors').then(r => setSponsors(r.data)).catch(() => {});
-    api.get('/gallery?limit=6').then(r => setGallery(r.data.slice(0, 6))).catch(() => {});
-    api.get('/events').then(r => setEvents(r.data)).catch(() => {});
+    // Preload static homepage image assets instantly on mount
+    const staticAssets = [heroBg, durgaImg, trishulImg, slide1, slide2, slide3, slide4, slide5, tradition, highlightsBg, collage1, collage2, collage3];
+    staticAssets.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    // Fetch all homepage data in parallel
+    Promise.all([
+      api.get('/settings').catch(() => ({ data: {} })),
+      api.get('/sponsors').catch(() => ({ data: [] })),
+      api.get('/gallery?limit=6').catch(() => ({ data: [] })),
+      api.get('/events').catch(() => ({ data: [] })),
+    ]).then(([sRes, spRes, gRes, eRes]) => {
+      const sData = sRes.data || {};
+      setSettings(sData);
+      setSponsors(spRes.data || []);
+      setGallery((gRes.data || []).slice(0, 6));
+      setEvents(eRes.data || []);
+
+      // Eagerly preload dynamic uploaded section images into GPU/Browser cache
+      const dynamicImages = [
+        sData.traditionCard1,
+        sData.traditionCard2,
+        sData.traditionCard3,
+        ...(sData.showcaseCards || []).map(c => c.imageUrl),
+        ...(gRes.data || []).slice(0, 6).map(g => g.imageUrl),
+        ...(spRes.data || []).map(sp => sp.url || sp.logoUrl)
+      ].filter(Boolean);
+
+      dynamicImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    });
   }, []);
 
   const heroSectionRef = useRef(null);
@@ -186,15 +217,7 @@ export default function Home() {
     return () => clearInterval(intervalRef.current);
   }, []);
 
-  const [heroAnimated, setHeroAnimated] = useState(false);
-
-  useEffect(() => {
-    // Trigger hero text animations only after startup loader/screen finishes
-    const timer = setTimeout(() => {
-      setHeroAnimated(true);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
+  const [heroAnimated, setHeroAnimated] = useState(true);
 
   return (
     <div style={{ background: '#fff' }}>
@@ -213,7 +236,7 @@ export default function Home() {
           transform: 'translate3d(0, 0px, 0) scale(1)',
           willChange: 'transform',
         }}>
-          <img src={durgaImg} alt="Maa Durga" className="hero-durga-img" />
+          <img src={durgaImg} alt="Maa Durga" className="hero-durga-img" loading="eager" decoding="async" />
         </div>
 
         {/* Bengali Text - Right */}
@@ -224,7 +247,7 @@ export default function Home() {
           <div className={`hero-title-wrapper ${heroAnimated ? 'hero-animated' : ''}`} style={{ position: 'relative', display: 'inline-block' }}>
             {/* Animated Trishul Header */}
             <div className="trishul-header-wrap">
-              <img src={trishulImg} alt="Trishul" className="hero-trishul-img" />
+              <img src={trishulImg} alt="Trishul" className="hero-trishul-img" loading="eager" decoding="async" />
             </div>
 
             <h1 className="hero-bn-title">
@@ -413,7 +436,7 @@ export default function Home() {
                   boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
                   zIndex: 2,
                 }} className="collage-photo-topleft">
-                  <img src={settings.traditionCard2} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={settings.traditionCard2} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="eager" decoding="async" />
                 </div>
               )}
 
@@ -429,7 +452,7 @@ export default function Home() {
                   boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
                   zIndex: 3,
                 }} className="collage-photo-bottomright">
-                  <img src={settings.traditionCard3} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={settings.traditionCard3} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="eager" decoding="async" />
                 </div>
               )}
 
@@ -454,7 +477,7 @@ export default function Home() {
                   boxShadow: '0 25px 65px rgba(0,0,0,0.22)',
                   zIndex: 10,
                 }} className="collage-photo-center">
-                  <img src={settings.traditionCard1} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={settings.traditionCard1} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="eager" decoding="async" />
                 </div>
               )}
 
@@ -705,6 +728,8 @@ export default function Home() {
                         objectFit: 'cover',
                         display: 'block',
                       }}
+                      loading="eager"
+                      decoding="async"
                     />
                   </div>
                 );
