@@ -104,17 +104,18 @@ export default function Home() {
         window.requestAnimationFrame(() => {
           const sy = window.scrollY;
           if (sy < 1000) {
-            if (heroSectionRef.current) {
-              const bgY = Math.min(sy * 0.2, 100);
+            // Lock background-position on mobile screens to prevent GPU background repaint glitches
+            if (heroSectionRef.current && window.innerWidth > 600) {
+              const bgY = Math.min(sy * 0.15, 80);
               heroSectionRef.current.style.backgroundPosition = `center ${bgY}px`;
             }
             if (durgaColRef.current) {
-              const durgaY = -Math.min(sy * 0.22, 160);
-              const durgaScale = 1 + Math.min(sy * 0.0003, 0.08);
+              const durgaY = -Math.min(sy * 0.18, 140);
+              const durgaScale = 1 + Math.min(sy * 0.0002, 0.05);
               durgaColRef.current.style.transform = `translate3d(0, ${durgaY}px, 0) scale(${durgaScale})`;
             }
             if (textColRef.current) {
-              const textY = -Math.min(sy * 0.28, 200);
+              const textY = -Math.min(sy * 0.22, 160);
               textColRef.current.style.transform = `translate3d(0, ${textY}px, 0)`;
             }
           }
@@ -824,6 +825,10 @@ export default function Home() {
             justify-content: flex-start !important;
             min-height: calc(100vh - 70px) !important;
             padding: 16px 12px 30px !important;
+            background-position: center top !important;
+            background-attachment: scroll !important;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
           }
           .hero-durga-col {
             width: 100% !important;
