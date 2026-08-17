@@ -383,7 +383,7 @@ export default function Home() {
 
       {/* YOUTUBE VIDEO SECTION */}
       <section style={{ background: '#FDF6EC', padding: '60px 0' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px', alignItems: 'center' }} className="video-grid container">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px', alignItems: 'center' }} className="video-grid container">
           <div style={{ borderRadius: '12px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.15)', aspectRatio: '16/9' }}>
             <iframe
               width="100%" height="100%"
@@ -575,7 +575,7 @@ export default function Home() {
 
       {/* TRADITIONS SECTION */}
       <section style={{ padding: '60px 0', background: '#fff' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px', alignItems: 'center' }} className="tradition-grid container">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px', alignItems: 'center' }} className="tradition-grid container">
           <div style={{ borderRadius: '12px', overflow: 'hidden', height: '320px' }}>
             <img src={tradition} alt="Tradition" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
@@ -741,7 +741,7 @@ export default function Home() {
 
       {/* HAPPY DURGA PUJA BANNER */}
       <section style={{ background: '#fff', padding: '50px 0' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center' }} className="happy-grid container">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center' }} className="happy-grid container">
           <div>
             <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', color: '#C0392B', marginBottom: '16px' }}>
               Happy Durga Puja!
