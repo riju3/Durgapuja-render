@@ -151,15 +151,6 @@ export default function AdminSettings() {
           )}
         </div>
 
-        {/* About Text */}
-        <div style={card}>
-          <h3 style={cardTitle}>📝 About Text</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <Field label="About Text (English)" field="aboutText" rows={4} placeholder="Describe your puja..." />
-            <Field label="পরিচিতি (বাংলা)" field="aboutTextBn" rows={4} bengali placeholder="পূজার পরিচিতি..." />
-          </div>
-        </div>
-
         {/* Social */}
         <div style={card}>
           <h3 style={cardTitle}>🌐 Social Media Links</h3>
