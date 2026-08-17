@@ -398,59 +398,65 @@ export default function Home() {
             alignItems: 'center',
           }} className="tradition-collage-grid">
             
-            {/* Left Column: 3-Photo Overlapping 3D Collage (Spacious Left Alignment) */}
-            <div style={{ position: 'relative', minHeight: '600px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '40px' }} className="collage-container">
+            {/* Left Column: 3-Photo Overlapping 3D Collage (Renders ONLY when photos are uploaded by admin) */}
+            <div style={{ position: 'relative', minHeight: '600px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '80px' }} className="collage-container">
               
-              {/* Photo 2: Top-Left Portrait Photo (Behind Main Photo) */}
-              <div style={{
-                position: 'absolute',
-                top: '-60px',
-                left: '-40px',
-                width: '260px',
-                height: '340px',
-                overflow: 'hidden',
-                boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
-                zIndex: 2,
-              }}>
-                <img src={settings.traditionCard2 || collage2} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </div>
+              {/* Photo 2: Top-Left Portrait Photo (Smaller & Shifted Further Outwards) */}
+              {settings.traditionCard2 && (
+                <div style={{
+                  position: 'absolute',
+                  top: '-65px',
+                  left: '-100px',
+                  width: '210px',
+                  height: '270px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
+                  zIndex: 2,
+                }}>
+                  <img src={settings.traditionCard2} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              )}
 
-              {/* Photo 3: Bottom-Right Portrait Photo (Behind Main Photo) */}
-              <div style={{
-                position: 'absolute',
-                bottom: '-60px',
-                right: '-30px',
-                width: '220px',
-                height: '280px',
-                overflow: 'hidden',
-                boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
-                zIndex: 3,
-              }}>
-                <img src={settings.traditionCard3 || collage3} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </div>
+              {/* Photo 3: Bottom-Right Portrait Photo (Smaller & Shifted Further Outwards) */}
+              {settings.traditionCard3 && (
+                <div style={{
+                  position: 'absolute',
+                  bottom: '-65px',
+                  right: '-80px',
+                  width: '190px',
+                  height: '240px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
+                  zIndex: 3,
+                }}>
+                  <img src={settings.traditionCard3} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              )}
 
               {/* Maroon Decorative Accent Square (Top-Right Floating) */}
               <div style={{
                 position: 'absolute',
                 top: '20px',
-                right: '-15px',
+                right: '-35px',
                 width: '24px',
                 height: '24px',
                 background: '#733744',
                 zIndex: 4,
               }} />
 
-              {/* Photo 1: Main Center Large Square Card - HIGHEST Z-INDEX (100% Fully Visible On Top) */}
-              <div style={{
-                position: 'relative',
-                width: '520px',
-                height: '520px',
-                overflow: 'hidden',
-                boxShadow: '0 25px 65px rgba(0,0,0,0.22)',
-                zIndex: 10,
-              }}>
-                <img src={settings.traditionCard1 || collage1} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </div>
+              {/* Photo 1: Main Center Large Square Card (Highest Z-Index) */}
+              {settings.traditionCard1 && (
+                <div style={{
+                  position: 'relative',
+                  width: '500px',
+                  height: '500px',
+                  overflow: 'hidden',
+                  boxShadow: '0 25px 65px rgba(0,0,0,0.22)',
+                  zIndex: 10,
+                }}>
+                  <img src={settings.traditionCard1} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              )}
 
             </div>
 
