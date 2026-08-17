@@ -621,12 +621,11 @@ export default function Home() {
             
             {/* Card 1 - Maroon / Plum (Lowest / Starts Down) */}
             <div style={{
-              background: 'rgba(115, 55, 68, 0.92)',
+              background: 'rgba(115, 55, 68, 0.96)',
               borderRadius: '20px',
               padding: '28px 24px',
               minHeight: '210px',
               boxShadow: '0 16px 40px rgba(0,0,0,0.35)',
-              backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255,255,255,0.15)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               marginTop: '60px',
