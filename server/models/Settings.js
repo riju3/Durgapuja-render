@@ -10,8 +10,8 @@ const settingsSchema = new mongoose.Schema({
   facebook: { type: String, default: '' },
   instagram: { type: String, default: '' },
   youtube: { type: String, default: '' },
-  aboutText: { type: String, default: 'Celebrate the divine energy of Durga Maa with Chowdhurybati Durga Puja. Where every moment is a joyous embrace of heritage and festivity.' },
-  aboutTextBn: { type: String, default: 'মা দুর্গার দিব্য শক্তির সাথে চৌধুরীবাটি দুর্গাপূজায় যোগ দিন। যেখানে প্রতিটি মুহূর্ত ঐতিহ্য ও উৎসবের আনন্দময় আলিঙ্গন।' },
+  aboutText: { type: String, default: '' },
+  aboutTextBn: { type: String, default: '' },
   // Puja countdown dates (ISO date strings, e.g. "2025-10-02")
   dateMailaya:  { type: String, default: '' },
   datePanchami: { type: String, default: '' },

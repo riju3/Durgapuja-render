@@ -18,12 +18,16 @@ export function About() {
               <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', color: '#C0392B', marginBottom: '20px' }}>
                 Chowdhury Bari Durga Utsav
               </h2>
-              <p style={{ color: '#3d2b1f', lineHeight: 1.9, marginBottom: '20px', fontSize: '0.95rem' }}>
-                {settings.aboutText || 'Celebrate the divine energy of Durga Maa with Chowdhurybati Durga Puja. Where every moment is a joyous embrace of heritage and festivity.'}
-              </p>
-              <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#3d2b1f', lineHeight: 2, fontSize: '0.92rem' }}>
-                {settings.aboutTextBn || 'প্রতি বছর দুর্গাপূজা উপলক্ষে চৌধুরীবাটিতে আয়োজিত হয় এই মহোৎসব। সংস্কৃতি, ঐতিহ্য ও আনন্দের এক অপূর্ব মিলনমেলা। প্রজন্মের পর প্রজন্ম ধরে এই উৎসব আমাদের একত্রিত করে আসছে।'}
-              </p>
+              {settings.aboutText && (
+                <p style={{ color: '#3d2b1f', lineHeight: 1.9, marginBottom: '20px', fontSize: '0.95rem' }}>
+                  {settings.aboutText}
+                </p>
+              )}
+              {settings.aboutTextBn && (
+                <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#3d2b1f', lineHeight: 2, fontSize: '0.92rem' }}>
+                  {settings.aboutTextBn}
+                </p>
+              )}
             </div>
             <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.12)' }}>
               <img src={slide1} alt="About" style={{ width: '100%', height: '380px', objectFit: 'cover' }} />
