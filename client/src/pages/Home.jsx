@@ -183,6 +183,16 @@ export default function Home() {
     return () => clearInterval(intervalRef.current);
   }, []);
 
+  const [heroAnimated, setHeroAnimated] = useState(false);
+
+  useEffect(() => {
+    // Trigger hero text animations only after startup loader/screen finishes
+    const timer = setTimeout(() => {
+      setHeroAnimated(true);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div style={{ background: '#fff' }}>
       {/* HERO BANNER */}
@@ -208,7 +218,7 @@ export default function Home() {
           transform: 'translate3d(0, 0px, 0)',
           willChange: 'transform',
         }}>
-          <div className="hero-title-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
+          <div className={`hero-title-wrapper ${heroAnimated ? 'hero-animated' : ''}`} style={{ position: 'relative', display: 'inline-block' }}>
             {/* Animated Trishul Header */}
             <div className="trishul-header-wrap">
               <img src={trishulImg} alt="Trishul" className="hero-trishul-img" />
@@ -704,6 +714,8 @@ export default function Home() {
           padding-left: 10px;
           margin-top: 0;
           margin-bottom: -10px;
+        }
+        .hero-animated .type-line-1 {
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
         }
         .type-line-2 {
@@ -716,6 +728,8 @@ export default function Home() {
           padding-left: 10px;
           margin-top: -10px;
           margin-bottom: -10px;
+        }
+        .hero-animated .type-line-2 {
           animation: typeWrite 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 2.0s forwards;
         }
 
@@ -736,6 +750,8 @@ export default function Home() {
           text-align: center;
           margin-bottom: -145px;
           opacity: 0;
+        }
+        .hero-animated .trishul-header-wrap {
           animation: trishulFadeIn 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s forwards;
         }
         .hero-trishul-img {
@@ -762,6 +778,8 @@ export default function Home() {
           text-align: center;
           margin-top: 28px;
           opacity: 0;
+        }
+        .hero-animated .hero-subtext-wrap {
           animation: subtextFadeIn 1s ease-in-out 3.5s forwards;
         }
         .hero-subtext-en {
