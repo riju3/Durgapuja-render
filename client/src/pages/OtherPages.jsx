@@ -68,6 +68,38 @@ export function About() {
               </div>
             ))}
           </div>
+
+          {/* Dynamic Full-Width About Boxes (Rendered below stats cards) */}
+          {settings.aboutCards && settings.aboutCards.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', marginTop: '40px' }}>
+              {settings.aboutCards.map((card, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    background: '#fff', borderRadius: '14px', padding: '36px 40px',
+                    boxShadow: '0 4px 18px rgba(0,0,0,0.06)', borderTop: '4px solid #C0392B',
+                    border: '1px solid #e8d5c4', borderTopWidth: '4px'
+                  }}
+                >
+                  {card.title && (
+                    <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.4rem', color: '#C0392B', fontWeight: '700', marginBottom: '14px' }}>
+                      {card.title}
+                    </h3>
+                  )}
+                  {card.content && (
+                    <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#3d2b1f', fontSize: '0.96rem', lineHeight: 1.9, whiteSpace: 'pre-wrap' }}>
+                      {card.content}
+                    </p>
+                  )}
+                  {card.image && (
+                    <div style={{ marginTop: '20px', borderRadius: '10px', overflow: 'hidden' }}>
+                      <img src={card.image} alt={card.title || 'About Image'} style={{ width: '100%', maxHeight: '450px', objectFit: 'cover' }} />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
       <style>{`@media(max-width:768px){ .about-grid,.stats-grid{grid-template-columns:1fr !important;} }`}</style>

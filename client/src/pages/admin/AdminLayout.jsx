@@ -5,6 +5,7 @@ import logo from '../../assets/logo.png';
 
 const navItems = [
   { to: '/admin', label: 'Dashboard', icon: '📊', end: true },
+  { to: '/admin/about', label: 'About', icon: 'ℹ️' },
   { to: '/admin/gallery', label: 'Gallery', icon: '🖼️' },
   { to: '/admin/events', label: 'Puja Days', icon: '📅' },
   { to: '/admin/team', label: 'Team', icon: '👥' },

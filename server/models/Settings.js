@@ -31,6 +31,13 @@ const settingsSchema = new mongoose.Schema({
     title: { type: String, default: '' },
     description: { type: String, default: '' }
   }],
+  // Dynamic About Page full-width text/image cards
+  aboutCards: [{
+    title: { type: String, default: '' },
+    content: { type: String, default: '' },
+    image: { type: String, default: '' },
+    order: { type: Number, default: 0 }
+  }],
 }, { timestamps: true });
 
 

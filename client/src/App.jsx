@@ -28,6 +28,7 @@ const Login = lazy(() => import('./pages/Login'));
 
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminAbout = lazy(() => import('./pages/admin/AdminAbout'));
 const AdminGallery = lazy(() => import('./pages/admin/AdminGallery'));
 const AdminEvents = lazy(() => import('./pages/admin/AdminEvents'));
 const AdminTeam = lazy(() => import('./pages/admin/AdminTeam'));
@@ -82,6 +83,7 @@ export default function App() {
             <Route path="/register" element={<Navigate to="/login" />} />
             <Route path="/admin" element={<ProtectedAdmin><AdminLayout /></ProtectedAdmin>}>
               <Route index element={<AdminDashboard />} />
+              <Route path="about" element={<AdminAbout />} />
               <Route path="gallery" element={<AdminGallery />} />
               <Route path="events" element={<AdminEvents />} />
               <Route path="team" element={<AdminTeam />} />
