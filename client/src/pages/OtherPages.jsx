@@ -188,8 +188,12 @@ export function About() {
                     </p>
                   )}
                   {card.image && (
-                    <div style={{ marginTop: '20px', borderRadius: '10px', overflow: 'hidden' }}>
-                      <img src={card.image} alt={card.title || 'About Image'} style={{ width: '100%', maxHeight: '450px', objectFit: 'cover' }} />
+                    <div style={{ marginTop: '20px', borderRadius: '10px', overflow: 'hidden', display: 'flex', justifyContent: 'center', background: '#FAF6F0', padding: '10px' }}>
+                      <img
+                        src={card.image}
+                        alt={card.title || 'About Image'}
+                        style={{ width: '100%', height: 'auto', maxHeight: '700px', objectFit: 'contain', display: 'block', borderRadius: '8px' }}
+                      />
                     </div>
                   )}
                 </div>
