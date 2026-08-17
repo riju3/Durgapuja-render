@@ -398,8 +398,8 @@ export default function Home() {
             alignItems: 'center',
           }} className="tradition-collage-grid">
             
-            {/* Left Column: 3-Photo Overlapping 3D Collage (No Frame, Much Larger) */}
-            <div style={{ position: 'relative', minHeight: '560px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="collage-container">
+            {/* Left Column: 3-Photo Overlapping 3D Collage (Aligned Further Left) */}
+            <div style={{ position: 'relative', minHeight: '560px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '35px' }} className="collage-container">
               
               {/* Photo 2: Top-Left Behind */}
               <div style={{
