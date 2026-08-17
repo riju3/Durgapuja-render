@@ -35,6 +35,80 @@ export function About() {
     );
   }
 
+  const triggerPartyPopper = () => {
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '99999';
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colors = ['#C0392B', '#D4AF37', '#733744', '#F0D060', '#E74C3C', '#FFFFFF', '#F39C12'];
+    const particles = [];
+    const particleCount = 130;
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * 100,
+        vx: (Math.random() - 0.5) * 9,
+        vy: Math.random() * 6 + 4,
+        size: Math.random() * 12 + 6,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5) * 12,
+        shape: Math.random() > 0.3 ? 'rect' : 'circle'
+      });
+    }
+
+    let startTime = Date.now();
+    const duration = 3200;
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        p.x += p.vx + Math.sin(elapsed / 180) * 1.8;
+        p.y += p.vy;
+        p.rotation += p.rotationSpeed;
+        const opacity = Math.max(0, 1 - elapsed / duration);
+
+        ctx.save();
+        ctx.globalAlpha = opacity;
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+
+        if (p.shape === 'rect') {
+          ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+        } else {
+          ctx.beginPath();
+          ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      });
+
+      if (elapsed < duration) {
+        requestAnimationFrame(animate);
+      } else {
+        if (document.body.contains(canvas)) {
+          document.body.removeChild(canvas);
+        }
+      }
+    };
+
+    requestAnimationFrame(animate);
+  };
+
   return (
     <div>
       <PageHeader title="About Us" />
@@ -60,11 +134,24 @@ export function About() {
               <img src={slide1} alt="About" style={{ width: '100%', height: '380px', objectFit: 'cover' }} />
             </div>
           </div>
+
+          {/* Interactive 3 Stats Cards with Hover Effect & Party Popper Click */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginTop: '60px' }} className="stats-grid">
             {[['300+', 'Years of Celebration'], ['50+', 'Families United'], ['7', 'Days of Festivity']].map(([num, label]) => (
-              <div key={label} style={{ textAlign: 'center', padding: '40px 20px', background: '#fff', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.06)', borderTop: '4px solid #C0392B' }}>
-                <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '3rem', color: '#C0392B', fontWeight: '900' }}>{num}</h3>
-                <p style={{ color: '#7a5c4f', fontWeight: '500', marginTop: '8px' }}>{label}</p>
+              <div
+                key={label}
+                onClick={triggerPartyPopper}
+                className="stats-card-item"
+                style={{
+                  textAlign: 'center', padding: '40px 20px', background: '#fff',
+                  borderRadius: '14px', boxShadow: '0 4px 18px rgba(0,0,0,0.06)',
+                  borderTop: '4px solid #C0392B', cursor: 'pointer',
+                  transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+                  userSelect: 'none'
+                }}
+              >
+                <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '3.2rem', color: '#C0392B', fontWeight: '900', transition: 'color 0.3s' }}>{num}</h3>
+                <p style={{ color: '#7a5c4f', fontWeight: '600', marginTop: '8px', fontSize: '1rem' }}>{label}</p>
               </div>
             ))}
           </div>
@@ -82,7 +169,16 @@ export function About() {
                   }}
                 >
                   {card.title && (
-                    <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.4rem', color: '#C0392B', fontWeight: '700', marginBottom: '14px' }}>
+                    <h3 style={{
+                      fontFamily: 'Playfair Display, serif',
+                      fontSize: 'clamp(1.6rem, 3.5vw, 2.1rem)',
+                      color: '#C0392B',
+                      fontWeight: '800',
+                      marginBottom: '16px',
+                      borderBottom: '2px solid #F0D060',
+                      paddingBottom: '8px',
+                      display: 'inline-block'
+                    }}>
                       {card.title}
                     </h3>
                   )}
@@ -102,7 +198,17 @@ export function About() {
           )}
         </div>
       </section>
-      <style>{`@media(max-width:768px){ .about-grid,.stats-grid{grid-template-columns:1fr !important;} }`}</style>
+      <style>{`
+        .stats-card-item:hover {
+          transform: translateY(-10px) scale(1.02);
+          box-shadow: 0 16px 35px rgba(192, 57, 43, 0.18) !important;
+          border-top-color: #D4AF37 !important;
+        }
+        .stats-card-item:hover h3 {
+          color: #D4AF37 !important;
+        }
+        @media(max-width:768px){ .about-grid,.stats-grid{grid-template-columns:1fr !important;} }
+      `}</style>
     </div>
   );
 }
