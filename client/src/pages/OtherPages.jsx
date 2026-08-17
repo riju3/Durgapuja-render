@@ -6,7 +6,35 @@ import slide1 from '../assets/slide1.jpg';
 
 export function About() {
   const [settings, setSettings] = useState({});
-  useEffect(() => { api.get('/settings').then(r => setSettings(r.data)).catch(() => {}); }, []);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    api.get('/settings')
+      .then(r => setSettings(r.data))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div>
+        <PageHeader title="About Us" />
+        <div style={{
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          minHeight: '50vh', color: '#C0392B', fontFamily: 'Hind Siliguri, sans-serif'
+        }}>
+          <div style={{
+            width: '36px', height: '36px', border: '3px solid #FDF6EC',
+            borderTop: '3px solid #C0392B', borderRadius: '50%',
+            animation: 'spin 0.7s linear infinite', marginBottom: '12px'
+          }} />
+          <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+          <p style={{ fontSize: '0.9rem', fontWeight: '500', color: '#7a5c4f' }}>তথ্য লোড হচ্ছে...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
