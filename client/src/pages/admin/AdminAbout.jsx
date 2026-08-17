@@ -10,6 +10,14 @@ export default function AdminAbout() {
   const [aboutText, setAboutText] = useState('');
   const [aboutTextBn, setAboutTextBn] = useState('');
   const [aboutCards, setAboutCards] = useState([]);
+  const [thenNow, setThenNow] = useState({
+    thenImage: '',
+    thenLabel: 'THEN · 2019',
+    nowImage: '',
+    nowLabel: 'NOW · 2026'
+  });
+  const [uploadingThen, setUploadingThen] = useState(false);
+  const [uploadingNow, setUploadingNow] = useState(false);
 
   // Card Form state
   const [cardTitle, setCardTitle] = useState('');
@@ -29,10 +37,69 @@ export default function AdminAbout() {
       setAboutText(data.aboutText || '');
       setAboutTextBn(data.aboutTextBn || '');
       setAboutCards(data.aboutCards || []);
+      if (data.thenNow) {
+        setThenNow({
+          thenImage: data.thenNow.thenImage || '',
+          thenLabel: data.thenNow.thenLabel || 'THEN · 2019',
+          nowImage: data.thenNow.nowImage || '',
+          nowLabel: data.thenNow.nowLabel || 'NOW · 2026'
+        });
+      }
     } catch (err) {
       toast.error('Failed to load About settings');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUploadThenImage = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploadingThen(true);
+    try {
+      const res = await api.post('/settings/upload-showcase-image', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setThenNow(prev => ({ ...prev, thenImage: res.data.imageUrl }));
+      toast.success('THEN image uploaded!');
+    } catch (err) {
+      toast.error('THEN image upload failed');
+    } finally {
+      setUploadingThen(false);
+    }
+  };
+
+  const handleUploadNowImage = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploadingNow(true);
+    try {
+      const res = await api.post('/settings/upload-showcase-image', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setThenNow(prev => ({ ...prev, nowImage: res.data.imageUrl }));
+      toast.success('NOW image uploaded!');
+    } catch (err) {
+      toast.error('NOW image upload failed');
+    } finally {
+      setUploadingNow(false);
+    }
+  };
+
+  const handleSaveThenNow = async () => {
+    setSaving(true);
+    try {
+      await api.put('/settings', { thenNow });
+      clearMemoryCache('/settings');
+      toast.success('Then vs Now Slider settings saved!');
+    } catch (err) {
+      toast.error('Failed to save Then vs Now Slider settings');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -365,6 +432,103 @@ export default function AdminAbout() {
             ))}
           </div>
         )}
+      </div>
+
+      {/* Interactive Then vs Now Before/After Comparison Slider Manager */}
+      <div style={{
+        background: '#fff', borderRadius: '12px', padding: '28px',
+        boxShadow: '0 4px 15px rgba(0,0,0,0.06)', borderTop: '4px solid #C0392B',
+        marginTop: '32px'
+      }}>
+        <h2 style={{ fontSize: '1.2rem', color: '#C0392B', fontWeight: '700', marginBottom: '6px' }}>
+          Interactive "Then vs Now" (Before / After) Comparison Slider
+        </h2>
+        <p style={{ color: '#7a5c4f', fontSize: '0.85rem', marginBottom: '20px' }}>
+          Upload two photos (Past vs Present) to show an interactive drag comparison slider on the About page below the text boxes.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+          {/* THEN Image Settings */}
+          <div style={{ padding: '16px', borderRadius: '8px', background: '#FDF6EC', border: '1px solid #e8d5c4' }}>
+            <h3 style={{ fontSize: '1rem', color: '#1a0a00', fontWeight: '700', marginBottom: '10px' }}>
+              Left Photo (THEN / Past Image)
+            </h3>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: '600', marginBottom: '4px' }}>Pill Badge Label</label>
+              <input
+                type="text"
+                value={thenNow.thenLabel}
+                onChange={(e) => setThenNow(p => ({ ...p, thenLabel: e.target.value }))}
+                placeholder="THEN · 2019"
+                style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #e8d5c4', fontSize: '0.88rem' }}
+              />
+            </div>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: '600', marginBottom: '4px' }}>Upload THEN Photo</label>
+              <input type="file" accept="image/*" onChange={handleUploadThenImage} style={{ fontSize: '0.82rem' }} />
+              {uploadingThen && <span style={{ color: '#C0392B', fontSize: '0.82rem', marginLeft: '6px' }}>Uploading...</span>}
+            </div>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: '600', marginBottom: '4px' }}>Or Paste THEN Image URL</label>
+              <input
+                type="text"
+                value={thenNow.thenImage}
+                onChange={(e) => setThenNow(p => ({ ...p, thenImage: e.target.value }))}
+                placeholder="https://res.cloudinary.com/..."
+                style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #e8d5c4', fontSize: '0.85rem' }}
+              />
+            </div>
+            {thenNow.thenImage && (
+              <img src={thenNow.thenImage} alt="Then Preview" style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '6px', marginTop: '8px' }} />
+            )}
+          </div>
+
+          {/* NOW Image Settings */}
+          <div style={{ padding: '16px', borderRadius: '8px', background: '#FDF6EC', border: '1px solid #e8d5c4' }}>
+            <h3 style={{ fontSize: '1rem', color: '#1a0a00', fontWeight: '700', marginBottom: '10px' }}>
+              Right Photo (NOW / Present Image)
+            </h3>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: '600', marginBottom: '4px' }}>Pill Badge Label</label>
+              <input
+                type="text"
+                value={thenNow.nowLabel}
+                onChange={(e) => setThenNow(p => ({ ...p, nowLabel: e.target.value }))}
+                placeholder="NOW · 2026"
+                style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #e8d5c4', fontSize: '0.88rem' }}
+              />
+            </div>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: '600', marginBottom: '4px' }}>Upload NOW Photo</label>
+              <input type="file" accept="image/*" onChange={handleUploadNowImage} style={{ fontSize: '0.82rem' }} />
+              {uploadingNow && <span style={{ color: '#C0392B', fontSize: '0.82rem', marginLeft: '6px' }}>Uploading...</span>}
+            </div>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: '600', marginBottom: '4px' }}>Or Paste NOW Image URL</label>
+              <input
+                type="text"
+                value={thenNow.nowImage}
+                onChange={(e) => setThenNow(p => ({ ...p, nowImage: e.target.value }))}
+                placeholder="https://res.cloudinary.com/..."
+                style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #e8d5c4', fontSize: '0.85rem' }}
+              />
+            </div>
+            {thenNow.nowImage && (
+              <img src={thenNow.nowImage} alt="Now Preview" style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '6px', marginTop: '8px' }} />
+            )}
+          </div>
+        </div>
+
+        <button
+          onClick={handleSaveThenNow}
+          disabled={saving || uploadingThen || uploadingNow}
+          style={{
+            background: '#C0392B', color: '#fff', padding: '10px 24px', border: 'none',
+            borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '0.9rem'
+          }}
+        >
+          {saving ? 'Saving Slider Settings...' : 'Save Then vs Now Slider Settings'}
+        </button>
       </div>
     </div>
   );

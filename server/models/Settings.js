@@ -38,6 +38,13 @@ const settingsSchema = new mongoose.Schema({
     image: { type: String, default: '' },
     order: { type: Number, default: 0 }
   }],
+  // Interactive Then vs Now Before/After Comparison Slider
+  thenNow: {
+    thenImage: { type: String, default: '' },
+    thenLabel: { type: String, default: 'THEN · 2019' },
+    nowImage: { type: String, default: '' },
+    nowLabel: { type: String, default: 'NOW · 2026' }
+  },
 }, { timestamps: true });
 
 

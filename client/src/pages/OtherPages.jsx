@@ -3,6 +3,7 @@ import heroBg from '../assets/hero-bg.jpg';
 import React, { useEffect, useState } from 'react';
 import api, { getCached, hasCached } from '../utils/api';
 import slide1 from '../assets/slide1.jpg';
+import ImageComparisonSlider from '../components/ImageComparisonSlider';
 
 export function About() {
   const [settings, setSettings] = useState({});
@@ -199,6 +200,16 @@ export function About() {
                 </div>
               ))}
             </div>
+          )}
+
+          {/* Interactive Then vs Now Before/After Image Comparison Slider */}
+          {settings.thenNow && settings.thenNow.thenImage && settings.thenNow.nowImage && (
+            <ImageComparisonSlider
+              thenImage={settings.thenNow.thenImage}
+              thenLabel={settings.thenNow.thenLabel || 'THEN · 2019'}
+              nowImage={settings.thenNow.nowImage}
+              nowLabel={settings.thenNow.nowLabel || 'NOW · 2026'}
+            />
           )}
         </div>
       </section>
