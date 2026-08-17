@@ -5,7 +5,7 @@
 export const getOptimizedImageUrl = (url) => {
   if (!url || typeof url !== 'string') return url;
   if (url.includes('res.cloudinary.com') && url.includes('/upload/') && !url.includes('f_auto')) {
-    return url.replace('/upload/', '/upload/f_auto,q_auto/');
+    return url.replace('/upload/', '/upload/f_auto,q_auto,fl_strip_profile,cs_srgb/');
   }
   return url;
 };

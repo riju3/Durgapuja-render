@@ -28,6 +28,10 @@
   font-display: swap;
 }
 
+img {
+  dynamic-range: standard;
+}
+
 :root {
   --red: #C0392B;
   --red-dark: #922b21;
