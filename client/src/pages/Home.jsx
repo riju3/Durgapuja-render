@@ -398,45 +398,45 @@ export default function Home() {
             alignItems: 'center',
           }} className="tradition-collage-grid">
             
-            {/* Left Column: 3-Photo Overlapping 3D Collage (Top-Left Enlarged & Shifted Left) */}
-            <div style={{ position: 'relative', minHeight: '600px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '70px' }} className="collage-container">
+            {/* Left Column: 3-Photo Overlapping 3D Collage (Middle Photo On Top, Left & Right Behind) */}
+            <div style={{ position: 'relative', minHeight: '520px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="collage-container">
               
-              {/* Photo 2: Top-Left Behind (Enlarged & Shifted Further Left) */}
+              {/* Photo 2: Left Photo (Behind Middle Card, 85% Exposed) */}
               <div style={{
                 position: 'absolute',
-                top: '-45px',
-                left: '-70px',
+                top: '20px',
+                left: '-140px',
                 width: '320px',
                 height: '320px',
                 overflow: 'hidden',
                 boxShadow: '0 18px 40px rgba(0,0,0,0.2)',
-                zIndex: 1,
+                zIndex: 2,
               }}>
                 <img src={collage2} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
 
-              {/* Photo 1: Main Center Large Card (photo_18-13-55) */}
+              {/* Photo 1: Middle Main Photo (ON TOP, 100% Uncovered & Fully Visible) */}
               <div style={{
                 position: 'relative',
-                width: '500px',
-                height: '500px',
+                width: '440px',
+                height: '440px',
                 overflow: 'hidden',
                 boxShadow: '0 28px 65px rgba(0,0,0,0.28)',
-                zIndex: 2,
+                zIndex: 10,
               }}>
                 <img src={collage1} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
 
-              {/* Photo 3: Bottom-Right Overlapping */}
+              {/* Photo 3: Right Photo (Behind Middle Card, 85% Exposed) */}
               <div style={{
                 position: 'absolute',
-                bottom: '-40px',
-                right: '-30px',
-                width: '270px',
-                height: '270px',
+                bottom: '20px',
+                right: '-120px',
+                width: '300px',
+                height: '300px',
                 overflow: 'hidden',
-                boxShadow: '0 20px 45px rgba(0,0,0,0.24)',
-                zIndex: 3,
+                boxShadow: '0 20px 45px rgba(0,0,0,0.22)',
+                zIndex: 1,
               }}>
                 <img src={collage3} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
