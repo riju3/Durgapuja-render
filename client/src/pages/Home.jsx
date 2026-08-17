@@ -398,17 +398,16 @@ export default function Home() {
             alignItems: 'center',
           }} className="tradition-collage-grid">
             
-            {/* Left Column: 3-Photo Overlapping 3D Collage */}
-            <div style={{ position: 'relative', minHeight: '480px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="collage-container">
+            {/* Left Column: 3-Photo Overlapping 3D Collage (No Frame, Much Larger) */}
+            <div style={{ position: 'relative', minHeight: '560px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="collage-container">
               
               {/* Photo 2: Top-Left Behind */}
               <div style={{
                 position: 'absolute',
-                top: '0px',
-                left: '10px',
-                width: '240px',
-                height: '240px',
-                borderRadius: '18px',
+                top: '-30px',
+                left: '-35px',
+                width: '260px',
+                height: '260px',
                 overflow: 'hidden',
                 boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
                 zIndex: 1,
@@ -416,16 +415,14 @@ export default function Home() {
                 <img src={collage2} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
 
-              {/* Photo 1: Main Center Large Card */}
+              {/* Photo 1: Main Center Large Card (No White Border) */}
               <div style={{
                 position: 'relative',
-                width: '380px',
-                height: '380px',
-                borderRadius: '24px',
+                width: '480px',
+                height: '480px',
                 overflow: 'hidden',
-                boxShadow: '0 25px 60px rgba(0,0,0,0.28)',
+                boxShadow: '0 25px 60px rgba(0,0,0,0.25)',
                 zIndex: 2,
-                border: '4px solid #ffffff',
               }}>
                 <img src={collage1} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
@@ -433,22 +430,20 @@ export default function Home() {
               {/* Photo 3: Bottom-Right Overlapping */}
               <div style={{
                 position: 'absolute',
-                bottom: '-20px',
-                right: '20px',
-                width: '220px',
-                height: '220px',
-                borderRadius: '18px',
+                bottom: '-30px',
+                right: '-25px',
+                width: '240px',
+                height: '240px',
                 overflow: 'hidden',
                 boxShadow: '0 18px 40px rgba(0,0,0,0.22)',
                 zIndex: 3,
-                border: '3px solid #ffffff',
               }}>
                 <img src={collage3} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
 
             </div>
 
-            {/* Right Column: Title in Lipishree font + Bengali poem message + Checkmarks + Learn More */}
+            {/* Right Column: Title + Bengali poem message + 4 Bold Features Below + Learn More */}
             <div>
               {/* Lipishree Main Title */}
               <h2 style={{
@@ -463,40 +458,11 @@ export default function Home() {
                 মায়ের আগমনে ফিরুক শৈশবের সেই আনন্দ
               </h2>
 
-              {/* 4 Feature Checkmarks */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '32px' }} className="tradition-features-grid">
-                {[
-                  'Honoring Maa Durga',
-                  '100% Joy Guaranteed',
-                  'Spiritual space of devotion',
-                  'A Trusted Celebration',
-                ].map((item, idx) => (
-                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <div style={{
-                      width: '26px',
-                      height: '26px',
-                      borderRadius: '50%',
-                      background: 'rgba(217, 67, 59, 0.12)',
-                      color: '#D9433B',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justify: 'center',
-                      fontWeight: '800',
-                      fontSize: '0.85rem',
-                      flexShrink: 0,
-                    }}>
-                      ✓
-                    </div>
-                    <span style={{ fontSize: '0.92rem', color: '#444444', fontWeight: '600' }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-
               {/* Vertical Line Bengali Message Box */}
               <div style={{
                 borderLeft: '4px solid #D9433B',
                 paddingLeft: '22px',
-                marginBottom: '36px',
+                marginBottom: '32px',
               }}>
                 <p style={{
                   fontFamily: 'Hind Siliguri, sans-serif',
@@ -512,6 +478,34 @@ export default function Home() {
                   এসো, ঐতিহ্যকে সঙ্গে নিয়ে<br />
                   উদযাপন করি মা দুর্গার আগমন।
                 </p>
+              </div>
+
+              {/* 4 Feature Checkmarks (Below Bengali Text, Bold, Clean SVG Icons - No Emojis) */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '36px' }} className="tradition-features-grid">
+                {[
+                  'Honoring Maa Durga',
+                  '100% Joy Guaranteed',
+                  'Spiritual space of devotion',
+                  'A Trusted Celebration',
+                ].map((item, idx) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '28px',
+                      height: '28px',
+                      borderRadius: '50%',
+                      background: 'rgba(217, 67, 59, 0.12)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justify: 'center',
+                      flexShrink: 0,
+                    }}>
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#D9433B" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3.5 8.5L6.5 11.5L12.5 4.5" />
+                      </svg>
+                    </div>
+                    <span style={{ fontSize: '0.94rem', color: '#222222', fontWeight: '700' }}>{item}</span>
+                  </div>
+                ))}
               </div>
 
               {/* Learn More Button linking to /about */}
