@@ -294,7 +294,7 @@ export default function AdminSettings() {
                       }}
                     />
                     <label style={{ padding: '9px 14px', background: '#fff', border: '1px solid #C0392B', color: '#C0392B', borderRadius: '6px', fontSize: '0.8rem', fontWeight: '600', cursor: 'pointer', margin: 0, whiteSpace: 'nowrap' }}>
-                      📁 Upload File
+                      Upload File
                       <input
                         type="file"
                         accept="image/*"
@@ -343,10 +343,136 @@ export default function AdminSettings() {
           </div>
         </div>
 
+        {/* ── Tradition Section Photo Manager (NO EMOJIS) ── */}
+        <div style={{ ...card, marginTop: '24px' }}>
+          <h3 style={cardTitle}>Tradition Section Photo Manager</h3>
+          <p style={{ color: '#7a5c4f', fontSize: '0.85rem', marginBottom: '18px' }}>
+            Upload custom images for the 3-photo tradition section. Images will fit automatically inside the frame with object-fit cover without changing the frame shape.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+            
+            {/* Card 1: Main Center Photo */}
+            <div style={{ background: '#FDF6EC', padding: '16px', borderRadius: '10px', border: '1px solid #f0e0d0' }}>
+              <h4 style={{ color: '#C0392B', fontSize: '0.9rem', fontWeight: '700', marginBottom: '10px' }}>
+                Main Center Photo (Large Square)
+              </h4>
+              {form.traditionCard1 && (
+                <img src={form.traditionCard1} alt="Center Photo" style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px', marginBottom: '10px' }} />
+              )}
+              <input
+                type="text" style={{ ...inp, marginBottom: '8px' }}
+                placeholder="Cloudinary Image URL"
+                value={form.traditionCard1 || ''}
+                onChange={e => setForm(p => ({ ...p, traditionCard1: e.target.value }))}
+              />
+              <label style={{ display: 'inline-block', padding: '8px 16px', background: '#C0392B', color: '#fff', borderRadius: '6px', fontSize: '0.82rem', fontWeight: '600', cursor: 'pointer' }}>
+                Upload Image
+                <input
+                  type="file" accept="image/*" style={{ display: 'none' }}
+                  onChange={async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const fd = new FormData();
+                    fd.append('image', file);
+                    try {
+                      toast.info('Uploading image...');
+                      const res = await api.post('/settings/upload-showcase-image', fd, {
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                      });
+                      setForm(p => ({ ...p, traditionCard1: res.data.imageUrl }));
+                      toast.success('Image uploaded!');
+                    } catch {
+                      toast.error('Upload failed');
+                    }
+                  }}
+                />
+              </label>
+            </div>
+
+            {/* Card 2: Top-Left Photo */}
+            <div style={{ background: '#FDF6EC', padding: '16px', borderRadius: '10px', border: '1px solid #f0e0d0' }}>
+              <h4 style={{ color: '#C0392B', fontSize: '0.9rem', fontWeight: '700', marginBottom: '10px' }}>
+                Top-Left Photo (Behind Main)
+              </h4>
+              {form.traditionCard2 && (
+                <img src={form.traditionCard2} alt="Top Left Photo" style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px', marginBottom: '10px' }} />
+              )}
+              <input
+                type="text" style={{ ...inp, marginBottom: '8px' }}
+                placeholder="Cloudinary Image URL"
+                value={form.traditionCard2 || ''}
+                onChange={e => setForm(p => ({ ...p, traditionCard2: e.target.value }))}
+              />
+              <label style={{ display: 'inline-block', padding: '8px 16px', background: '#C0392B', color: '#fff', borderRadius: '6px', fontSize: '0.82rem', fontWeight: '600', cursor: 'pointer' }}>
+                Upload Image
+                <input
+                  type="file" accept="image/*" style={{ display: 'none' }}
+                  onChange={async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const fd = new FormData();
+                    fd.append('image', file);
+                    try {
+                      toast.info('Uploading image...');
+                      const res = await api.post('/settings/upload-showcase-image', fd, {
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                      });
+                      setForm(p => ({ ...p, traditionCard2: res.data.imageUrl }));
+                      toast.success('Image uploaded!');
+                    } catch {
+                      toast.error('Upload failed');
+                    }
+                  }}
+                />
+              </label>
+            </div>
+
+            {/* Card 3: Bottom-Right Photo */}
+            <div style={{ background: '#FDF6EC', padding: '16px', borderRadius: '10px', border: '1px solid #f0e0d0' }}>
+              <h4 style={{ color: '#C0392B', fontSize: '0.9rem', fontWeight: '700', marginBottom: '10px' }}>
+                Bottom-Right Photo (Behind Main)
+              </h4>
+              {form.traditionCard3 && (
+                <img src={form.traditionCard3} alt="Bottom Right Photo" style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px', marginBottom: '10px' }} />
+              )}
+              <input
+                type="text" style={{ ...inp, marginBottom: '8px' }}
+                placeholder="Cloudinary Image URL"
+                value={form.traditionCard3 || ''}
+                onChange={e => setForm(p => ({ ...p, traditionCard3: e.target.value }))}
+              />
+              <label style={{ display: 'inline-block', padding: '8px 16px', background: '#C0392B', color: '#fff', borderRadius: '6px', fontSize: '0.82rem', fontWeight: '600', cursor: 'pointer' }}>
+                Upload Image
+                <input
+                  type="file" accept="image/*" style={{ display: 'none' }}
+                  onChange={async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const fd = new FormData();
+                    fd.append('image', file);
+                    try {
+                      toast.info('Uploading image...');
+                      const res = await api.post('/settings/upload-showcase-image', fd, {
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                      });
+                      setForm(p => ({ ...p, traditionCard3: res.data.imageUrl }));
+                      toast.success('Image uploaded!');
+                    } catch {
+                      toast.error('Upload failed');
+                    }
+                  }}
+                />
+              </label>
+            </div>
+
+          </div>
+        </div>
+
         <div style={{ display: 'flex', gap: '12px' }}>
           <button type="submit" disabled={saving}
             style={{ padding: '13px 36px', background: '#C0392B', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: '700', fontSize: '1rem', cursor: 'pointer', opacity: saving ? 0.7 : 1 }}>
-            {saving ? 'Saving...' : '💾 Save All Settings'}
+            {saving ? 'Saving...' : 'Save All Settings'}
           </button>
         </div>
       </form>
