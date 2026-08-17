@@ -93,14 +93,31 @@ export default function Home() {
     api.get('/events').then(r => setEvents(r.data)).catch(() => {});
   }, []);
 
-  const [scrollY, setScrollY] = useState(0);
+  const heroSectionRef = useRef(null);
+  const durgaColRef = useRef(null);
+  const textColRef = useRef(null);
 
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
+          const sy = window.scrollY;
+          if (sy < 1000) {
+            if (heroSectionRef.current) {
+              const bgY = Math.min(sy * 0.2, 100);
+              heroSectionRef.current.style.backgroundPosition = `center ${bgY}px`;
+            }
+            if (durgaColRef.current) {
+              const durgaY = -Math.min(sy * 0.22, 160);
+              const durgaScale = 1 + Math.min(sy * 0.0003, 0.08);
+              durgaColRef.current.style.transform = `translate3d(0, ${durgaY}px, 0) scale(${durgaScale})`;
+            }
+            if (textColRef.current) {
+              const textY = -Math.min(sy * 0.28, 200);
+              textColRef.current.style.transform = `translate3d(0, ${textY}px, 0)`;
+            }
+          }
           ticking = false;
         });
         ticking = true;
@@ -168,26 +185,26 @@ export default function Home() {
   return (
     <div style={{ background: '#fff' }}>
       {/* HERO BANNER */}
-      <section className="hero-section" style={{
+      <section ref={heroSectionRef} className="hero-section" style={{
         position: 'relative', overflow: 'hidden', width: '100%',
         backgroundImage: `url(${heroBg})`,
         backgroundSize: 'cover',
-        backgroundPosition: `center ${Math.min(scrollY * 0.2, 100)}px`,
+        backgroundPosition: 'center 0px',
         backgroundRepeat: 'no-repeat',
         display: 'flex', alignItems: 'center',
         minHeight: 'calc(100vh - 70px)',
       }}>
         {/* Durga Image - Left */}
-        <div className="hero-durga-col" style={{
-          transform: `translate3d(0, ${-Math.min(scrollY * 0.22, 160)}px, 0) scale(${1 + Math.min(scrollY * 0.0003, 0.08)})`,
+        <div ref={durgaColRef} className="hero-durga-col" style={{
+          transform: 'translate3d(0, 0px, 0) scale(1)',
           willChange: 'transform',
         }}>
           <img src={durgaImg} alt="Maa Durga" className="hero-durga-img" />
         </div>
 
         {/* Bengali Text - Right */}
-        <div className="hero-text-col" style={{
-          transform: `translate3d(0, ${-Math.min(scrollY * 0.28, 200)}px, 0)`,
+        <div ref={textColRef} className="hero-text-col" style={{
+          transform: 'translate3d(0, 0px, 0)',
           willChange: 'transform',
         }}>
           <div className="hero-title-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
