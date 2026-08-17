@@ -390,22 +390,22 @@ export default function Home() {
         position: 'relative',
         overflow: 'hidden',
       }} className="shobhab-tradition-section">
-        <div className="container">
+        <div className="container" style={{ maxWidth: '1280px' }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '1.15fr 1fr',
-            gap: '60px',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '130px',
             alignItems: 'center',
           }} className="tradition-collage-grid">
             
-            {/* Left Column: 3-Photo Overlapping 3D Collage (Matching Reference Screenshot Exactly) */}
-            <div style={{ position: 'relative', minHeight: '600px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '80px' }} className="collage-container">
+            {/* Left Column: 3-Photo Overlapping 3D Collage (Spacious Left Alignment) */}
+            <div style={{ position: 'relative', minHeight: '600px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '40px' }} className="collage-container">
               
               {/* Photo 2: Top-Left Portrait Photo (Behind Main Photo) */}
               <div style={{
                 position: 'absolute',
                 top: '-60px',
-                left: '-90px',
+                left: '-40px',
                 width: '260px',
                 height: '340px',
                 overflow: 'hidden',
@@ -419,7 +419,7 @@ export default function Home() {
               <div style={{
                 position: 'absolute',
                 bottom: '-60px',
-                right: '-60px',
+                right: '-30px',
                 width: '220px',
                 height: '280px',
                 overflow: 'hidden',
@@ -433,7 +433,7 @@ export default function Home() {
               <div style={{
                 position: 'absolute',
                 top: '20px',
-                right: '-40px',
+                right: '-15px',
                 width: '24px',
                 height: '24px',
                 background: '#733744',
