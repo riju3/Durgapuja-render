@@ -70,14 +70,16 @@ export default function ImageComparisonSlider({
         style={{
           position: 'relative',
           width: '100%',
-          height: '520px',
-          maxHeight: '70vh',
+          height: 'auto',
+          aspectRatio: '16 / 9',
+          minHeight: '380px',
+          maxHeight: '750px',
           borderRadius: '16px',
           overflow: 'hidden',
           boxShadow: '0 10px 35px rgba(0,0,0,0.18)',
           userSelect: 'none',
           cursor: isDragging ? 'ew-resize' : 'pointer',
-          background: '#1a0a00',
+          background: '#0f0804',
           border: '2px solid #D4AF37'
         }}
       >
@@ -91,7 +93,7 @@ export default function ImageComparisonSlider({
             left: 0,
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
+            objectFit: 'contain',
             pointerEvents: 'none'
           }}
         />
@@ -106,7 +108,7 @@ export default function ImageComparisonSlider({
             left: 0,
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
+            objectFit: 'contain',
             clipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)`,
             pointerEvents: 'none'
           }}
