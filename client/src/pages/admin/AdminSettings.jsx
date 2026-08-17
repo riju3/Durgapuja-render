@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../utils/api';
+import api, { clearMemoryCache } from '../../utils/api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 
@@ -30,6 +30,7 @@ export default function AdminSettings() {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setForm(p => ({ ...p, musicUrl: res.data.musicUrl }));
+      clearMemoryCache();
       toast.success('Music uploaded successfully!');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Music upload failed');
@@ -46,7 +47,8 @@ export default function AdminSettings() {
     e.preventDefault(); setSaving(true);
     try {
       await api.put('/settings', form);
-      toast.success('Settings saved! 🙏');
+      clearMemoryCache();
+      toast.success('Settings saved!');
     } catch { toast.error('Save failed'); } finally { setSaving(false); }
   };
 

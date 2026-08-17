@@ -1,16 +1,15 @@
 import heroBg from '../assets/hero-bg.jpg';
 // About Page
 import React, { useEffect, useState } from 'react';
-import api from '../utils/api';
+import api, { getCached, hasCached } from '../utils/api';
 import slide1 from '../assets/slide1.jpg';
 
 export function About() {
   const [settings, setSettings] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!hasCached('/settings'));
 
   useEffect(() => {
-    setLoading(true);
-    api.get('/settings')
+    getCached('/settings')
       .then(r => setSettings(r.data))
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -79,10 +78,13 @@ export function About() {
 // Events Page
 export function Events() {
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!hasCached('/events'));
 
   useEffect(() => {
-    api.get('/events').then(r => { setEvents(r.data); setLoading(false); }).catch(() => setLoading(false));
+    getCached('/events')
+      .then(r => setEvents(r.data))
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   const defaultEvents = [
@@ -161,8 +163,14 @@ export function Events() {
 // Team Page
 export function Team() {
   const [team, setTeam] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => { api.get('/team').then(r => { setTeam(r.data); setLoading(false); }).catch(() => setLoading(false)); }, []);
+  const [loading, setLoading] = useState(!hasCached('/team'));
+
+  useEffect(() => {
+    getCached('/team')
+      .then(r => setTeam(r.data))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div>
@@ -206,7 +214,9 @@ export function Contact() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => { api.get('/settings').then(r => setSettings(r.data)).catch(() => {}); }, []);
+  useEffect(() => {
+    getCached('/settings').then(r => setSettings(r.data)).catch(() => {});
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

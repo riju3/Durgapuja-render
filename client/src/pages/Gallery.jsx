@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../utils/api';
+import api, { getCached, hasCached } from '../utils/api';
 import heroBg from '../assets/hero-bg.jpg';
 function PageHeader({ title }) {
   return (
@@ -44,15 +44,14 @@ export default function Gallery() {
   const [allPhotos, setAllPhotos] = useState([]);
   const [year, setYear] = useState(null);
   const [lightbox, setLightbox] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!hasCached('/gallery'));
 
   const availableYears = Array.from(
     new Set(allPhotos.map(p => Number(p.year)).filter(Boolean))
   ).sort((a, b) => b - a);
 
   useEffect(() => {
-    setLoading(true);
-    api.get('/gallery')
+    getCached('/gallery')
       .then(r => {
         const data = r.data || [];
         setAllPhotos(data);
