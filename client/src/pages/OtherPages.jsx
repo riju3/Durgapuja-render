@@ -75,23 +75,28 @@ export function Events() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '40px' }}>
               {displayEvents.map((ev, i) => (
                 <div key={ev._id || i} style={{
-                  display: 'grid', gridTemplateColumns: ev.image ? '200px 1fr' : '1fr',
-                  gap: '0', borderRadius: '12px', overflow: 'hidden',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.08)', background: '#fff',
-                }}>
-                  {ev.image && <img src={ev.image} alt={ev.name} style={{ height: '150px', objectFit: 'cover' }} />}
-                  <div style={{ padding: '24px 28px', borderLeft: `5px solid ${i % 2 === 0 ? '#C0392B' : '#D4AF37'}` }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px', marginBottom: '10px' }}>
+                  display: 'grid', gridTemplateColumns: ev.image ? '240px 1fr' : '1fr',
+                  gap: '0', borderRadius: '14px', overflow: 'hidden',
+                  boxShadow: '0 4px 18px rgba(0,0,0,0.07)', background: '#fff',
+                  border: '1px solid #e8d5c4',
+                }} className="event-card-item">
+                  {ev.image && (
+                    <div className="event-card-img-wrap" style={{ background: '#FAF6F0', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                      <img src={ev.image} alt={ev.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '10px', display: 'block' }} className="event-card-img" />
+                    </div>
+                  )}
+                  <div style={{ padding: '24px 28px', borderLeft: `5px solid ${i % 2 === 0 ? '#C0392B' : '#D4AF37'}` }} className="event-card-body">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
                       <div>
-                        <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.3rem', color: '#1a0a00' }}>{ev.name}</h3>
-                        <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#C0392B', fontWeight: '600' }}>{ev.nameBn}</p>
+                        <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.35rem', color: '#1a0a00', fontWeight: '700' }}>{ev.name}</h3>
+                        <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#C0392B', fontWeight: '700', fontSize: '1.05rem', marginTop: '2px' }}>{ev.nameBn}</p>
                       </div>
-                      <span style={{ background: '#C0392B', color: '#fff', padding: '6px 16px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: '600', whiteSpace: 'nowrap' }}>
+                      <span style={{ background: '#C0392B', color: '#fff', padding: '6px 18px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: '700', whiteSpace: 'nowrap' }}>
                         {ev.date}
                       </span>
                     </div>
-                    <p style={{ color: '#7a5c4f', fontSize: '0.9rem', lineHeight: 1.7 }}>{ev.description}</p>
-                    {ev.descriptionBn && <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#3d2b1f', fontSize: '0.87rem', marginTop: '8px', lineHeight: 1.8 }}>{ev.descriptionBn}</p>}
+                    <p style={{ color: '#555', fontSize: '0.92rem', lineHeight: 1.7 }}>{ev.description}</p>
+                    {ev.descriptionBn && <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#3d2b1f', fontSize: '0.92rem', marginTop: '10px', lineHeight: 1.8, fontWeight: '500' }}>{ev.descriptionBn}</p>}
                   </div>
                 </div>
               ))}
@@ -99,6 +104,23 @@ export function Events() {
           )}
         </div>
       </section>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .event-card-item {
+            grid-template-columns: 1fr !important;
+          }
+          .event-card-img-wrap {
+            height: 220px !important;
+            width: 100% !important;
+          }
+          .event-card-body {
+            padding: 20px 18px !important;
+            border-left: none !important;
+            border-top: 5px solid #C0392B !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
