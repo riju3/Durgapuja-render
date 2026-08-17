@@ -30,7 +30,7 @@ export function About() {
             animation: 'spin 0.7s linear infinite', marginBottom: '12px'
           }} />
           <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
-          <p style={{ fontSize: '0.9rem', fontWeight: '500', color: '#7a5c4f' }}>তথ্য লোড হচ্ছে...</p>
+          <p style={{ fontSize: '0.9rem', fontWeight: '500', color: '#7a5c4f' }}>Loading...</p>
         </div>
       </div>
     );
