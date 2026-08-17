@@ -46,17 +46,27 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background: var(--cream);
   color: var(--text);
   overflow-x: hidden;
+  touch-action: pan-y;
 }
 
 .bengali { font-family: 'Hind Siliguri', 'Tiro Bangla', sans-serif; }
 
 a { text-decoration: none; color: inherit; }
-img { max-width: 100%; }
+img {
+  max-width: 100%;
+  content-visibility: auto;
+}
 
 .container {
   max-width: 1200px;

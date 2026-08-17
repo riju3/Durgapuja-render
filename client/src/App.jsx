@@ -12,6 +12,54 @@ function ScrollToTop() {
   return null;
 }
 
+// ── Mobile Touch Scroll Velocity Damper ──
+function MobileTouchDampener() {
+  useEffect(() => {
+    let lastTouchY = 0;
+    let lastTouchTime = 0;
+
+    const handleTouchStart = (e) => {
+      if (e.touches && e.touches[0]) {
+        lastTouchY = e.touches[0].clientY;
+        lastTouchTime = Date.now();
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (window.innerWidth > 768) return;
+      if (!e.touches || !e.touches[0]) return;
+
+      const currentY = e.touches[0].clientY;
+      const currentTime = Date.now();
+      const deltaY = lastTouchY - currentY;
+      const deltaTime = currentTime - lastTouchTime;
+
+      if (deltaTime > 0) {
+        const velocity = Math.abs(deltaY / deltaTime);
+        if (velocity > 1.8) {
+          window.scrollBy({
+            top: deltaY * 0.45,
+            behavior: 'smooth'
+          });
+        }
+      }
+
+      lastTouchY = currentY;
+      lastTouchTime = currentTime;
+    };
+
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
+
+  return null;
+}
+
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -68,6 +116,7 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <ScrollToTop />
+        <MobileTouchDampener />
         <ToastContainer position="top-right" autoClose={3000} />
         <Suspense fallback={<PublicLayout><PageLoader /></PublicLayout>}>
           <Routes>
