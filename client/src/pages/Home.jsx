@@ -11,6 +11,9 @@ import slide4 from '../assets/slide4.jpg';
 import slide5 from '../assets/slide5.jpg';
 import tradition from '../assets/tradition.jpg';
 import highlightsBg from '../assets/highlights-bg.jpg';
+import collage1 from '../assets/tradition-collage-1.jpg';
+import collage2 from '../assets/tradition-collage-2.jpg';
+import collage3 from '../assets/tradition-collage-3.jpg';
 const slides = [slide1, slide2, slide3, slide4, slide5];
 
 const pujadays = [
@@ -373,6 +376,164 @@ export default function Home() {
             <p style={{ fontFamily: 'Hind Siliguri, sans-serif', color: '#3d2b1f', lineHeight: 1.9, fontSize: '0.92rem' }}>
               {settings.aboutTextBn || 'প্রতি বছর দুর্গাপূজা উপলক্ষে চৌধুরীবাটিতে আয়োজিত হয় এই মহোৎসব। সংস্কৃতি, ঐতিহ্য ও আনন্দের এক অপূর্ব মিলনমেলা।'}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3-PHOTO LAYERED COLLAGE & BENGALI TRADITION SECTION */}
+      <section style={{
+        background: '#ffffff',
+        padding: '110px 0',
+        minHeight: '85vh',
+        display: 'flex',
+        alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+      }} className="shobhab-tradition-section">
+        <div className="container">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1.15fr 1fr',
+            gap: '60px',
+            alignItems: 'center',
+          }} className="tradition-collage-grid">
+            
+            {/* Left Column: 3-Photo Overlapping 3D Collage */}
+            <div style={{ position: 'relative', minHeight: '480px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="collage-container">
+              
+              {/* Photo 2: Top-Left Behind */}
+              <div style={{
+                position: 'absolute',
+                top: '0px',
+                left: '10px',
+                width: '240px',
+                height: '240px',
+                borderRadius: '18px',
+                overflow: 'hidden',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
+                zIndex: 1,
+              }}>
+                <img src={collage2} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+
+              {/* Photo 1: Main Center Large Card */}
+              <div style={{
+                position: 'relative',
+                width: '380px',
+                height: '380px',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                boxShadow: '0 25px 60px rgba(0,0,0,0.28)',
+                zIndex: 2,
+                border: '4px solid #ffffff',
+              }}>
+                <img src={collage1} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+
+              {/* Photo 3: Bottom-Right Overlapping */}
+              <div style={{
+                position: 'absolute',
+                bottom: '-20px',
+                right: '20px',
+                width: '220px',
+                height: '220px',
+                borderRadius: '18px',
+                overflow: 'hidden',
+                boxShadow: '0 18px 40px rgba(0,0,0,0.22)',
+                zIndex: 3,
+                border: '3px solid #ffffff',
+              }}>
+                <img src={collage3} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+
+            </div>
+
+            {/* Right Column: Title in Lipishree font + Bengali poem message + Checkmarks + Learn More */}
+            <div>
+              {/* Lipishree Main Title */}
+              <h2 style={{
+                fontFamily: "'Lipishree Unicode', 'Lipishree', serif",
+                fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+                fontWeight: '700',
+                color: '#D9433B',
+                lineHeight: 1.35,
+                marginBottom: '26px',
+                textShadow: '0 2px 10px rgba(217,67,59,0.1)',
+              }}>
+                মায়ের আগমনে ফিরুক শৈশবের সেই আনন্দ
+              </h2>
+
+              {/* 4 Feature Checkmarks */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '32px' }} className="tradition-features-grid">
+                {[
+                  'Honoring Maa Durga',
+                  '100% Joy Guaranteed',
+                  'Spiritual space of devotion',
+                  'A Trusted Celebration',
+                ].map((item, idx) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '26px',
+                      height: '26px',
+                      borderRadius: '50%',
+                      background: 'rgba(217, 67, 59, 0.12)',
+                      color: '#D9433B',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justify: 'center',
+                      fontWeight: '800',
+                      fontSize: '0.85rem',
+                      flexShrink: 0,
+                    }}>
+                      ✓
+                    </div>
+                    <span style={{ fontSize: '0.92rem', color: '#444444', fontWeight: '600' }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Vertical Line Bengali Message Box */}
+              <div style={{
+                borderLeft: '4px solid #D9433B',
+                paddingLeft: '22px',
+                marginBottom: '36px',
+              }}>
+                <p style={{
+                  fontFamily: 'Hind Siliguri, sans-serif',
+                  fontSize: 'clamp(1rem, 1.15vw, 1.12rem)',
+                  color: '#333333',
+                  lineHeight: 1.9,
+                  margin: 0,
+                }}>
+                  পুজো শুধু উৎসব নয়—<br />
+                  এ আমাদের স্মৃতি, আমাদের পরিবার, আমাদের ভালোবাসা।<br /><br />
+                  মায়ের আশীর্বাদে প্রতিটি হৃদয় ভরে উঠুক<br />
+                  শান্তি, শক্তি ও আশায়।<br /><br />
+                  এসো, ঐতিহ্যকে সঙ্গে নিয়ে<br />
+                  উদযাপন করি মা দুর্গার আগমন।
+                </p>
+              </div>
+
+              {/* Learn More Button linking to /about */}
+              <Link to="/about" style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '14px 32px',
+                borderRadius: '30px',
+                background: '#ffffff',
+                color: '#D9433B',
+                border: '2px solid #D9433B',
+                fontWeight: '700',
+                fontSize: '0.92rem',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 15px rgba(217,67,59,0.12)',
+              }} className="btn-tradition-learn">
+                LEARN MORE →
+              </Link>
+            </div>
+
           </div>
         </div>
       </section>
@@ -819,6 +980,13 @@ export default function Home() {
           box-shadow: 0 25px 60px rgba(192, 57, 43, 0.16) !important;
         }
 
+        .btn-tradition-learn:hover {
+          background: #D9433B !important;
+          color: #ffffff !important;
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(217,67,59,0.3) !important;
+        }
+
         /* ── Tablet ── */
         @media (max-width: 900px) {
           .hero-section { min-height: calc(100vh - 70px); padding: 20px; }
@@ -826,6 +994,14 @@ export default function Home() {
           .hero-durga-img { max-width: 480px; max-height: calc(100vh - 140px); }
           .hero-text-col { padding: 20px 10px; }
           .hero-bn-title { font-size: clamp(2.5rem, 7vw, 4.5rem); }
+          .tradition-collage-grid {
+            grid-template-columns: 1fr !important;
+            gap: 50px !important;
+          }
+          .collage-container {
+            min-height: 360px !important;
+            transform: scale(0.85);
+          }
           .highlights-staggered-grid {
             grid-template-columns: 1fr !important;
             gap: 24px !important;
