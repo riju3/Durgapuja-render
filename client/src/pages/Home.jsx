@@ -412,7 +412,7 @@ export default function Home() {
                   overflow: 'hidden',
                   boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
                   zIndex: 2,
-                }}>
+                }} className="collage-photo-topleft">
                   <img src={settings.traditionCard2} alt="Durga Celebration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               )}
@@ -428,7 +428,7 @@ export default function Home() {
                   overflow: 'hidden',
                   boxShadow: '0 15px 35px rgba(0,0,0,0.18)',
                   zIndex: 3,
-                }}>
+                }} className="collage-photo-bottomright">
                   <img src={settings.traditionCard3} alt="Puja Pandal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               )}
@@ -442,7 +442,7 @@ export default function Home() {
                 height: '24px',
                 background: '#733744',
                 zIndex: 4,
-              }} />
+              }} className="collage-maroon-accent" />
 
               {/* Photo 1: Main Center Large Square Card (Highest Z-Index) */}
               {settings.traditionCard1 && (
@@ -453,7 +453,7 @@ export default function Home() {
                   overflow: 'hidden',
                   boxShadow: '0 25px 65px rgba(0,0,0,0.22)',
                   zIndex: 10,
-                }}>
+                }} className="collage-photo-center">
                   <img src={settings.traditionCard1} alt="Maa Durga Face" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               )}
@@ -1005,14 +1005,48 @@ export default function Home() {
           .hero-durga-img { max-width: 480px; max-height: calc(100vh - 140px); }
           .hero-text-col { padding: 20px 10px; }
           .hero-bn-title { font-size: clamp(2.5rem, 7vw, 4.5rem); }
+          
+          .shobhab-tradition-section {
+            padding: 60px 0 !important;
+            min-height: auto !important;
+            overflow: hidden !important;
+          }
           .tradition-collage-grid {
             grid-template-columns: 1fr !important;
-            gap: 50px !important;
+            gap: 40px !important;
           }
           .collage-container {
-            min-height: 360px !important;
-            transform: scale(0.85);
+            min-height: 380px !important;
+            padding-left: 0 !important;
+            justify-content: center !important;
+            margin: 20px auto 35px !important;
+            width: 100% !important;
+            max-width: 380px !important;
+            transform: none !important;
           }
+          .collage-photo-center {
+            width: 290px !important;
+            height: 290px !important;
+          }
+          .collage-photo-topleft {
+            width: 140px !important;
+            height: 180px !important;
+            top: -30px !important;
+            left: -20px !important;
+          }
+          .collage-photo-bottomright {
+            width: 125px !important;
+            height: 160px !important;
+            bottom: -30px !important;
+            right: -15px !important;
+          }
+          .collage-maroon-accent {
+            width: 18px !important;
+            height: 18px !important;
+            top: 10px !important;
+            right: -5px !important;
+          }
+
           .highlights-staggered-grid {
             grid-template-columns: 1fr !important;
             gap: 24px !important;
@@ -1070,8 +1104,44 @@ export default function Home() {
           .hero-trishul-img {
             width: 220px !important;
           }
-          .hero-subtext-wrap {
-            margin-top: 32px !important;
+          .shobhab-tradition-section {
+            padding: 40px 0 !important;
+            overflow: hidden !important;
+          }
+          .collage-container {
+            min-height: 310px !important;
+            padding-left: 0 !important;
+            justify-content: center !important;
+            margin: 15px auto 25px !important;
+            width: 100% !important;
+            max-width: 300px !important;
+            transform: none !important;
+          }
+          .collage-photo-center {
+            width: 230px !important;
+            height: 230px !important;
+          }
+          .collage-photo-topleft {
+            width: 110px !important;
+            height: 145px !important;
+            top: -25px !important;
+            left: -15px !important;
+          }
+          .collage-photo-bottomright {
+            width: 100px !important;
+            height: 130px !important;
+            bottom: -25px !important;
+            right: -10px !important;
+          }
+          .collage-maroon-accent {
+            width: 14px !important;
+            height: 14px !important;
+            top: 5px !important;
+            right: -2px !important;
+          }
+          .tradition-features-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 12px 6px !important;
           }
           .flashfit-sticky-card {
             top: 75px !important;
