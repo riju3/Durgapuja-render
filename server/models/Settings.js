@@ -45,6 +45,8 @@ const settingsSchema = new mongoose.Schema({
     nowImage: { type: String, default: '' },
     nowLabel: { type: String, default: 'NOW · 2026' }
   },
+  // GSAP Horizontal Scroll Reel — Maa Durga images (above Puja Days)
+  reelImages: [{ type: String }],
 }, { timestamps: true });
 
 

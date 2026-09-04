@@ -19,6 +19,10 @@ export default function AdminAbout() {
   const [uploadingThen, setUploadingThen] = useState(false);
   const [uploadingNow, setUploadingNow] = useState(false);
 
+  // GSAP Scroll Reel images state
+  const [reelImages, setReelImages] = useState([]);
+  const [uploadingReel, setUploadingReel] = useState(false);
+
   // Card Form state
   const [cardTitle, setCardTitle] = useState('');
   const [cardContent, setCardContent] = useState('');
@@ -37,6 +41,7 @@ export default function AdminAbout() {
       setAboutText(data.aboutText || '');
       setAboutTextBn(data.aboutTextBn || '');
       setAboutCards(data.aboutCards || []);
+      setReelImages(data.reelImages || []);
       if (data.thenNow) {
         setThenNow({
           thenImage: data.thenNow.thenImage || '',
@@ -100,6 +105,44 @@ export default function AdminAbout() {
       toast.error('Failed to save Then vs Now Slider settings');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleUploadReelImage = async (e) => {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    setUploadingReel(true);
+    try {
+      const uploaded = [];
+      for (const file of files) {
+        const formData = new FormData();
+        formData.append('image', file);
+        const res = await api.post('/settings/upload-showcase-image', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        uploaded.push(res.data.imageUrl);
+      }
+      const newList = [...reelImages, ...uploaded];
+      setReelImages(newList);
+      await api.put('/settings', { reelImages: newList });
+      clearMemoryCache('/settings');
+      toast.success(`${uploaded.length} ছবি Reel-এ যোগ হয়েছে!`);
+    } catch (err) {
+      toast.error('Reel image upload failed');
+    } finally {
+      setUploadingReel(false);
+    }
+  };
+
+  const handleDeleteReelImage = async (idx) => {
+    const newList = reelImages.filter((_, i) => i !== idx);
+    setReelImages(newList);
+    try {
+      await api.put('/settings', { reelImages: newList });
+      clearMemoryCache('/settings');
+      toast.success('Reel image removed!');
+    } catch (err) {
+      toast.error('Failed to remove reel image');
     }
   };
 
@@ -529,6 +572,82 @@ export default function AdminAbout() {
         >
           {saving ? 'Saving Slider Settings...' : 'Save Then vs Now Slider Settings'}
         </button>
+      </div>
+
+      {/* ── GSAP Horizontal Scroll Reel Manager ── */}
+      <div style={{
+        background: '#fff', borderRadius: '12px', padding: '28px',
+        boxShadow: '0 4px 15px rgba(0,0,0,0.06)', borderTop: '4px solid #D4AF37',
+        marginTop: '32px'
+      }}>
+        <h2 style={{ fontSize: '1.2rem', color: '#1a0a00', fontWeight: '700', marginBottom: '6px' }}>
+          🎞️ মা দুর্গার ছবির Horizontal Scroll Reel (Puja Days-এর উপরে)
+        </h2>
+        <p style={{ color: '#7a5c4f', fontSize: '0.85rem', marginBottom: '20px' }}>
+          এখানে ছবি আপলোড করলে Home Page-এ Puja Days সেকশনের ওপরে একটি সুন্দর Horizontal Scroll Reel সেকশন দেখাবে। একসাথে একাধিক ছবি সিলেক্ট করতে পারবেন।
+        </p>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{
+            display: 'inline-block', padding: '10px 22px', background: '#C0392B', color: '#fff',
+            borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem'
+          }}>
+            {uploadingReel ? 'Uploading...' : '📸 ছবি আপলোড করুন (Multiple)'}
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleUploadReelImage}
+              style={{ display: 'none' }}
+              disabled={uploadingReel}
+            />
+          </label>
+          <span style={{ marginLeft: '14px', color: '#7a5c4f', fontSize: '0.82rem' }}>
+            {reelImages.length} টি ছবি রয়েছে
+          </span>
+        </div>
+
+        {reelImages.length > 0 ? (
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
+            gap: '14px'
+          }}>
+            {reelImages.map((url, idx) => (
+              <div key={idx} style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden', border: '2px solid #e8d5c4' }}>
+                <img
+                  src={url}
+                  alt={`Reel ${idx + 1}`}
+                  style={{ width: '100%', height: '120px', objectFit: 'cover', display: 'block' }}
+                />
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  background: 'rgba(0,0,0,0.55)', padding: '4px 0', textAlign: 'center'
+                }}>
+                  <button
+                    onClick={() => handleDeleteReelImage(idx)}
+                    style={{
+                      background: 'none', border: 'none', color: '#fff',
+                      fontSize: '0.78rem', cursor: 'pointer', fontWeight: '600'
+                    }}
+                  >
+                    🗑️ Remove
+                  </button>
+                </div>
+                <div style={{
+                  position: 'absolute', top: '6px', left: '8px', background: 'rgba(0,0,0,0.6)',
+                  color: '#F0D060', fontSize: '0.7rem', borderRadius: '4px', padding: '2px 6px',
+                  fontWeight: '700'
+                }}>
+                  {idx + 1}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p style={{ color: '#7a5c4f', fontSize: '0.9rem', fontStyle: 'italic' }}>
+            এখনো কোনো Reel ছবি যোগ করা হয়নি। ওপরের বাটনে ক্লিক করে ছবি আপলোড করুন।
+          </p>
+        )}
       </div>
     </div>
   );

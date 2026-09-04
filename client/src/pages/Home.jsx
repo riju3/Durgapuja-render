@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../utils/api';
 import { getOptimizedImageUrl } from '../utils/imageUtils';
+import DurgaScrollReel from '../components/DurgaScrollReel';
 import heroBg from '../assets/hero-bg.jpg';
 import durgaImg from '../assets/durga.png';
 import trishulImg from '../assets/trishul.png';
@@ -755,6 +756,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── GSAP HORIZONTAL SCROLL REEL ── Maa Durga Photos (Admin Uploaded) */}
+      {settings.reelImages && settings.reelImages.length > 0 && (
+        <DurgaScrollReel images={settings.reelImages} />
+      )}
 
       {/* PUJA DAYS */}
       <section style={{ background: '#FDF6EC', padding: '60px 0' }}>
