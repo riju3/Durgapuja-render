@@ -36,7 +36,7 @@ export default function DurgaScrollReel({ images }) {
       const track = trackRef.current;
 
       function getScrollDistance() {
-        return track.scrollWidth - window.innerWidth + window.innerWidth * 0.06;
+        return track.scrollWidth - window.innerWidth;
       }
 
       ctx = gsap.context(() => {
@@ -79,129 +79,114 @@ export default function DurgaScrollReel({ images }) {
     <>
       <style>{`
         .durga-reel-wrap {
-          height: ${Math.max(300, cardCount * 100)}vh;
+          height: ${Math.max(250, cardCount * 100)}vh;
           position: relative;
-          background: #1a0a00;
+          background: #000;
+          width: 100%;
+          margin: 0;
+          padding: 0;
         }
         .durga-reel-pin {
           height: 100vh;
+          width: 100%;
           position: sticky;
           top: 0;
           overflow: hidden;
           display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-        .durga-reel-heading {
-          text-align: center;
-          font-family: 'Playfair Display', serif;
-          font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-          color: #F0D060;
-          letter-spacing: 3px;
-          text-transform: uppercase;
-          margin-bottom: 28px;
-          flex-shrink: 0;
-          padding-top: 24px;
-        }
-        .durga-reel-heading span {
-          border-bottom: 2px solid #C0392B;
-          padding-bottom: 4px;
+          align-items: center;
+          background: #000;
         }
         .durga-reel-track {
           display: flex;
-          gap: 5vw;
-          padding-left: 8vw;
-          padding-right: 8vw;
+          gap: 0;
+          padding: 0;
+          margin: 0;
+          height: 100vh;
+          width: max-content;
           will-change: transform;
-          align-items: center;
         }
         .durga-reel-card {
           flex: 0 0 auto;
-          width: min(480px, 72vw);
-          border-radius: 18px;
-          overflow: hidden;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.55);
-          border: 2px solid rgba(212,175,55,0.35);
-          transition: border-color 0.4s;
+          width: 78vw;
+          height: 100vh;
           position: relative;
-          aspect-ratio: 3/4;
-          background: #0f0804;
-        }
-        .durga-reel-card:hover {
-          border-color: #D4AF37;
+          overflow: hidden;
+          background: #0a0502;
+          margin: 0;
+          padding: 0;
         }
         .durga-reel-card img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: center top;
+          object-position: center;
           display: block;
           dynamic-range: standard;
         }
-        .durga-reel-card-num {
+        .durga-reel-card-overlay {
           position: absolute;
-          bottom: 16px;
-          right: 18px;
-          font-family: 'Playfair Display', serif;
-          font-size: 0.75rem;
-          color: rgba(240, 208, 96, 0.7);
-          letter-spacing: 2px;
-          text-transform: uppercase;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 35%);
+          pointer-events: none;
         }
-        .durga-reel-progress {
+        .durga-reel-card-info {
           position: absolute;
-          bottom: 24px;
-          left: 50%;
-          transform: translateX(-50%);
+          bottom: 32px;
+          left: 36px;
+          z-index: 2;
           display: flex;
-          gap: 8px;
-          z-index: 10;
+          align-items: baseline;
+          gap: 10px;
+          pointer-events: none;
         }
-        .durga-reel-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: rgba(212,175,55,0.35);
-          transition: background 0.3s;
+        .durga-reel-card-idx {
+          font-family: 'Cinzel', 'Playfair Display', serif;
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: #D4AF37;
+          letter-spacing: 2px;
         }
-        @media(max-width: 640px) {
+        .durga-reel-card-total {
+          font-family: 'Hind Siliguri', sans-serif;
+          font-size: 0.85rem;
+          color: rgba(255, 255, 255, 0.65);
+          letter-spacing: 1px;
+        }
+        @media (max-width: 768px) {
           .durga-reel-card {
-            width: min(300px, 82vw);
-            aspect-ratio: 2/3;
+            width: 88vw;
           }
-          .durga-reel-heading {
-            font-size: 0.95rem;
-            letter-spacing: 2px;
+          .durga-reel-card-info {
+            bottom: 24px;
+            left: 20px;
+          }
+          .durga-reel-card-idx {
+            font-size: 1.1rem;
           }
         }
       `}</style>
 
       <div className="durga-reel-wrap" ref={wrapRef}>
         <div className="durga-reel-pin">
-          <h2 className="durga-reel-heading">
-            <span>মা দুর্গার আলোকচিত্র সংকলন</span>
-          </h2>
-
           <div className="durga-reel-track" ref={trackRef}>
             {images.map((imgUrl, idx) => (
               <div className="durga-reel-card" key={idx}>
                 <img
                   src={getOptimizedImageUrl(imgUrl)}
-                  alt={`Maa Durga ${idx + 1}`}
+                  alt={`Durga Celebration ${idx + 1}`}
                   loading={idx === 0 ? 'eager' : 'lazy'}
                   decoding="async"
                 />
-                <div className="durga-reel-card-num">
-                  {String(idx + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
+                <div className="durga-reel-card-overlay" />
+                <div className="durga-reel-card-info">
+                  <span className="durga-reel-card-idx">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <span className="durga-reel-card-total">
+                    / {String(images.length).padStart(2, '0')}
+                  </span>
                 </div>
               </div>
-            ))}
-          </div>
-
-          {/* Dot indicators */}
-          <div className="durga-reel-progress">
-            {images.map((_, i) => (
-              <div className="durga-reel-dot" key={i} />
             ))}
           </div>
         </div>
